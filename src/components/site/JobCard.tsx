@@ -1,48 +1,67 @@
-export type JobCardProps = {
+import type { Job } from "@/src/lib/jobs";
+
+export type JobCardData = {
+  id: string;
+  state: string | null;
+  /** Shown top right, e.g. "OCT 14". */
+  postedLabel: string | null;
+  /** ISO date for the <time> element, when known. */
+  postedAt?: string;
   title: string;
-  company: string;
-  location: string;
-  /** Short note on why this role is relevant. */
-  context: string;
-  /** Backgrounds that transfer well, e.g. ["CWI", "API 510"]. */
-  backgrounds: string[];
+  companyLine: string;
+  fit: string | null;
   url: string;
 };
 
-export function JobCard({
-  title,
-  company,
-  location,
-  context,
-  backgrounds,
-  url,
-}: JobCardProps) {
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+});
+
+export function toJobCardData(job: Job): JobCardData {
+  return {
+    id: job.id,
+    state: job.state,
+    postedLabel: job.posted_at ? dateFormat.format(new Date(job.posted_at)).toUpperCase() : null,
+    postedAt: job.posted_at ?? undefined,
+    title: job.title,
+    companyLine: [job.company, job.location].filter(Boolean).join(" · "),
+    fit: job.context,
+    url: job.url,
+  };
+}
+
+export function JobCard({ job }: { job: JobCardData }) {
+  // Real postings are external and open in a new tab.
+  const external = /^https?:\/\//.test(job.url);
+
   return (
-    <article className="flex flex-col gap-3 rounded-lg border border-navy/10 bg-white p-5 shadow-sm">
-      <div>
-        <h3 className="text-lg font-semibold text-navy">{title}</h3>
-        <p className="text-sm text-ink/70">
-          {company} · {location}
-        </p>
-      </div>
-      <p className="text-ink/90">{context}</p>
-      {backgrounds.length > 0 && (
-        <ul className="flex flex-wrap gap-2" aria-label="Relevant backgrounds">
-          {backgrounds.map((b) => (
-            <li key={b} className="rounded-full bg-teal/10 px-3 py-1 text-xs font-medium text-navy">
-              {b}
-            </li>
+    <article className="flex flex-col gap-3 rounded-md border border-line bg-white p-6">
+      <div className="flex justify-between gap-2 font-mono text-xs tracking-[0.08em] text-muted">
+        <span>{job.state}</span>
+        {job.postedLabel &&
+          (job.postedAt ? (
+            <time dateTime={job.postedAt}>{job.postedLabel}</time>
+          ) : (
+            <span>{job.postedLabel}</span>
           ))}
-        </ul>
+      </div>
+      <h3 className="text-lg font-semibold leading-[1.35] text-navy">{job.title}</h3>
+      <p className="text-[15px] text-body">{job.companyLine}</p>
+      {job.fit && (
+        <p className="rounded-[4px] bg-fit px-3.5 py-3 text-sm leading-normal text-navy">
+          <span className="font-semibold">Why it may fit: </span>
+          {job.fit}
+        </p>
       )}
       <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto self-start font-semibold text-teal underline-offset-4 hover:underline"
+        href={job.url}
+        {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+        className="mt-auto self-start py-1.5 text-[15px] font-semibold text-teal-dark underline hover:text-navy"
       >
-        View job <span aria-hidden="true">↗</span>
-        <span className="sr-only"> (opens in a new tab)</span>
+        View posting <span aria-hidden="true">↗</span>
+        {external && <span className="sr-only"> (opens in a new tab)</span>}
       </a>
     </article>
   );

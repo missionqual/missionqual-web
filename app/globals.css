@@ -1,20 +1,51 @@
 @import "tailwindcss";
 
 /* MISSIONQUAL brand tokens. Each --color-* generates utilities such as
-   bg-navy, text-teal, border-navy, bg-paper, text-ink. */
+   bg-navy, text-teal-dark, border-line, bg-paper, text-ink. */
 @theme {
+  /* Brand */
   --color-navy: #1f2a44;
+  --color-navy-dark: #141c2f;
   --color-teal: #0f9d9a;
+  /* Teal for text on light backgrounds (meets contrast). */
+  --color-teal-dark: #0b7c7a;
+  /* Teal for use on navy. */
+  --color-teal-bright: #2bc0bc;
   --color-paper: #f7f9fa;
   --color-ink: #1a1f2b;
+
+  /* Supporting tones from the approved homepage design. */
+  --color-mist: #dce2ee;
+  --color-fog: #a9b4cc;
+  --color-body: #3a4560;
+  --color-muted: #4a5672;
+  --color-steel: #2e3b5c;
+  --color-strip: #e9eef3;
+  --color-sheet-head: #e4eaf2;
+  --color-fit: #eaf6f6;
+  --color-line: #d5dce6;
+  --color-line-strong: #c9d2df;
+  --color-line-soft: #e6ebf1;
 }
 
-/* Inline so the utility resolves to the next/font variable set on <html>. */
+/* Inline so the utilities resolve to the next/font variables set on <html>. */
 @theme inline {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-heading: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal-dark);
+  outline-offset: 3px;
+}
+
+/* Sections with a navy background. */
+.surface-dark :focus-visible {
+  outline-color: var(--color-teal-bright);
 }
