@@ -1,18 +1,51 @@
 // TEMPORARY - replace with real jobs before launch.
-// Shown on the homepage (in every environment) until the Supabase jobs table
-// has at least 4 active jobs. Copy matches the placeholders in the approved design.
-import type { JobCardData } from "@/src/components/site/JobCard";
+// The three cards from design/missionqual-landing.html. TODO: load real postings
+// instead (getLatestJobs in src/lib/jobs.ts reads the Supabase jobs table) and
+// map them to LandingJob; DESIGN_SPEC rule 8 requires a real posted date.
 
-const PLACEHOLDER: Omit<JobCardData, "id"> = {
-  state: "TX",
-  postedLabel: "[POSTED DATE]",
-  title: "[JOB TITLE — e.g. QA/QC Inspector, Data Center]",
-  companyLine: "[COMPANY] · [CITY, ST]",
-  fit: "[One line on why a refinery background fits this role]",
-  url: "/jobs",
+export type LandingJob = {
+  id: string;
+  /** Two-letter state, shown top left. */
+  state: string;
+  /** ISO date the job was posted. */
+  postedAt: string;
+  title: string;
+  company: string;
+  city: string;
+  /** One honest line on why an industrial background may fit. */
+  fit: string;
+  url: string;
 };
 
-export const PLACEHOLDER_JOBS: JobCardData[] = [1, 2, 3, 4].map((n) => ({
-  ...PLACEHOLDER,
-  id: `placeholder-${n}`,
-}));
+export const PLACEHOLDER_JOBS: LandingJob[] = [
+  {
+    id: "placeholder-1",
+    state: "TX",
+    postedAt: "2026-10-14",
+    title: "QA/QC Inspector, Data Center",
+    company: "[Company]",
+    city: "Temple, TX",
+    fit: "ITP-driven inspection on mechanical scopes maps straight to Cx test witnessing.",
+    url: "/jobs",
+  },
+  {
+    id: "placeholder-2",
+    state: "TX",
+    postedAt: "2026-10-13",
+    title: "Commissioning Technician (MEP)",
+    company: "[Company]",
+    city: "San Antonio, TX",
+    fit: "Loop checks and hydrotest sign-off experience covers most of the L2–L3 scope.",
+    url: "/jobs",
+  },
+  {
+    id: "placeholder-3",
+    state: "LA",
+    postedAt: "2026-10-10",
+    title: "Quality Manager, Mission Critical",
+    company: "[Company]",
+    city: "Richland Parish, LA",
+    fit: "Turnaround QA leadership and NCR management are the exact ask, new nameplate.",
+    url: "/jobs",
+  },
+];

@@ -2,7 +2,17 @@
 
 import { useEffect, useId, useState, type ReactNode } from "react";
 
-export function MobileMenu({ children }: { children: ReactNode }) {
+export function MobileMenu({
+  children,
+  wrapperClassName,
+  buttonClassName,
+  panelClassName,
+}: {
+  children: ReactNode;
+  wrapperClassName?: string;
+  buttonClassName?: string;
+  panelClassName?: string;
+}) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
 
@@ -14,18 +24,31 @@ export function MobileMenu({ children }: { children: ReactNode }) {
   }, [open]);
 
   return (
-    <div className="xl:hidden">
+    <div className={wrapperClassName}>
       <button
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
+        aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen((o) => !o)}
-        className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-md text-white hover:bg-white/10"
+        className={buttonClassName}
       >
-        <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-          {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-        </svg>
+        {open ? (
+          <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true">
+            <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="4" y1="1" x2="18" y2="15" />
+              <line x1="18" y1="1" x2="4" y2="15" />
+            </g>
+          </svg>
+        ) : (
+          <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true">
+            <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="1" y1="2" x2="21" y2="2" />
+              <line x1="1" y1="8" x2="21" y2="8" />
+              <line x1="1" y1="14" x2="21" y2="14" />
+            </g>
+          </svg>
+        )}
       </button>
       <div
         id={panelId}
@@ -34,7 +57,7 @@ export function MobileMenu({ children }: { children: ReactNode }) {
         onClick={(e) => {
           if ((e.target as HTMLElement).closest("a")) setOpen(false);
         }}
-        className="absolute inset-x-0 top-full z-50 border-t border-white/14 bg-navy px-6 pb-6 pt-2 shadow-lg"
+        className={panelClassName}
       >
         {children}
       </div>

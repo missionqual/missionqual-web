@@ -1,14 +1,22 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
-import { Container } from "./Container";
-import { Logo } from "./Logo";
-import { AUDIENCE } from "./nav-links";
+import { Wordmark } from "@/src/components/landing/Wordmark";
+import shared from "@/src/components/landing/shared.module.css";
+import { AccountLink } from "./AccountLink";
+import s from "./Footer.module.css";
 
-const FOOTER_LINKS = [
+// A sitemap, so it may list Transition Guide and Sign in (DESIGN_SPEC rule 7).
+const EXPLORE = [
   { href: "/guide", label: "Transition Guide" },
   { href: "/jobs", label: "Jobs" },
   { href: "/resources", label: "Resources" },
+  { href: "/community", label: "Community" },
   { href: "/about", label: "About" },
+];
+
+const LEGAL = [
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
 ];
 
 // Cached so the clock read is allowed in the prerendered shell.
@@ -20,45 +28,45 @@ async function CurrentYear() {
 
 export function Footer() {
   return (
-    <footer className="surface-dark bg-navy-dark text-fog">
-      <Container className="flex flex-col gap-10 pb-8 pt-14">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-8">
-          <div className="flex flex-col gap-3.5">
-            <Logo height={22} className="self-start" />
-            <p className="max-w-[280px] text-sm">
+    <footer className={s.footer}>
+      <div className={`${shared.wrap} ${s.inner}`}>
+        <div className={s.top}>
+          <div>
+            <Wordmark className={s.logo} />
+            <p className={s.mission}>
               Helping industrial QA/QC and trades move into data center construction.
             </p>
           </div>
-
-          <nav aria-label="Footer">
-            <ul className="flex flex-col gap-1">
-              {FOOTER_LINKS.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="block py-1.5 text-[15px] text-mist hover:text-white">
-                    {l.label}
-                  </Link>
-                </li>
+          <div className={s.cols}>
+            <nav className={s.col} aria-labelledby="footer-explore">
+              <div className={s.label} id="footer-explore">
+                EXPLORE
+              </div>
+              {EXPLORE.map((l) => (
+                <Link key={l.href} href={l.href}>
+                  {l.label}
+                </Link>
               ))}
-            </ul>
-          </nav>
-
-          <p className="font-mono text-xs leading-[1.8] tracking-[0.08em]">{AUDIENCE}</p>
+              <AccountLink className="" />
+            </nav>
+            <nav className={s.col} aria-labelledby="footer-legal">
+              <div className={s.label} id="footer-legal">
+                LEGAL
+              </div>
+              {LEGAL.map((l) => (
+                <Link key={l.href} href={l.href}>
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
-
-        <div className="flex flex-wrap justify-between gap-3 border-t border-steel pt-6 text-[13px]">
+        <div className={s.bottom}>
           <span>
             © <CurrentYear /> MISSIONQUAL
           </span>
-          <span className="flex gap-5">
-            <Link href="/privacy" className="underline hover:text-white">
-              Privacy
-            </Link>
-            <Link href="/terms" className="underline hover:text-white">
-              Terms
-            </Link>
-          </span>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }

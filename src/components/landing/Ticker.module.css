@@ -1,0 +1,73 @@
+/* Ticker — single rolling line, right-to-left, both-edge fades.
+   The audience list appears only here (DESIGN_SPEC rule 6). */
+.ticker {
+  background: var(--navy-deep);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.track {
+  display: flex;
+  white-space: nowrap;
+  animation: mq-marquee 26s linear infinite;
+}
+.ticker:hover .track {
+  animation-play-state: paused;
+}
+.track span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  padding-right: 1.75rem;
+}
+.ticker::before,
+.ticker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  z-index: 1;
+  pointer-events: none;
+}
+.ticker::before {
+  left: 0;
+  background: linear-gradient(to right, var(--navy-deep), rgba(14, 21, 39, 0));
+}
+.ticker::after {
+  right: 0;
+  background: linear-gradient(to left, var(--navy-deep), rgba(14, 21, 39, 0));
+}
+@keyframes mq-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (min-width: 1024px) {
+  .ticker {
+    height: 48px;
+  }
+  .track {
+    animation-duration: 32s;
+  }
+  .track span {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    padding-right: 3rem;
+  }
+  .ticker::before,
+  .ticker::after {
+    width: 72px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

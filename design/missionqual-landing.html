@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MissionQual — From Oil &amp; Gas to Data Center Construction</title>
+<meta name="description" content="A free guide for API inspectors, CWIs, QA/QC and trades: the roles to target, the skills that transfer, and where the data center jobs are.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MissionQual landing — responsive (mobile-first, desktop ≥1024px)
+   Design tokens
+   ============================================================ */
+:root{
+  --navy:#141C33;        /* primary dark / hero bg */
+  --navy-deep:#0E1527;   /* ticker + footer bg */
+  --teal:#57BCB3;        /* CTA fill, accents on dark */
+  --teal-dark:#2E7D74;   /* accents on light bg (AA contrast) */
+  --teal-ink:#1f5a53;    /* emphasized text on light/tint */
+  --tint:#EFFAF8;        /* teal tint fills */
+  --paper:#F4F6FA;       /* page bg */
+  --card:#F8FAFD;        /* card fill on white */
+  --cover:#EDF1F7;       /* guide cover fill */
+  --line:#E6EAF2;        /* hairlines on light */
+  --line-strong:#E0E5EF; /* card borders */
+  --ink:#141C33;         /* body text on light */
+  --ink-soft:#4A5572;    /* secondary text on light */
+  --ink-faint:#7E8AA6;   /* mono labels */
+  --dark-soft:#B9C2D6;   /* secondary text on dark */
+  --dark-faint:#8D98B2;  /* tertiary text on dark */
+  --dark-link:#D7DDEA;   /* nav/footer links on dark */
+  --bar-h:4.6rem;        /* mobile sticky bar height */
+  --section-y:48px;      /* vertical padding of every content section */
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+@media (min-width:1024px){:root{--section-y:80px}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5}
+img,svg{display:block}
+a{color:var(--teal-dark)}
+h1,h2{font-family:var(--font-display);font-weight:700;margin:0;letter-spacing:-0.01em}
+p{margin:0}
+
+/* ---------- Buttons: ONE primary style everywhere ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  background:var(--teal);color:var(--navy);
+  font-family:var(--font-body);font-weight:700;font-size:1.05rem;
+  min-height:54px;padding:0 1.75rem;border:0;border-radius:8px;
+  text-decoration:none;cursor:pointer;
+}
+.btn:hover{background:#6fc9c1}
+.btn svg{flex:none}
+.btn--block{width:100%}
+.btn--sm{min-height:42px;padding:0 1.25rem;font-size:.9rem}
+.link-arrow{display:inline-flex;align-items:center;gap:.45rem;font-weight:600;text-decoration:none;font-size:.95rem}
+.link-arrow:hover{text-decoration:underline}
+
+/* ---------- Layout helpers ---------- */
+.wrap{max-width:1248px;margin:0 auto;padding-inline:1.25rem}
+.section{padding-block:var(--section-y)} /* every content section; no per-section overrides */
+.h2{font-size:1.65rem;line-height:1.15}
+@media (min-width:1024px){.h2{font-size:2.35rem}} /* one size for Translation, Year Zero, Jobs */
+.lede{color:var(--ink-soft);font-size:.9rem;max-width:40rem}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header{background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:56px}
+.logo{font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:.06em;color:#fff;text-decoration:none}
+.logo span{color:var(--teal)}
+.nav-toggle{background:none;border:0;padding:.5rem;cursor:pointer}
+.nav-links{display:none}
+@media (min-width:1024px){
+  .site-header .wrap{min-height:76px}
+  .nav-toggle{display:none}
+  .nav-links{display:flex;align-items:center;gap:2.25rem}
+  .nav-links a{color:var(--dark-link);text-decoration:none;font-size:.95rem}
+  .nav-links a:hover{color:#fff}
+  .nav-links a.nav-signin{color:#fff;font-weight:600}
+}
+
+/* ============================================================
+   Hero — mobile: cover → headline → CTA inside the fold
+          desktop: copy left / cover+chip right
+   ============================================================ */
+.hero{background:var(--navy);color:#fff}
+.hero .wrap{display:flex;flex-direction:column;align-items:center;gap:1.1rem;padding-block:1.5rem 1.6rem;text-align:center}
+.hero h1{font-size:1.95rem;line-height:1.14;letter-spacing:-0.01em}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.hero .sub{color:var(--dark-soft);font-size:.95rem;max-width:32rem}
+.hero-copy{display:flex;flex-direction:column;align-self:stretch;gap:20px}
+.hero .btn{align-self:stretch;margin-top:8px}
+
+/* Flat guide cover (replaces any 3D render) */
+.cover-wrap{position:relative}
+.cover{
+  width:168px;background:var(--cover);border-radius:6px;border-left:5px solid var(--teal);
+  padding:1rem .9rem;display:flex;flex-direction:column;gap:.6rem;text-align:left;
+  box-shadow:0 14px 28px rgba(0,0,0,.35);
+}
+.cover .cover-kicker{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.18em;color:var(--teal-dark);font-weight:500}
+.cover .cover-title{font-family:var(--font-display);font-weight:700;font-size:1rem;line-height:1.2;color:var(--navy)}
+.cover .bars{display:flex;flex-direction:column;gap:.32rem}
+.cover .bars i{display:block;height:4px;background:#c6cfdd;border-radius:2px}
+.cover .bars i:nth-child(2){width:82%}
+.cover .bars i:nth-child(3){width:90%}
+.cover .bars i:nth-child(4){width:70%}
+.cover .cover-logo{font-family:var(--font-display);font-weight:700;font-size:.56rem;letter-spacing:.08em;color:var(--navy)}
+.cover .cover-logo span{color:var(--teal-dark)}
+/* Translation chip: DESKTOP ONLY, hangs off bottom-RIGHT (never covers the wordmark) */
+.chip{
+  display:none;position:absolute;right:-2.5rem;bottom:-1.4rem;
+  background:#fff;border-radius:8px;padding:.9rem 1.15rem;
+  box-shadow:0 14px 30px rgba(0,0,0,.35);
+}
+.chip .chip-kicker{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;color:var(--ink-faint);font-weight:500}
+.chip .chip-line{font-size:.95rem;color:var(--navy);margin-top:.3rem}
+.chip .chip-line b{color:var(--teal-dark);font-weight:700}
+@media (min-width:1024px){
+  .hero .wrap{flex-direction:row;align-items:center;justify-content:space-between;gap:6rem;text-align:left;padding-block:96px 104px}
+  .hero-copy{align-self:auto;align-items:flex-start;gap:28px;max-width:40rem}
+  .hero h1{font-size:3.25rem;line-height:1.08;letter-spacing:-0.015em}
+  .hero .sub{font-size:1.15rem;max-width:32.5rem}
+  .hero .btn{align-self:flex-start;width:auto;padding:0 32px;min-height:58px;font-size:1.1rem}
+  .cover-wrap{flex:none;margin-right:2.5rem}
+  .cover{width:360px;border-left-width:8px;padding:2.1rem 1.9rem;gap:1.1rem;border-radius:8px;box-shadow:0 24px 48px rgba(0,0,0,.4)}
+  .cover .cover-kicker{font-size:.8rem}
+  .cover .cover-title{font-size:2rem;line-height:1.16}
+  .cover .bars i{height:6px;border-radius:3px}
+  .cover .cover-logo{font-size:.8rem}
+  .chip{display:block}
+}
+
+/* ============================================================
+   Ticker — single rolling line, right-to-left, both-edge fades
+   ============================================================ */
+.ticker{background:var(--navy-deep);height:40px;display:flex;align-items:center;overflow:hidden;position:relative}
+.ticker-track{display:flex;white-space:nowrap;animation:mq-marquee 26s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track span{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;color:var(--ink-faint);padding-right:1.75rem}
+.ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:32px;z-index:1;pointer-events:none}
+.ticker::before{left:0;background:linear-gradient(to right,var(--navy-deep),rgba(14,21,39,0))}
+.ticker::after{right:0;background:linear-gradient(to left,var(--navy-deep),rgba(14,21,39,0))}
+@keyframes mq-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (min-width:1024px){
+  .ticker{height:48px}
+  .ticker-track{animation-duration:32s}
+  .ticker-track span{font-size:.8rem;letter-spacing:.14em;padding-right:3rem}
+  .ticker::before,.ticker::after{width:72px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ticker-track{animation:none}
+}
+
+/* ============================================================
+   Translation Sheet — FIRST section after the hero (the proof)
+   ============================================================ */
+.translate .wrap{display:flex;flex-direction:column;gap:28px}
+.translate-copy{display:flex;flex-direction:column;gap:16px}
+.translate-copy .link-arrow{margin-top:4px}
+.sheet{border:1px solid #D8DEEA;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 6px 18px rgba(20,28,51,.07)}
+.sheet table{width:100%;border-collapse:collapse}
+.sheet th{background:var(--navy);color:#fff;font-weight:600;font-size:.8rem;text-align:left;padding:.7rem .9rem}
+.sheet th+th,.sheet td+td{border-left:1px solid var(--line)}
+.sheet th+th{border-left-color:rgba(255,255,255,.15)}
+.sheet td{border-top:1px solid var(--line);padding:.8rem .9rem;font-size:.85rem;line-height:1.4;width:50%;vertical-align:top}
+.sheet td.dc{font-weight:600;color:var(--teal-ink)}
+.sheet tr.hl{background:var(--tint)}   /* highlight row = 10-week turnaround, always FIRST */
+.sheet-note{font-size:.82rem;color:var(--ink-soft);margin-top:.35rem}
+@media (min-width:1024px){
+  .translate .wrap{flex-direction:row;align-items:flex-start;gap:4.5rem}
+  .translate-copy{flex:0 0 400px}
+  .translate .lede{font-size:1rem}
+  .sheet{flex:1;margin-top:0;border-radius:12px;box-shadow:0 10px 28px rgba(20,28,51,.08)}
+  .sheet th{font-size:.95rem;padding:.95rem 1.4rem}
+  .sheet td{font-size:.97rem;padding:1rem 1.4rem}
+}
+
+/* ============================================================
+   Year zero + guide cards
+   ============================================================ */
+.yearzero{background:#fff;border-top:1px solid var(--line)}
+.yearzero .wrap{display:flex;flex-direction:column;gap:.9rem}
+.cards{display:grid;grid-template-columns:1fr;gap:.75rem;margin-top:.25rem}
+.gcard{background:var(--card);border:1px solid var(--line-strong);border-radius:10px;padding:1rem;display:flex;gap:.9rem;align-items:flex-start}
+.gcard .num{font-family:var(--font-mono);font-size:.82rem;color:var(--teal-dark);font-weight:500;padding-top:.15rem}
+.gcard h3{font-family:var(--font-display);font-weight:700;font-size:1.05rem;margin:0 0 .25rem}
+.gcard p{font-size:.85rem;line-height:1.5;color:var(--ink-soft)}
+.yearzero .btn{margin-top:.4rem}
+@media (min-width:1024px){
+  .yearzero .h2{max-width:48rem}
+  .cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;margin-top:.6rem}
+  .gcard{flex-direction:column;gap:.6rem;padding:1.6rem 1.5rem;border-radius:12px}
+  .gcard h3{font-size:1.25rem}
+  .gcard p{font-size:.95rem}
+  .yearzero .btn{align-self:flex-start}
+}
+
+/* ============================================================
+   Jobs
+   ============================================================ */
+.jobs .wrap{display:flex;flex-direction:column;gap:.65rem}
+.jobs-head{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.jobs .h2{white-space:nowrap}
+.job-grid{display:grid;grid-template-columns:1fr;gap:.75rem;margin-top:.25rem}
+.jcard{background:#fff;border:1px solid var(--line-strong);border-radius:10px;padding:1rem;display:flex;flex-direction:column;gap:.5rem}
+.jcard .meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;color:var(--ink-faint);text-transform:uppercase}
+.jcard h3{font-family:var(--font-display);font-weight:700;font-size:1.03rem;line-height:1.25;margin:0}
+.jcard .co{font-size:.82rem;color:var(--ink-soft)}
+.jcard .fit{background:var(--tint);border-radius:6px;padding:.6rem .75rem;font-size:.82rem;line-height:1.45;color:var(--teal-ink)}
+.jcard .fit b{font-weight:600}
+@media (min-width:1024px){
+  .jobs-head{flex-direction:row;align-items:baseline;justify-content:space-between;gap:1rem}
+  .jobs .h2{white-space:normal}
+  .job-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;margin-top:.5rem}
+  .jcard{padding:1.4rem;border-radius:12px;gap:.6rem}
+  .jcard h3{font-size:1.15rem}
+  .jcard .fit{flex-grow:1;font-size:.88rem;padding:.75rem .9rem;border-radius:8px}
+}
+
+/* ============================================================
+   Final CTA + footer
+   ============================================================ */
+.final{background:var(--navy);color:#fff}
+.final .wrap{display:flex;flex-direction:column;align-items:center;gap:.9rem;text-align:center}
+.final .h2{font-size:1.55rem;line-height:1.18}
+.final p{color:var(--dark-soft);font-size:.92rem;max-width:34rem}
+.final .btn{width:100%}
+@media (min-width:1024px){
+  .final .h2{font-size:2.25rem}
+  .final p{font-size:1.05rem}
+  .final .btn{width:auto}
+}
+
+.site-footer{background:var(--navy-deep);color:#fff}
+.site-footer .wrap{display:flex;flex-direction:column;gap:1.1rem;padding-block:2rem 1.6rem}
+.site-footer .logo{font-size:1.1rem}
+.site-footer .mission{font-size:.85rem;line-height:1.55;color:var(--dark-faint);max-width:22.5rem}
+.foot-cols{display:flex;flex-direction:column;gap:36px;margin-top:40px}
+.foot-col{display:flex;flex-direction:column;gap:.75rem;font-size:.92rem}
+.foot-col .label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;color:var(--ink-faint);margin-bottom:8px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.12)}
+.foot-col a{color:var(--dark-link);text-decoration:none}
+.foot-col a:hover{color:#fff}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:1rem;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--dark-faint)}
+.foot-bottom a{color:var(--dark-faint)}
+@media (min-width:1024px){
+  .site-footer .wrap{padding-block:3.5rem 2.5rem;gap:2rem}
+  .foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:4rem}
+  .foot-cols{flex-direction:row;gap:6rem;margin-top:0}
+}
+
+/* ============================================================
+   Mobile sticky CTA bar — hides while hero or final CTA is on
+   screen (never two CTAs at once). Desktop: header button instead.
+   ============================================================ */
+.sticky-cta{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  padding:.6rem 1rem calc(.85rem + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96);border-top:1px solid var(--line-strong);
+  box-shadow:0 -8px 22px rgba(20,28,51,.12);
+  transform:translateY(110%);transition:transform .25s ease;
+}
+.sticky-cta.show{transform:translateY(0)}
+.sticky-cta .btn{width:100%;min-height:50px;font-size:1rem}
+@media (min-width:1024px){.sticky-cta{display:none}}
+@media (prefers-reduced-motion:reduce){.sticky-cta{transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/">MISSION<span>QUAL</span></a>
+    <button class="nav-toggle" aria-label="Open menu">
+      <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><g stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="1" y1="2" x2="21" y2="2"/><line x1="1" y1="8" x2="21" y2="8"/><line x1="1" y1="14" x2="21" y2="14"/></g></svg>
+    </button>
+    <nav class="nav-links" aria-label="Main">
+      <!-- No "Transition Guide" tab: this page IS the guide pitch; the button is that destination -->
+      <a href="/jobs">Jobs</a>
+      <a href="/resources">Resources</a>
+      <a href="/community">Community</a>
+      <a href="/about">About</a>
+      <a class="nav-signin" href="/signin">Sign in</a>
+      <a class="btn btn--sm" href="#guide">Get the free guide</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== HERO =====================
+     Mobile order (intentional): cover → headline → CTA, all inside one viewport.
+     Desktop: copy left, cover + translation chip right. -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="cover-wrap">
+      <div class="cover" role="img" aria-label="The Transition Guide: From Oil and Gas to Data Center Construction">
+        <div class="cover-kicker">The Transition Guide</div>
+        <div class="cover-title">From Oil &amp; Gas to Data Center Construction</div>
+        <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="cover-logo">MISSION<span>QUAL</span></div>
+      </div>
+      <!-- Desktop-only teaser; hangs off bottom-RIGHT so it never covers the wordmark -->
+      <div class="chip" aria-hidden="true">
+        <div class="chip-kicker">FROM THE TRANSLATION SHEET</div>
+        <div class="chip-line">Process unit <b>→ Data hall</b></div>
+      </div>
+    </div>
+    <div class="hero-copy">
+      <h1>From Oil &amp; Gas to Data Center Construction. <em>Without starting over.</em></h1>
+      <p class="sub">A guide for API inspectors, CWIs, QA/QC and trades: the roles to target, the skills that transfer, and where the jobs are.</p>
+      <!-- No subtext under the hero CTA -->
+      <a class="btn btn--block" href="#guide" data-cta="hero">Send me the free guide
+        <svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M9.5 1L15 6l-5.5 5M15 6H1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TICKER ===================== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>FOR API INSPECTORS · CWIs · NDT · QA/QC · PIPEFITTERS · WELDERS · ELECTRICIANS · TURNAROUND · REFINERY · LNG PROFESSIONALS ·</span>
+    <span>FOR API INSPECTORS · CWIs · NDT · QA/QC · PIPEFITTERS · WELDERS · ELECTRICIANS · TURNAROUND · REFINERY · LNG PROFESSIONALS ·</span>
+  </div>
+</div>
+
+<!-- ===================== PROOF: TRANSLATION SHEET =====================
+     First section after the hero. Row order is intentional:
+     "10-week turnaround" leads (highlighted). -->
+<section class="translate section" id="sheet">
+  <div class="wrap">
+    <div class="translate-copy">
+      <h2 class="h2">Your experience, <span style="color:var(--teal-dark)">translated</span></h2>
+      <p class="lede">Most of what you do on a refinery job has a direct match on a data center build. Four of them here — the full sheet in the guide covers inspection, welding, piping, commissioning and turnover.</p>
+      <a class="link-arrow" href="#guide">See the full sheet
+        <svg width="14" height="11" viewBox="0 0 16 12" aria-hidden="true"><path d="M9.5 1L15 6l-5.5 5M15 6H1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="sheet">
+      <table>
+        <thead><tr><th scope="col">On a refinery job</th><th scope="col">On a data center build</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>10-week turnaround</td><td class="dc">Multi-year campus build</td></tr>
+          <tr><td>ITPs, hold &amp; witness points</td><td class="dc">Witnessed Cx tests — FWT, SAT &amp; L4 scripts</td></tr>
+          <tr><td>Mechanical completion</td><td class="dc">Commissioning levels L1–L5</td></tr>
+          <tr><td>Process unit</td><td class="dc">Data hall</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YEAR ZERO + GUIDE CARDS ===================== -->
+<section class="yearzero section">
+  <div class="wrap">
+    <h2 class="h2">Years of field experience shouldn't become <span style="color:var(--teal-dark)">year zero</span></h2>
+    <p class="lede">Three things you need before you apply — in plain field language. All in the free guide:</p>
+    <div class="cards">
+      <article class="gcard"><div class="num">01</div><div><h3>The roles to target</h3><p>The exact titles employers post for QA/QC, inspection and commissioning — and who posts them.</p></div></article>
+      <article class="gcard"><div class="num">02</div><div><h3>The skills that transfer</h3><p>Inspection, welding, piping, ITPs, hydrotests, turnover — what carries over as-is, and the gaps to close.</p></div></article>
+      <article class="gcard"><div class="num">03</div><div><h3>Where the jobs are</h3><p>Texas, Louisiana and the national build-out — plus a 30-day plan: résumé lines, search terms, who to contact.</p></div></article>
+    </div>
+    <a class="btn" href="#guide" data-cta="yearzero">Send me the free guide
+      <svg width="15" height="11" viewBox="0 0 16 12" aria-hidden="true"><path d="M9.5 1L15 6l-5.5 5M15 6H1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== JOBS =====================
+     TODO: replace the three cards below with real postings (title, company,
+     city, real posted date, one honest "why it may fit" line). Heading says
+     "Recent" on purpose — only say "this week" if it truly updates weekly. -->
+<section class="jobs section" id="jobs">
+  <div class="wrap">
+    <div class="jobs-head">
+      <h2 class="h2">Recent data center jobs</h2>
+      <a class="link-arrow" href="/jobs">See all jobs
+        <svg width="14" height="11" viewBox="0 0 16 12" aria-hidden="true"><path d="M9.5 1L15 6l-5.5 5M15 6H1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <p class="lede">Curated, with a note on why an industrial background may fit.</p>
+    <div class="job-grid">
+      <article class="jcard">
+        <div class="meta"><span>TX</span><span>Posted Oct 14</span></div>
+        <h3>QA/QC Inspector, Data Center</h3>
+        <div class="co">[Company] · Temple, TX</div>
+        <div class="fit"><b>Why it may fit:</b> ITP-driven inspection on mechanical scopes maps straight to Cx test witnessing.</div>
+        <a class="link-arrow" href="#" rel="noopener">View posting
+          <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 10L10 2M4 2h6v6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+      <article class="jcard">
+        <div class="meta"><span>TX</span><span>Posted Oct 13</span></div>
+        <h3>Commissioning Technician (MEP)</h3>
+        <div class="co">[Company] · San Antonio, TX</div>
+        <div class="fit"><b>Why it may fit:</b> Loop checks and hydrotest sign-off experience covers most of the L2–L3 scope.</div>
+        <a class="link-arrow" href="#" rel="noopener">View posting
+          <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 10L10 2M4 2h6v6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+      <article class="jcard">
+        <div class="meta"><span>LA</span><span>Posted Oct 10</span></div>
+        <h3>Quality Manager, Mission Critical</h3>
+        <div class="co">[Company] · Richland Parish, LA</div>
+        <div class="fit"><b>Why it may fit:</b> Turnaround QA leadership and NCR management are the exact ask, new nameplate.</div>
+        <a class="link-arrow" href="#" rel="noopener">View posting
+          <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 10L10 2M4 2h6v6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="final section" id="guide">
+  <div class="wrap">
+    <h2 class="h2">Not sure where your experience fits?</h2>
+    <p>The guide shows the roles to target, the skills that transfer, and where the jobs are.</p>
+    <!-- TODO: swap this anchor for the real email-capture form -->
+    <a class="btn" href="/guide" data-cta="final">Send me the free guide
+      <svg width="15" height="11" viewBox="0 0 16 12" aria-hidden="true"><path d="M9.5 1L15 6l-5.5 5M15 6H1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="logo" href="/">MISSION<span>QUAL</span></a>
+        <p class="mission" style="margin-top:.6rem">Helping industrial QA/QC and trades move into data center construction.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <div class="label">EXPLORE</div>
+          <a href="/guide">Transition Guide</a>
+          <a href="/jobs">Jobs</a>
+          <a href="/resources">Resources</a>
+          <a href="/community">Community</a>
+          <a href="/about">About</a>
+          <a href="/signin">Sign in</a>
+        </div>
+        <div class="foot-col">
+          <div class="label">LEGAL</div>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 MISSIONQUAL</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== MOBILE STICKY CTA ===================== -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <a class="btn" href="#guide" data-cta="sticky">Send me the free guide
+    <svg width="15" height="11" viewBox="0 0 16 12" aria-hidden="true"><path d="M9.5 1L15 6l-5.5 5M15 6H1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<script>
+/* Sticky CTA logic (mobile only):
+   show after the hero CTA scrolls out of view,
+   hide while the final CTA section is on screen — never two CTAs at once. */
+(function(){
+  var bar = document.getElementById('stickyCta');
+  if(!bar || !('IntersectionObserver' in window)) return;
+  var heroBtn = document.querySelector('[data-cta="hero"]');
+  var finalSec = document.getElementById('guide');
+  var heroVisible = true, finalVisible = false;
+  function update(){
+    var show = !heroVisible && !finalVisible;
+    bar.classList.toggle('show', show);
+    bar.setAttribute('aria-hidden', String(!show));
+  }
+  new IntersectionObserver(function(e){ heroVisible = e[0].isIntersecting; update(); }).observe(heroBtn);
+  new IntersectionObserver(function(e){ finalVisible = e[0].isIntersecting; update(); }, {threshold:.2}).observe(finalSec);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+/* Flat guide cover (replaces any 3D render) — DESIGN_SPEC rule 3. */
+.coverWrap {
+  position: relative;
+}
+.cover {
+  width: 168px;
+  background: var(--cover);
+  border-radius: 6px;
+  border-left: 5px solid var(--teal);
+  padding: 1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  color: var(--teal-dark);
+  font-weight: 500;
+}
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: var(--navy);
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+}
+.bars i {
+  display: block;
+  height: 4px;
+  background: #c6cfdd;
+  border-radius: 2px;
+}
+.bars i:nth-child(2) {
+  width: 82%;
+}
+.bars i:nth-child(3) {
+  width: 90%;
+}
+.bars i:nth-child(4) {
+  width: 70%;
+}
+.coverLogo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+}
+.coverLogo span {
+  color: var(--teal-dark);
+}
+
+/* Translation chip: DESKTOP ONLY, hangs off bottom-RIGHT (never covers the
+   wordmark) — DESIGN_SPEC rule 4. */
+.chip {
+  display: none;
+  position: absolute;
+  right: -2.5rem;
+  bottom: -1.4rem;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.9rem 1.15rem;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+.chipKicker {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.chipLine {
+  font-size: 0.95rem;
+  color: var(--navy);
+  margin-top: 0.3rem;
+}
+.chipLine b {
+  color: var(--teal-dark);
+  font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+  .coverWrap {
+    flex: none;
+    margin-right: 2.5rem;
+  }
+  .cover {
+    width: 360px;
+    border-left-width: 8px;
+    padding: 2.1rem 1.9rem;
+    gap: 1.1rem;
+    border-radius: 8px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  }
+  .kicker {
+    font-size: 0.8rem;
+  }
+  .title {
+    font-size: 2rem;
+    line-height: 1.16;
+  }
+  .bars i {
+    height: 6px;
+    border-radius: 3px;
+  }
+  .coverLogo {
+    font-size: 0.8rem;
+  }
+  .chip {
+    display: block;
+  }
+}
