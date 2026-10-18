@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 import { ArrowRight } from "./icons";
 import s from "./shared.module.css";
 
-export const CTA_LABEL = "Send me the free guide";
+export const CTA_LABEL = "Send me the transition guide";
 
 /**
  * The ONE call-to-action style (DESIGN_SPEC rule 1). Defaults to the standard
- * label with an arrow; the header uses size="sm" with "Get the free guide".
+ * label with an arrow; the header uses size="sm" with "Get the guide".
  */
 export function CtaButton({
   href,

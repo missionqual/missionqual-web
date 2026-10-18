@@ -5,7 +5,7 @@ import shared from "./shared.module.css";
 const CARDS = [
   {
     title: "The roles to target",
-    text: "The exact titles employers post for QA/QC, inspection and commissioning — and who posts them.",
+    text: "The exact titles employers post for QA/QC, inspection and commissioning — and the kinds of companies that post them.",
   },
   {
     title: "The skills that transfer",
@@ -13,7 +13,7 @@ const CARDS = [
   },
   {
     title: "Where the jobs are",
-    text: "Texas, Louisiana and the national build-out — plus a 30-day plan: résumé lines, search terms, who to contact.",
+    text: "The markets with the most data center construction right now, the companies doing the hiring, and the search terms that surface the right postings.",
   },
 ];
 

@@ -12,7 +12,7 @@ const isSignedIn = cache(async () => {
 async function SessionLink({ className }: { className: string }) {
   return (await isSignedIn()) ? (
     <Link href="/account" className={className}>
-      Account
+      Sign in
     </Link>
   ) : (
     <Link href="/login" className={className}>
@@ -21,7 +21,7 @@ async function SessionLink({ className }: { className: string }) {
   );
 }
 
-/** "Sign in", or "Account" when signed in. The static shell shows "Sign in". */
+/** "Sign in", linking to /account when already signed in. The static shell links to /login. */
 export function AccountLink({ className }: { className: string }) {
   return (
     <Suspense

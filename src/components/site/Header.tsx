@@ -30,7 +30,7 @@ export function Header() {
           </nav>
           <AccountLink className={`${s.panelLink} ${s.panelSignin}`} />
           <CtaButton href={GUIDE_HREF} className={s.panelBtn} arrow={false}>
-            Get the free guide
+            Get the guide
           </CtaButton>
         </MobileMenu>
 
@@ -42,7 +42,7 @@ export function Header() {
           ))}
           <AccountLink className={s.signin} />
           <CtaButton href={GUIDE_HREF} size="sm" className={s.headerBtn}>
-            Get the free guide
+            Get the guide
           </CtaButton>
         </nav>
       </div>

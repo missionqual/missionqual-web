@@ -28,7 +28,7 @@ Fonts (Google): **Space Grotesk** 500/600/700 (display), **IBM Plex Sans**
 
 1. **One CTA style.** Every call-to-action is the same solid teal button
    (`--teal` fill, navy text, 8px radius, 50–58px tall), same label:
-   **"Send me the free guide →"** (header variant: "Get the free guide").
+   **"Send me the transition guide →"** (header variant: "Get the guide").
    Never an underlined text link as a CTA; underlined/arrow links are for
    secondary navigation only ("See the full sheet", "View posting").
 2. **Mobile fold order:** flat guide cover → headline → one-line subhead →
