@@ -31,14 +31,18 @@ Fonts (Google): **Space Grotesk** 500/600/700 (display), **IBM Plex Sans**
    **"Send me the transition guide →"** (header variant: "Get the guide").
    Never an underlined text link as a CTA; underlined/arrow links are for
    secondary navigation only ("See the full sheet", "View posting").
-2. **Mobile fold order:** flat guide cover → headline → one-line subhead →
-   full-width button. All four inside the first viewport. **No subtext under
-   the hero CTA.** No email-reassurance copy (that the guide is free in a
+2. **Mobile fold order:** headline → one-line subhead → full-width button,
+   all inside the first viewport, then the guide card below the button.
+   **No subtext under the hero CTA.** No email-reassurance copy (that the guide is free in a
    single email, or that it is spam-free) appears anywhere on the page,
    including under the final CTA.
-3. **Hero image is the flat cover, not a 3D render.** `--cover` card, 5px
-   (mobile) / 8px (desktop) teal left border, mono kicker, display title,
-   3–4 placeholder bars, wordmark bottom-left.
+3. **Hero image is the "A look inside" card, not a 3D render** (see
+   `update-hero.png`). `--cover` card, 5px (mobile) / 8px (desktop) teal left
+   border, mono kicker "THE TRANSITION GUIDE", display title "A look inside",
+   hairline, three numbered questions (Space Grotesk, like the guide cards),
+   tinted "Also inside" note. Desktop adds each question's one-line
+   description and the wordmark bottom-left. Mobile uses smaller type and
+   medium-weight questions.
 4. **Translation chip (desktop only):** white card hanging off the cover's
    **bottom-right** corner ("FROM THE TRANSLATION SHEET / Process unit → Data
    hall"). Never on mobile; never positioned where it covers the wordmark.
@@ -80,7 +84,7 @@ Fonts (Google): **Space Grotesk** 500/600/700 (display), **IBM Plex Sans**
 
 ## Breakpoints & layout
 
-- `<1024px`: single column, 20px side gutters, centered hero, stacked cards.
+- `<1024px`: single column, 20px side gutters, left-aligned hero (cover below the CTA), stacked cards.
 - `≥1024px`: `.wrap` max-width 1248px; hero splits copy (max 640px) left /
   cover (360px + chip) right; translation section = 400px copy column + fluid
   table; guide cards and job cards = `repeat(3, minmax(0,1fr))` grids with

@@ -1,4 +1,4 @@
-/* Hero — mobile: cover → headline → CTA inside the fold;
+/* Hero — mobile: headline → CTA inside the fold, cover below, all left-aligned;
    desktop: copy left / cover + chip right. */
 .hero {
   background: var(--navy);
@@ -9,8 +9,8 @@
   flex-direction: column;
   align-items: center;
   gap: 1.1rem;
-  padding-block: 1.5rem 1.6rem;
-  text-align: center;
+  padding-block: 1.5rem 2rem;
+  text-align: left;
 }
 .copy {
   display: flex;
@@ -43,13 +43,12 @@
 }
 
 @media (min-width: 1024px) {
-  /* Cover is first in the DOM for the mobile fold order; reverse the row so
-     desktop reads copy left / cover right (DESIGN_SPEC: breakpoints). */
+  /* Copy left / cover right (DESIGN_SPEC: breakpoints). */
   .hero .inner {
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 6rem;
+    gap: 4rem;
     text-align: left;
     padding-block: 96px 104px;
   }

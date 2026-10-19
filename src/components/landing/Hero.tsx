@@ -7,7 +7,6 @@ export function Hero() {
   return (
     <section className={s.hero} id="top">
       <div className={`${shared.wrap} ${s.inner}`}>
-        <GuideCover />
         <div className={s.copy}>
           <h1>
             From Oil &amp; Gas to Data Center Construction. <em>Without starting over.</em>
@@ -19,6 +18,7 @@ export function Hero() {
           {/* No subtext under the hero CTA (DESIGN_SPEC rule 2). */}
           <CtaButton href="#guide" cta="hero" arrowWidth={16} className={s.btn} />
         </div>
+        <GuideCover />
       </div>
     </section>
   );
