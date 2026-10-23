@@ -1,4 +1,4 @@
-import { CtaButton } from "./CtaButton";
+import { GuideCta } from "@/src/components/guide/GuideCta";
 import { GuideCover } from "./GuideCover";
 import s from "./Hero.module.css";
 import shared from "./shared.module.css";
@@ -16,7 +16,7 @@ export function Hero() {
             that transfer, and where the jobs are.
           </p>
           {/* No subtext under the hero CTA (DESIGN_SPEC rule 2). */}
-          <CtaButton href="#guide" cta="hero" arrowWidth={16} className={s.btn} />
+          <GuideCta cta="hero" arrowWidth={16} className={s.btn} />
         </div>
         <GuideCover />
       </div>

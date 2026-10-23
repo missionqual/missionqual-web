@@ -3,7 +3,7 @@ import s from "./shared.module.css";
 
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <Link href="/" className={`${s.logo} ${className}`} aria-label="MISSIONQUAL home">
+    <Link href="/" className={`${s.logo} ${className}`} aria-label="MissionQual home">
       MISSION<span>QUAL</span>
     </Link>
   );

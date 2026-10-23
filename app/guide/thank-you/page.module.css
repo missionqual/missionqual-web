@@ -1,0 +1,212 @@
+/* Guide thank-you — design/guide-thank-you.html. Mobile first; desktop ≥1024px. */
+.kicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.kickerOnDark {
+  color: var(--teal);
+}
+.kickerOnLight {
+  color: var(--teal-dark);
+}
+
+/* ---------- Navy hero ---------- */
+.ty {
+  background: var(--navy);
+  color: #fff;
+  overflow: hidden;
+}
+.tyInner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2rem;
+  padding-block: 2rem 2.5rem;
+}
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ty h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+  font-size: 2.1rem;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+.sub {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 1rem;
+  max-width: 32rem;
+}
+.ty .download {
+  width: 100%;
+  align-self: stretch;
+  min-height: 54px;
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+.hint {
+  margin: 0;
+  color: var(--dark-faint);
+  font-size: 0.95rem;
+}
+.hint b {
+  color: var(--dark-link);
+  font-weight: 600;
+}
+.coverImg {
+  flex: none;
+  align-self: center;
+  width: 170px;
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 28px 56px rgba(0, 0, 0, 0.5);
+  transform: rotate(2deg);
+}
+.coverImg img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* ---------- White community section ---------- */
+.cm {
+  background: #fff;
+}
+.cmInner {
+  padding-block: 48px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0.6rem 0 0;
+  font-size: 1.65rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.h2 em {
+  font-style: normal;
+  color: var(--teal-dark);
+}
+.lede {
+  margin: 1.1rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  max-width: 30rem;
+}
+.cm .join {
+  width: 100%;
+  margin-top: 2rem;
+}
+.cm .joinEnd {
+  margin-top: 1.75rem;
+}
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+.n {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--teal-dark);
+}
+.card h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  margin: 0.6rem 0 0.45rem;
+  color: var(--ink);
+}
+.card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 1024px) {
+  .tyInner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    padding-block: 88px 96px;
+  }
+  .copy {
+    gap: 24px;
+    max-width: 38rem;
+  }
+  .ty h1 {
+    font-size: 3.25rem;
+    line-height: 1.08;
+  }
+  .sub {
+    font-size: 1.15rem;
+  }
+  .ty .download {
+    width: auto;
+    align-self: flex-start;
+    min-height: 58px;
+    padding: 0 32px;
+    font-size: 1.1rem;
+  }
+  .coverImg {
+    width: 300px;
+    margin-right: 2.5rem;
+  }
+  .cmInner {
+    padding-block: 80px;
+  }
+  .grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 4rem;
+  }
+  .h2 {
+    font-size: 2.35rem;
+  }
+  .lede {
+    font-size: 1.05rem;
+  }
+  .cm .join {
+    width: auto;
+  }
+  .cm .joinEnd {
+    display: none;
+  }
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .card {
+    padding: 1.6rem 1.6rem 1.5rem;
+  }
+  .card h3 {
+    margin-top: 1rem;
+  }
+}

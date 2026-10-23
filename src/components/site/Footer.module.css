@@ -39,14 +39,27 @@
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
-.col a {
+.col a,
+.linkButton {
   color: var(--dark-link);
   text-decoration: none;
 }
-.col a:hover {
+/* Looks like the links around it. */
+.linkButton {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.col a:hover,
+.linkButton:hover {
   color: #fff;
 }
-.col a:focus-visible {
+.col a:focus-visible,
+.linkButton:focus-visible {
   outline: 2px solid var(--teal);
   outline-offset: 3px;
 }

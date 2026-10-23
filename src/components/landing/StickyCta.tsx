@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CtaButton } from "./CtaButton";
+import { GuideCta } from "@/src/components/guide/GuideCta";
 import s from "./StickyCta.module.css";
 
 /**
@@ -42,7 +42,7 @@ export function StickyCta() {
   return (
     // inert keeps the off-screen button out of the tab order.
     <div className={`${s.sticky} ${show ? s.show : ""}`} aria-hidden={!show} inert={!show}>
-      <CtaButton href="#guide" cta="sticky" className={s.btn} />
+      <GuideCta cta="sticky" className={s.btn} />
     </div>
   );
 }

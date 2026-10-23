@@ -1,13 +1,14 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
+import { GuideTextButton } from "@/src/components/guide/GuideCta";
 import { Wordmark } from "@/src/components/landing/Wordmark";
 import shared from "@/src/components/landing/shared.module.css";
 import { AccountLink } from "./AccountLink";
 import s from "./Footer.module.css";
 
 // A sitemap, so it may list Transition Guide and Sign in (DESIGN_SPEC rule 7).
+// "Transition Guide" opens the email modal, so it renders separately as a button.
 const EXPLORE = [
-  { href: "/guide", label: "Transition Guide" },
   { href: "/jobs", label: "Jobs" },
   { href: "/resources", label: "Resources" },
   { href: "/community", label: "Community" },
@@ -42,6 +43,7 @@ export function Footer() {
               <div className={s.label} id="footer-explore">
                 EXPLORE
               </div>
+              <GuideTextButton className={s.linkButton}>Transition Guide</GuideTextButton>
               {EXPLORE.map((l) => (
                 <Link key={l.href} href={l.href}>
                   {l.label}
@@ -63,7 +65,7 @@ export function Footer() {
         </div>
         <div className={s.bottom}>
           <span>
-            © <CurrentYear /> MISSIONQUAL
+            © <CurrentYear /> MissionQual
           </span>
         </div>
       </div>

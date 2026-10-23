@@ -1,8 +1,8 @@
-import { CtaButton } from "./CtaButton";
+import { GuideCta } from "@/src/components/guide/GuideCta";
 import s from "./FinalCta.module.css";
 import shared from "./shared.module.css";
 
-/** The #guide anchor target for every in-page CTA. */
+/** Last guide CTA; StickyCta hides while this #guide section is on screen. */
 export function FinalCta() {
   return (
     <section className={`${s.final} ${shared.section}`} id="guide">
@@ -11,8 +11,7 @@ export function FinalCta() {
         <p>
           The guide shows the roles to target, the skills that transfer, and where the jobs are.
         </p>
-        {/* TODO: swap this link for the real email-capture form. */}
-        <CtaButton href="/guide" cta="final" className={s.btn} />
+        <GuideCta cta="final" className={s.btn} />
       </div>
     </section>
   );

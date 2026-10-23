@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_NAME = "MISSIONQUAL";
+export const SITE_NAME = "MissionQual";
 export const SITE_URL = "https://missionqual.com";
 export const DEFAULT_OG_IMAGE = "/og-default.png";
 

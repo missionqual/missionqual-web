@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
     agentUpgrade: "security",
   },
   partialPrefetching: true,
+  // The guide is an email modal now; old /guide links (PDF, emails, posts) open it.
+  async redirects() {
+    return [{ source: "/guide", destination: "/?guide=1", permanent: true }];
+  },
   turbopack: {
     rules: {
       "*.css": {

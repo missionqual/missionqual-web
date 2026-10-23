@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
+import { GuideCaptureProvider } from "@/src/components/guide/GuideCaptureProvider";
 import { Footer } from "@/src/components/site/Footer";
 import { Header } from "@/src/components/site/Header";
 import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE } from "@/src/lib/seo";
@@ -50,9 +51,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <GuideCaptureProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </GuideCaptureProvider>
       </body>
     </html>
   );

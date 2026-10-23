@@ -1,14 +1,11 @@
 import Link from "next/link";
-import { CtaButton } from "@/src/components/landing/CtaButton";
+import { HeaderGuideCta } from "@/src/components/guide/GuideCta";
 import { Wordmark } from "@/src/components/landing/Wordmark";
 import shared from "@/src/components/landing/shared.module.css";
 import { AccountLink } from "./AccountLink";
 import s from "./Header.module.css";
 import { MobileMenu } from "./MobileMenu";
 import { NAV_LINKS } from "./nav-links";
-
-// "/#guide" so the button also works from other pages.
-const GUIDE_HREF = "/#guide";
 
 export function Header() {
   return (
@@ -29,9 +26,9 @@ export function Header() {
             </ul>
           </nav>
           <AccountLink className={`${s.panelLink} ${s.panelSignin}`} />
-          <CtaButton href={GUIDE_HREF} className={s.panelBtn} arrow={false}>
+          <HeaderGuideCta className={s.panelBtn} arrow={false}>
             Get the guide
-          </CtaButton>
+          </HeaderGuideCta>
         </MobileMenu>
 
         <nav className={s.navLinks} aria-label="Main">
@@ -41,9 +38,9 @@ export function Header() {
             </Link>
           ))}
           <AccountLink className={s.signin} />
-          <CtaButton href={GUIDE_HREF} size="sm" className={s.headerBtn}>
+          <HeaderGuideCta size="sm" className={s.headerBtn}>
             Get the guide
-          </CtaButton>
+          </HeaderGuideCta>
         </nav>
       </div>
     </header>
