@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies, headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 import { addToGroup } from "@/src/lib/mailerlite";
 import { createAdminClient } from "@/src/lib/supabase/admin";
 import { GUIDE_COOKIE, isValidEmail } from "@/src/lib/guide";
@@ -24,7 +24,7 @@ export async function submitGuideEmail(formData: FormData): Promise<GuideSubmitR
   // Honeypot: bots fill the hidden "company" field. Save nothing, act normal.
   if (String(formData.get("company") ?? "").trim()) {
     await grantGuideAccess();
-    redirect("/guide/thank-you");
+    redirect("/guide/thank-you", RedirectType.replace);
   }
 
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
@@ -61,5 +61,5 @@ export async function submitGuideEmail(formData: FormData): Promise<GuideSubmitR
   }
 
   await grantGuideAccess();
-  redirect("/guide/thank-you");
+  redirect("/guide/thank-you", RedirectType.replace);
 }

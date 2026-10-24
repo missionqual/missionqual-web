@@ -1,16 +1,19 @@
-/* Email capture — ported from design/guide-capture-modal.html (desktop card)
-   and guide-capture-modal-mobile.html (bottom sheet below 1024px). */
+/* Email capture — desktop card from design/guide-capture-modal.html; below
+   1024px the card near the top from design/guide-capture-mobile/*.html, so it
+   stays above the on-screen keyboard. */
 .dialog {
-  /* Mobile: bottom sheet */
-  width: 100%;
+  /* Phones: card near the top */
+  width: calc(100% - 32px);
   max-width: none;
-  margin: auto 0 0;
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  margin: max(12dvh, 72px) 16px auto;
   padding: 0;
   border: 0;
-  border-radius: 16px 16px 0 0;
+  border-radius: 14px;
   background: #fff;
   color: var(--ink);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
 .dialog::backdrop {
   background: rgba(14, 21, 39, 0.74);
@@ -18,24 +21,14 @@
 }
 .card {
   position: relative;
-  padding: 36px 20px calc(28px + env(safe-area-inset-bottom));
-}
-.grab {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  width: 40px;
-  height: 4px;
-  border-radius: 4px;
-  background: var(--line-strong);
-  transform: translateX(-50%);
+  padding: 30px 20px 20px;
 }
 .close {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 40px;
-  height: 40px;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
   border: 0;
   background: none;
   border-radius: 8px;
@@ -59,12 +52,14 @@
   flex-direction: column;
   gap: 14px;
 }
+/* padding-right keeps the label from running under the X. */
 .label {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   line-height: 1.2;
   color: var(--navy);
+  padding-right: 28px;
 }
 /* 6px label gap from the reference (the input sat inside the label there). */
 .field {
@@ -84,13 +79,15 @@
 .input:focus {
   outline: none;
   border-color: var(--teal-dark);
-  box-shadow: 0 0 0 3px rgba(87, 188, 179, 0.25);
+  box-shadow: 0 0 0 3px rgba(87, 188, 179, 0.28);
 }
 .input::placeholder {
   color: var(--ink-faint);
 }
-.input[aria-invalid="true"] {
+.input[aria-invalid="true"],
+.input[aria-invalid="true"]:focus {
   border-color: #b42318;
+  box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.12);
 }
 .error {
   margin: 0;
@@ -99,7 +96,14 @@
   line-height: 1.4;
 }
 .error:not(:empty) {
-  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+.error svg {
+  flex: none;
+  margin-top: 1px;
 }
 .honeypot {
   position: absolute;
@@ -112,25 +116,84 @@
   width: 100%;
 }
 .submit:disabled {
-  cursor: progress;
-  opacity: 0.75;
+  background: #9fd9d3;
+  color: rgba(20, 28, 51, 0.75);
+  cursor: default;
+}
+.spin {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(20, 28, 51, 0.25);
+  border-top-color: var(--navy);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.fine {
+  margin: 2px 0 0;
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation: none;
+  }
 }
 
 @media (min-width: 1024px) {
-  /* Desktop: centered card */
+  /* Desktop: centered card, unchanged from design/guide-capture-modal.html. */
   .dialog {
     width: calc(100% - 40px);
     max-width: 460px;
+    max-height: none;
+    overflow: visible;
     margin: auto;
     border-radius: 12px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
   }
   .card {
     padding: 40px 32px 32px;
   }
-  .grab {
-    display: none;
+  .close {
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
   }
   .label {
     font-size: 1.35rem;
+    padding-right: 0;
+  }
+  .input:focus {
+    box-shadow: 0 0 0 3px rgba(87, 188, 179, 0.25);
+  }
+  .input[aria-invalid="true"],
+  .input[aria-invalid="true"]:focus {
+    box-shadow: none;
+  }
+  .input[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 3px rgba(87, 188, 179, 0.25);
+  }
+  .error:not(:empty) {
+    display: block;
+    margin-top: 8px;
+  }
+  .error svg,
+  .spin {
+    display: none;
+  }
+  .submit:disabled {
+    background: var(--teal);
+    color: var(--navy);
+    cursor: progress;
+    opacity: 0.75;
   }
 }

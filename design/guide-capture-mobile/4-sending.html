@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MissionQual — Get the guide, mobile: Option B · 4. sending, then /guide/thank-you</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<x-dc>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+<style>
+:root{--navy:#141c33;--navy-deep:#0e1527;--teal:#57bcb3;--teal-dark:#2e7d74;--teal-ink:#1f5a53;--tint:#effaf8;--paper:#f4f6fa;--card:#f8fafd;--cover:#edf1f7;--line:#e6eaf2;--line-strong:#e0e5ef;--ink:#141c33;--ink-soft:#4a5572;--ink-faint:#7e8aa6;--dark-soft:#b9c2d6;--dark-faint:#8d98b2;--dark-link:#d7ddea;--fd:'Space Grotesk',sans-serif;--fb:'IBM Plex Sans',system-ui,sans-serif;--fm:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1248px;margin:0 auto;padding-inline:1.25rem}
+.logo{font-family:var(--fd);font-weight:700;font-size:1.15rem;letter-spacing:.06em;color:#fff;text-decoration:none}
+.logo span{color:var(--teal)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;background:var(--teal);color:var(--navy);font-family:var(--fb);font-weight:700;font-size:1.05rem;min-height:54px;padding:0 1.75rem;border:0;border-radius:8px;text-decoration:none;cursor:pointer}
+.btn:hover{background:#6fc9c1}
+.btnSm{min-height:42px;padding:0 1.25rem;font-size:.9rem}
+.kicker{margin:0;font-family:var(--fm);font-weight:500;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase}
+/* header */
+.hdr{background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.hdr .inner{display:flex;align-items:center;justify-content:space-between;min-height:76px}
+.nav{display:flex;align-items:center;gap:2.25rem}
+.nav a{color:var(--dark-link);text-decoration:none;font-size:.95rem}
+.nav a.signin{color:#fff;font-weight:600}
+.nav a.btn{color:var(--navy)}
+.burger{display:none;color:#fff}
+/* footer */
+.ftr{background:var(--navy-deep);color:var(--dark-soft)}
+.ftr .inner{padding-block:64px 32px}
+.ftr .top{display:flex;justify-content:space-between;gap:3rem}
+.ftr .mission{margin:.9rem 0 0;max-width:24rem;color:var(--dark-faint)}
+.ftr .cols{display:flex;gap:6rem}
+.ftr .col{display:flex;flex-direction:column;gap:.85rem}
+.ftr .col .lab{font-family:var(--fm);font-size:.78rem;letter-spacing:.18em;color:var(--dark-faint);padding-bottom:.6rem;border-bottom:2px solid rgba(255,255,255,.12);margin-bottom:.4rem}
+.ftr .col a{color:var(--dark-link);text-decoration:none}
+.ftr .bottom{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.12);color:var(--dark-faint);font-size:.95rem}
+@media (max-width:1023px){
+ .hdr .inner{min-height:56px}.nav{display:none}.burger{display:block}
+ .ftr .top{flex-direction:column}.ftr .cols{gap:3rem}
+}
+
+.stage{position:relative;overflow:hidden}
+.hero{background:var(--navy);color:#fff}
+.hero .inner{display:flex;align-items:center;justify-content:space-between;gap:4rem;padding-block:96px 104px}
+.hero h1{font-family:var(--fd);font-weight:700;margin:0;font-size:3.25rem;line-height:1.08;letter-spacing:-.015em}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.hero .copy{display:flex;flex-direction:column;gap:28px;max-width:40rem}
+.hero .sub{margin:0;color:var(--dark-soft);font-size:1.15rem;max-width:32.5rem}
+.hero .btn{align-self:flex-start;min-height:58px;padding:0 32px;font-size:1.1rem;margin-top:8px}
+.look{width:448px;background:var(--cover);border-radius:8px;border-left:8px solid var(--teal);padding:2rem 2rem 1.6rem;color:var(--navy);box-shadow:0 24px 48px rgba(0,0,0,.4);margin-right:2.5rem}
+.look .t{font-family:var(--fd);font-weight:700;font-size:1.85rem;margin:.55rem 0 0;padding-bottom:1.1rem;border-bottom:1px solid var(--line-strong)}
+.look ol{list-style:none;margin:1.1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.9rem}
+.look li{display:flex;gap:1.25rem}.look .n{font-family:var(--fm);color:var(--teal-dark);width:1.6rem}
+.look .b{border-left:2px solid var(--line-strong);padding-left:.9rem;font-family:var(--fd);font-weight:700}
+.look .b small{display:block;font-family:var(--fb);font-weight:400;color:var(--ink-soft);font-size:.9rem;margin-top:.2rem}
+.scrim{position:absolute;inset:0;background:rgba(14,21,39,.74);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{position:relative;width:100%;max-width:460px;background:#fff;border-radius:12px;padding:40px 32px 32px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.close{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;background:none;border-radius:8px;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.close:hover{background:var(--paper);color:var(--ink)}
+.modal form{display:flex;flex-direction:column;gap:14px}
+.modal label{font-family:var(--fd);font-weight:700;font-size:1.35rem;line-height:1.2;color:var(--navy)}
+.inp{width:100%;min-height:54px;border:1.5px solid var(--line-strong);border-radius:8px;padding:0 16px;font:inherit;font-size:1.05rem;color:var(--ink);background:#fff;margin-top:6px}
+.inp:focus{outline:none;border-color:var(--teal-dark);box-shadow:0 0 0 3px rgba(87,188,179,.25)}
+.inp::placeholder{color:var(--ink-faint)}
+.modal .btn{width:100%}
+
+.hero .inner{flex-direction:column;align-items:stretch;gap:1.1rem;padding-block:1.5rem 2rem}
+.hero h1{font-size:1.95rem;line-height:1.14}.hero .copy{gap:20px}.hero .sub{font-size:.95rem}
+.hero .btn{width:100%;min-height:54px;font-size:1.05rem;padding:0 1rem}
+.look{width:100%;margin:0;padding:1rem;border-left-width:5px}.look .t{font-size:1.05rem}.look .b small{display:none}.look .b{border:0;padding:0;font-weight:500;font-size:.92rem}
+.scrim{align-items:flex-end;padding:0}
+.modal{max-width:none;border-radius:16px 16px 0 0;padding:36px 20px 28px}
+.grab{position:absolute;top:10px;left:50%;width:40px;height:4px;border-radius:4px;background:var(--line-strong);transform:translateX(-50%)}
+.modal label{font-size:1.2rem}
+
+.stage{height:844px}
+.scrim{align-items:flex-start;padding:128px 16px 0}
+.modal{max-width:none;border-radius:14px;padding:30px 20px 20px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.modal .close{top:8px;right:8px;width:44px;height:44px}
+.modal label{font-size:1.25rem;padding-right:28px}
+.inp.focus{border-color:var(--teal-dark);box-shadow:0 0 0 3px rgba(87,188,179,.28)}
+.inp.bad{border-color:#b42318;box-shadow:0 0 0 3px rgba(180,35,24,.12)}
+.err{display:flex;gap:8px;align-items:flex-start;margin:-4px 0 0;color:#b42318;font-size:.9rem;line-height:1.4}
+.err svg{flex:none;margin-top:1px}
+.modal .btn[disabled]{background:#9fd9d3;color:rgba(20,28,51,.75);cursor:default}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(20,28,51,.25);border-top-color:var(--navy)}
+.fine{margin:2px 0 0;text-align:center;color:#6b7793;font-size:.86rem;line-height:1.4}
+.kb{position:absolute;left:0;right:0;bottom:0;height:300px;background:#d3d6dd;padding:6px 3px 0;display:flex;flex-direction:column;gap:11px}
+.kb .acc{height:38px;display:flex;align-items:center;justify-content:flex-end;padding:0 12px;margin:-6px -3px 0;background:#f1f2f5;border-bottom:1px solid #c4c8d0;color:#0a64d8;font-weight:600;font-size:.95rem}
+.kb .row{display:flex;gap:6px;justify-content:center;padding:0 3px}
+.kb .k{flex:1;max-width:34px;height:42px;border-radius:5px;background:#fff;box-shadow:0 1px 0 #8e939e;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:#111}
+.kb .k.w{max-width:44px;background:#adb3bd;font-size:.85rem}
+.kb .k.sp{max-width:none;flex:4;font-size:.9rem}
+.kb .k.go{max-width:92px;flex:2;background:#0a64d8;color:#fff;font-size:.95rem}
+</style>
+
+<div class="stage"><header class="hdr"><div class="wrap inner">
+<a class="logo" href="#home" aria-label="MissionQual home">MISSION<span>QUAL</span></a>
+<nav class="nav" aria-label="Main"><a href="#jobs">Jobs</a><a href="#resources">Resources</a><a href="#community">Community</a><a href="#about">About</a><a class="signin" href="#login">Sign in</a><a class="btn btnSm" href="#capture">Get the guide</a></nav>
+<svg class="burger" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+</div></header><section class="hero"><div class="wrap inner"><div class="copy">
+<h1>From Oil &amp; Gas to Data Center Construction. <em>Without starting over.</em></h1>
+<p class="sub">A guide for API inspectors, CWIs, QA/QC and trades: the roles to target, the skills that transfer, and where the jobs are.</p>
+<a class="btn" href="#capture">Send me the transition guide <svg width="16" height="12" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div><aside class="look"><p class="kicker" style="color:var(--teal-dark)">The Transition Guide</p><p class="t">A look inside</p><ol>
+<li><span class="n">01</span><span class="b">Which jobs should I target?<small>Role titles, search terms, and how to size up the scope.</small></span></li>
+<li><span class="n">02</span><span class="b">What do I need to learn?<small>Mechanical, electrical, commissioning, and what the GC expects.</small></span></li>
+<li><span class="n">03</span><span class="b">How do I sell my experience?<small>Resume examples and interview preparation.</small></span></li></ol></aside></div></section>
+<div style="height:120px;background:var(--navy-deep)"></div>
+<div class="scrim"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="cap-label">
+<button class="close" type="button" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<form action="#thank-you" novalidate><label id="cap-label" for="cap-email">Where should we send your guide?<input id="cap-email" class="inp" type="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" required placeholder="you@email.com" value="jsmith@gmail.com" readonly></label>
+<button type="submit" class="btn" disabled><span class="spin" aria-hidden="true"></span>Sending…</button>
+<p class="fine">Opens right away. We'll email you a copy too.</p></form>
+</div></div></div>
+</x-dc>
+
+</body>
+</html>

@@ -25,6 +25,9 @@ type OpenGuide = (trigger?: HTMLElement | null) => void;
 
 const GuideCaptureContext = createContext<OpenGuide | null>(null);
 
+/** Marks the history entry pushed on open, so the phone's back button closes the modal. */
+const HISTORY_KEY = "mqGuideModal";
+
 /** Opens the shared "send me the guide" modal. Pass the clicked element so focus returns to it. */
 export function useGuideCapture() {
   const open = useContext(GuideCaptureContext);
@@ -33,7 +36,7 @@ export function useGuideCapture() {
 }
 
 const ERRORS = {
-  invalid: "Enter a valid email address.",
+  invalid: "Enter your full email address, like name@gmail.com.",
   server: "Something went wrong. Try again.",
 } as const;
 
@@ -62,6 +65,8 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  /** Path the modal opened on; after a redirect away (thank-you) we must not go back. */
+  const openPathRef = useRef<string | null>(null);
   const [error, setError] = useState<keyof typeof ERRORS | null>(null);
   const [referrer, setReferrer] = useState("");
   const [pending, startTransition] = useTransition();
@@ -74,12 +79,32 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
     setReferrer(window.location.pathname);
     dialog.showModal();
     document.documentElement.style.overflow = "hidden";
+    // Same tap as the click, so phones raise the keyboard with the card above it.
     inputRef.current?.focus();
+    // A history entry for the back button; spread keeps Next's router state.
+    openPathRef.current = window.location.pathname;
+    window.history.pushState({ ...window.history.state, [HISTORY_KEY]: true }, "");
+  }, []);
+
+  // Back button while open: the entry is already popped, so just close.
+  useEffect(() => {
+    const onPop = () => {
+      if (!dialogRef.current?.open) return;
+      openPathRef.current = null;
+      dialogRef.current.close();
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
   }, []);
 
   // Fires for Esc, the X, a backdrop click and the redirect after submit.
   const onClose = () => {
     document.documentElement.style.overflow = "";
+    // Closed with Esc, X or backdrop: drop our history entry. Skipped after the
+    // back button (already popped) and after the redirect to /guide/thank-you.
+    const openPath = openPathRef.current;
+    openPathRef.current = null;
+    if (openPath === window.location.pathname && window.history.state?.[HISTORY_KEY]) window.history.back();
     const trigger = triggerRef.current;
     triggerRef.current = null;
     if (trigger?.isConnected) trigger.focus();
@@ -122,7 +147,6 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
         onClick={(e) => e.target === e.currentTarget && e.currentTarget.close()}
       >
         <div className={s.card}>
-          <span className={s.grab} aria-hidden="true" />
           <button
             type="button"
             className={s.close}
@@ -147,6 +171,10 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
                 name="email"
                 autoComplete="email"
                 inputMode="email"
+                autoCapitalize="off"
+                spellCheck={false}
+                enterKeyHint="go"
+                readOnly={pending}
                 required
                 placeholder="you@email.com"
                 aria-invalid={error === "invalid"}
@@ -154,7 +182,15 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
                 onChange={() => error && setError(null)}
               />
               <p id="guide-capture-error" className={s.error} aria-live="polite">
-                {error ? ERRORS[error] : null}
+                {error && (
+                  <>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 7.5v5.5M12 16.5h.01" />
+                    </svg>
+                    <span>{ERRORS[error]}</span>
+                  </>
+                )}
               </p>
             </div>
             {/* Honeypot: hidden from people and assistive tech; bots fill it. */}
@@ -169,7 +205,10 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
             <input type="hidden" name="referrer" value={referrer} />
             <button type="submit" className={`${shared.btn} ${s.submit}`} disabled={pending}>
               {pending ? (
-                "Sending…"
+                <>
+                  <span className={s.spin} aria-hidden="true" />
+                  Sending…
+                </>
               ) : (
                 <>
                   {CTA_LABEL}
@@ -177,6 +216,7 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
                 </>
               )}
             </button>
+            <p className={s.fine}>Opens right away. We&rsquo;ll email you a copy too.</p>
           </form>
         </div>
       </dialog>
