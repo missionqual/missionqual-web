@@ -1,63 +1,84 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import s from "@/src/components/auth/auth.module.css";
+import { CtaButton } from "@/src/components/landing/CtaButton";
 import { createClient } from "@/src/lib/supabase/server";
 import { ProfileForm, type Profile } from "./profile-form";
 
-export const metadata: Metadata = { title: "Your account" };
+export const metadata: Metadata = { title: "Your profile", robots: { index: false, follow: false } };
 
-export default function AccountPage() {
+export default function AccountPage(props: PageProps<"/account">) {
   return (
-    <main className="mx-auto w-full max-w-md px-4 py-12">
-      <h1 className="mb-6 text-2xl font-bold">Your account</h1>
+    <div className={s.page}>
       {/* The session is read at request time, so it streams in behind Suspense. */}
-      <Suspense fallback={<p>Loading your profile…</p>}>
-        <Account />
+      <Suspense fallback={<div style={{ minHeight: "70vh" }} />}>
+        <Account searchParams={props.searchParams} />
       </Suspense>
-      <form action="/logout" method="post" className="mt-8">
-        <button type="submit" className="border px-3 py-1">Sign out</button>
-      </form>
-    </main>
+    </div>
   );
 }
 
-async function Account() {
+async function Account({ searchParams }: { searchParams: PageProps<"/account">["searchParams"] }) {
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
   const claims = claimsData?.claims;
-  if (!claims) redirect("/login");
+  if (!claims) redirect("/login?next=/account");
+  const welcome = (await searchParams).welcome === "1";
 
   const { data: row, error } = await supabase
     .from("profiles")
-    .select(
-      "display_name, job_title, industry, years_experience, certifications, disciplines, career_intent, location",
-    )
+    .select("display_name, job_title, dc_status, years_experience, certifications, disciplines, location, came_from, about, email_on_reply")
     .eq("id", claims.sub)
     .maybeSingle();
 
   if (error) {
-    return <p role="alert" className="text-red-600">Couldn’t load your profile: {error.message}</p>;
+    return (
+      <div className={s.card}>
+        <p role="alert" className={s.error}>
+          Couldn&rsquo;t load your profile. Refresh to try again.
+        </p>
+      </div>
+    );
   }
 
   // No row yet (e.g. signed up with email confirmation on): seed from signup metadata.
   const profile: Profile = row ?? {
     display_name: (claims.user_metadata?.display_name as string | undefined) ?? null,
     job_title: null,
-    industry: null,
+    dc_status: null,
     years_experience: null,
     certifications: null,
     disciplines: null,
-    career_intent: null,
     location: null,
+    came_from: null,
+    about: null,
+    email_on_reply: true,
   };
 
   return (
     <>
-      <p className="mb-6 text-sm text-gray-600">Signed in as {claims.email}</p>
-      {!row && (
-        <p className="mb-4 text-sm">You haven’t saved a profile yet. Fill it in below.</p>
+      {welcome && (
+        <div className={s.welcome}>
+          <p>You&rsquo;re in. Finish your profile so the right people see your questions.</p>
+          <CtaButton href="/community" size="sm" arrow>
+            Go to the community
+          </CtaButton>
+        </div>
       )}
-      <ProfileForm profile={profile} />
+      <div className={`${s.card} ${s.wide}`}>
+        <h1 className={s.title}>Your profile</h1>
+        <p className={s.intro}>Signed in as {claims.email}</p>
+        <ProfileForm profile={profile} />
+      </div>
+      <div className={s.signout}>
+        <span>Done for now?</span>
+        <form action="/logout" method="post">
+          <button type="submit" className="cursor-pointer font-semibold text-[var(--teal-dark)]">
+            Sign out
+          </button>
+        </form>
+      </div>
     </>
   );
 }

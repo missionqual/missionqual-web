@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/src/lib/supabase/server";
+import { safeNext } from "@/src/lib/community/format";
 import { getSiteUrl } from "@/src/lib/site-url";
 
 export type AuthFormState = { error?: string; message?: string };
@@ -18,7 +19,7 @@ export async function loginWithPassword(
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: error.message };
 
-  redirect("/account");
+  redirect(safeNext(formData.get("next"), "/account"));
 }
 
 export async function sendMagicLink(
@@ -28,11 +29,12 @@ export async function sendMagicLink(
   const email = String(formData.get("email") ?? "").trim();
   if (!email) return { error: "Email is required." };
 
+  const next = safeNext(formData.get("next"), "/account");
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${await getSiteUrl()}/auth/confirm?next=/account`,
+      emailRedirectTo: `${await getSiteUrl()}/auth/confirm?next=${encodeURIComponent(next)}`,
       // Don't create accounts from the login page; use /signup for that.
       shouldCreateUser: false,
     },

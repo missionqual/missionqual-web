@@ -1,53 +1,79 @@
 "use client";
 
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
-import {
-  loginWithPassword,
-  sendMagicLink,
-  type AuthFormState,
-} from "./actions";
+import s from "@/src/components/auth/auth.module.css";
+import shared from "@/src/components/landing/shared.module.css";
+import { safeNext } from "@/src/lib/community/format";
+import { loginWithPassword, sendMagicLink, type AuthFormState } from "./actions";
 
 const initialState: AuthFormState = {};
 
 export function LoginForms() {
-  const [pwState, pwAction, pwPending] = useActionState(
-    loginWithPassword,
-    initialState,
-  );
-  const [mlState, mlAction, mlPending] = useActionState(
-    sendMagicLink,
-    initialState,
-  );
+  const searchParams = useSearchParams();
+  const next = safeNext(searchParams.get("next"), "/account");
+  const [pwState, pwAction, pwPending] = useActionState(loginWithPassword, initialState);
+  const [mlState, mlAction, mlPending] = useActionState(sendMagicLink, initialState);
 
   return (
-    <div className="flex flex-col gap-8">
-      <form action={pwAction} className="flex flex-col gap-3">
-        <label className="flex flex-col gap-1">
-          Email
-          <input name="email" type="email" required autoComplete="email" className="border px-2 py-1" />
-        </label>
-        <label className="flex flex-col gap-1">
-          Password
-          <input name="password" type="password" required autoComplete="current-password" className="border px-2 py-1" />
-        </label>
-        {pwState.error && <p role="alert" className="text-red-600">{pwState.error}</p>}
-        <button type="submit" disabled={pwPending} className="border px-3 py-1">
+    <>
+      <form action={pwAction} className={s.form}>
+        <input type="hidden" name="next" value={next} />
+        <div>
+          <label className={s.label} htmlFor="login-email">
+            Email
+          </label>
+          <input id="login-email" className={s.input} name="email" type="email" required autoComplete="email" inputMode="email" placeholder="you@email.com" />
+        </div>
+        <div>
+          <label className={s.label} htmlFor="login-password">
+            Password
+          </label>
+          <input id="login-password" className={s.input} name="password" type="password" required autoComplete="current-password" />
+        </div>
+        {pwState.error && (
+          <p role="alert" className={s.error}>
+            {pwState.error}
+          </p>
+        )}
+        <button type="submit" disabled={pwPending} className={`${shared.btn} ${s.submit}`}>
           {pwPending ? "Signing in…" : "Sign in"}
         </button>
       </form>
 
-      <form action={mlAction} className="flex flex-col gap-3">
-        <p className="text-sm text-gray-600">Or get a one-time sign-in link by email:</p>
-        <label className="flex flex-col gap-1">
-          Email
-          <input name="email" type="email" required autoComplete="email" className="border px-2 py-1" />
-        </label>
-        {mlState.error && <p role="alert" className="text-red-600">{mlState.error}</p>}
-        {mlState.message && <p role="status" className="text-green-700">{mlState.message}</p>}
-        <button type="submit" disabled={mlPending} className="border px-3 py-1">
-          {mlPending ? "Sending…" : "Email me a magic link"}
+      <p className={s.divider}>or get a one-time sign-in link</p>
+      <form action={mlAction} className={s.form} style={{ marginTop: 16 }}>
+        <input type="hidden" name="next" value={next} />
+        <div>
+          <label className={s.label} htmlFor="magic-email">
+            Email
+          </label>
+          <input id="magic-email" className={s.input} name="email" type="email" required autoComplete="email" inputMode="email" placeholder="you@email.com" />
+        </div>
+        {mlState.error && (
+          <p role="alert" className={s.error}>
+            {mlState.error}
+          </p>
+        )}
+        {mlState.message && (
+          <p role="status" className={s.status}>
+            {mlState.message}
+          </p>
+        )}
+        <button type="submit" disabled={mlPending} className={`${shared.btn} ${s.submit}`}>
+          {mlPending ? "Sending…" : "Email me a sign-in link"}
         </button>
       </form>
-    </div>
+    </>
+  );
+}
+
+/** "No account?" link that keeps ?next= so new members land back where they were. */
+export function SignupLink() {
+  const searchParams = useSearchParams();
+  const next = safeNext(searchParams.get("next"), "");
+  return (
+    <Link href={next ? `/signup?next=${encodeURIComponent(next)}` : "/signup"}>Join the community</Link>
   );
 }

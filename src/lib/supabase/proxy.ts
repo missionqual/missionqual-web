@@ -1,8 +1,16 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-// Routes that require a signed-in user.
-const PROTECTED_PREFIXES = ["/account"];
+// Routes that require a signed-in user. /community itself and /community/rules stay public.
+const PROTECTED_PREFIXES = [
+  "/account",
+  "/community/questions",
+  "/community/ask",
+  "/community/jobs",
+  "/community/sessions",
+  "/community/members",
+  "/community/moderation",
+];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -40,8 +48,11 @@ export async function updateSession(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (!user && PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) {
     const url = request.nextUrl.clone();
+    // Come back to the original page after signing in.
+    const next = pathname + request.nextUrl.search;
     url.pathname = "/login";
     url.search = "";
+    url.searchParams.set("next", next);
     const redirect = NextResponse.redirect(url);
     // Carry over any refreshed/cleared auth cookies.
     supabaseResponse.cookies
