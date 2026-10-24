@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { CTA_LABEL } from "@/src/components/landing/CtaButton";
 import { ArrowRight } from "@/src/components/landing/icons";
 import s from "@/src/components/landing/shared.module.css";
@@ -57,9 +57,29 @@ export function GuideTextButton({ className = "", children }: { className?: stri
   );
 }
 
-/** Header "Get the guide" button; hidden on the thank-you page, where the reader already has it. */
-export function HeaderGuideCta(props: Parameters<typeof GuideCta>[0]) {
+/**
+ * Header "Get the guide" button. Hidden on the thank-you page, where the reader
+ * already has it, and (for signed-in members) anywhere under /community.
+ */
+export function HeaderGuideCta({
+  hideOnCommunity = false,
+  ...props
+}: Parameters<typeof GuideCta>[0] & { hideOnCommunity?: boolean }) {
+  // usePathname() must sit behind Suspense on dynamic routes; the shell shows the button.
+  return (
+    <Suspense fallback={<GuideCta {...props} />}>
+      <PathAwareGuideCta hideOnCommunity={hideOnCommunity} {...props} />
+    </Suspense>
+  );
+}
+
+function PathAwareGuideCta({
+  hideOnCommunity = false,
+  ...props
+}: Parameters<typeof GuideCta>[0] & { hideOnCommunity?: boolean }) {
   const pathname = usePathname();
   if (pathname === "/guide/thank-you") return null;
+  if (hideOnCommunity && (pathname === "/community" || pathname.startsWith("/community/"))) return null;
   return <GuideCta {...props} />;
 }
+

@@ -1,11 +1,11 @@
-import Link from "next/link";
 import { HeaderGuideCta } from "@/src/components/guide/GuideCta";
 import { Wordmark } from "@/src/components/landing/Wordmark";
 import shared from "@/src/components/landing/shared.module.css";
-import { AccountLink } from "./AccountLink";
+import { AccountLink, GuideSlot } from "./AccountLink";
 import s from "./Header.module.css";
 import { MobileMenu } from "./MobileMenu";
 import { NAV_LINKS } from "./nav-links";
+import { NavLink } from "./NavLink";
 
 export function Header() {
   return (
@@ -18,29 +18,47 @@ export function Header() {
             <ul>
               {NAV_LINKS.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className={s.panelLink}>
+                  <NavLink href={l.href} className={s.panelLink} activeClassName={s.on}>
                     {l.label}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
           </nav>
-          <AccountLink className={`${s.panelLink} ${s.panelSignin}`} />
-          <HeaderGuideCta className={s.panelBtn} arrow={false}>
-            Get the guide
-          </HeaderGuideCta>
+          <div className={s.panelAccount}>
+            <AccountLink className={`${s.panelLink} ${s.panelSignin}`} variant="avatar" />
+          </div>
+          <GuideSlot
+            member={
+              <HeaderGuideCta className={s.panelBtn} arrow={false} hideOnCommunity>
+                Get the guide
+              </HeaderGuideCta>
+            }
+          >
+            <HeaderGuideCta className={s.panelBtn} arrow={false}>
+              Get the guide
+            </HeaderGuideCta>
+          </GuideSlot>
         </MobileMenu>
 
         <nav className={s.navLinks} aria-label="Main">
           {NAV_LINKS.map((l) => (
-            <Link key={l.href} href={l.href}>
+            <NavLink key={l.href} href={l.href} activeClassName={s.on}>
               {l.label}
-            </Link>
+            </NavLink>
           ))}
-          <AccountLink className={s.signin} />
-          <HeaderGuideCta size="sm" className={s.headerBtn}>
-            Get the guide
-          </HeaderGuideCta>
+          <AccountLink className={s.signin} variant="avatar" />
+          <GuideSlot
+            member={
+              <HeaderGuideCta size="sm" className={s.headerBtn} hideOnCommunity>
+                Get the guide
+              </HeaderGuideCta>
+            }
+          >
+            <HeaderGuideCta size="sm" className={s.headerBtn}>
+              Get the guide
+            </HeaderGuideCta>
+          </GuideSlot>
         </nav>
       </div>
     </header>

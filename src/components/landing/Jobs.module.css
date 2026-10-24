@@ -61,6 +61,10 @@
 .fit b {
   font-weight: 600;
 }
+.membersLink {
+  color: var(--teal-dark);
+  font-weight: 600;
+}
 @media (min-width: 1024px) {
   /* Desktop: title left, link right, same line. */
   .head {

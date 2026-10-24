@@ -48,11 +48,24 @@
 .panelLink:hover {
   color: #fff;
 }
+.panelLink.on {
+  color: #fff;
+  font-weight: 600;
+}
+/* Sign in, or the member's avatar + name (and Moderation for moderators). */
+.panelAccount {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 0.25rem;
+}
 .panelSignin {
   color: #fff;
   font-weight: 600;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  margin-top: 0.25rem;
+}
+/* Initials avatar + first name, linking to /account. */
+.me {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 .panel .panelBtn {
   width: 100%;
@@ -87,6 +100,10 @@
   }
   .navLinks a:hover {
     color: #fff;
+  }
+  .navLinks a.on {
+    color: #fff;
+    font-weight: 600;
   }
   /* Plain text, not a second button (DESIGN_SPEC rule 7). */
   .navLinks a.signin {

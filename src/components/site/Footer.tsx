@@ -18,6 +18,7 @@ const EXPLORE = [
 const LEGAL = [
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
+  { href: "/community/rules", label: "Community rules" },
 ];
 
 // Cached so the clock read is allowed in the prerendered shell.

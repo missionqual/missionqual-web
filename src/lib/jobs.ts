@@ -1,6 +1,7 @@
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
 import { cacheLife } from "next/cache";
+import type { Database } from "./supabase/database.types";
 
 export type Job = {
   id: string;
@@ -8,21 +9,22 @@ export type Job = {
   company: string | null;
   location: string | null;
   state: string | null;
-  url: string;
+  url: string | null;
   /** Why an industrial background may fit this role. */
   context: string | null;
   posted_at: string | null;
 };
 
 /**
- * Newest active jobs. Public data, so this uses a cookie-less client and is
- * cached rather than read per request. Returns [] on error.
+ * Newest active jobs the public can see. Anonymous client, so RLS only returns
+ * jobs added 7+ days ago (members see new ones first). Cached rather than read
+ * per request. Returns [] on error.
  */
 export async function getLatestJobs(limit: number): Promise<Job[]> {
   "use cache";
   cacheLife("hours");
 
-  const supabase = createClient(
+  const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     { auth: { persistSession: false } },

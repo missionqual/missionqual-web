@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -10,6 +11,7 @@ import {
   useState,
   useTransition,
   type FormEvent,
+  type RefObject,
   type ReactNode,
 } from "react";
 import { submitGuideEmail } from "@/app/guide/actions";
@@ -35,11 +37,31 @@ const ERRORS = {
   server: "Something went wrong. Try again.",
 } as const;
 
+/** Effects that run on every navigation. */
+function RouteEffects({ open, dialogRef }: { open: OpenGuide; dialogRef: RefObject<HTMLDialogElement | null> }) {
+  const pathname = usePathname();
+
+  // ?guide=1 (the /guide redirect, the thank-you gate) opens the modal on arrival.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("guide") !== "1") return;
+    url.searchParams.delete("guide");
+    window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
+    open(null);
+  }, [pathname, open]);
+
+  // Close before leaving for the thank-you page so scroll is unlocked there.
+  useEffect(() => {
+    if (pathname === "/guide/thank-you" && dialogRef.current?.open) dialogRef.current.close();
+  }, [pathname, dialogRef]);
+
+  return null;
+}
+
 export function GuideCaptureProvider({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
-  const pathname = usePathname();
   const [error, setError] = useState<keyof typeof ERRORS | null>(null);
   const [referrer, setReferrer] = useState("");
   const [pending, startTransition] = useTransition();
@@ -63,15 +85,6 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
     if (trigger?.isConnected) trigger.focus();
   };
 
-  // ?guide=1 (the /guide redirect, the thank-you gate) opens the modal on arrival.
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    if (url.searchParams.get("guide") !== "1") return;
-    url.searchParams.delete("guide");
-    window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
-    open(null);
-  }, [pathname, open]);
-
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -93,14 +106,13 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  // Close before leaving for the thank-you page so scroll is unlocked there.
-  useEffect(() => {
-    if (pathname === "/guide/thank-you" && dialogRef.current?.open) dialogRef.current.close();
-  }, [pathname]);
-
   return (
     <GuideCaptureContext value={open}>
       {children}
+      {/* usePathname() must sit behind Suspense on dynamic routes ([id] pages). */}
+      <Suspense fallback={null}>
+        <RouteEffects open={open} dialogRef={dialogRef} />
+      </Suspense>
       <dialog
         ref={dialogRef}
         className={s.dialog}
