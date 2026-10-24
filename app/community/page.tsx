@@ -1,26 +1,35 @@
-import { GuideCta } from "@/src/components/guide/GuideCta";
-import { Container } from "@/src/components/site/Container";
+import { Suspense } from "react";
+import { CommunityNav } from "@/src/components/community/CommunityNav";
+import { JoinPage } from "@/src/components/community/JoinPage";
+import { MemberHome } from "@/src/components/community/MemberHome";
+import { getViewer } from "@/src/lib/community/viewer";
 import { pageMetadata } from "@/src/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Community",
+  title: "The MissionQual Community",
   description:
-    "The MissionQual Community is opening soon for Transition Guide readers: oil and gas professionals moving into data center construction.",
+    "A private community for oil and gas inspectors, QA/QC and trades moving into data center construction. Straight answers from people who made the move.",
   path: "/community",
 });
 
-export default function CommunityPage() {
+/** Join page when signed out, member home when signed in. The session is read at request time. */
+async function Community({ searchParams }: { searchParams: PageProps<"/community">["searchParams"] }) {
+  const viewer = await getViewer();
+  if (!viewer) return <JoinPage />;
+  const sp = await searchParams;
+  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
   return (
-    <section className="bg-paper">
-      <Container className="flex flex-col items-start gap-6 py-24">
-        <h1 className="font-heading text-[clamp(28px,3.4vw,42px)] font-extrabold leading-[1.1] text-navy font-stretch-125%">
-          The MissionQual Community
-        </h1>
-        <p className="text-[19px] leading-[1.6] text-body">
-          Opening soon for Transition Guide readers.
-        </p>
-        <GuideCta />
-      </Container>
-    </section>
+    <>
+      <CommunityNav current="questions" />
+      <MemberHome viewer={viewer} search={{ topic: one(sp.topic), sort: one(sp.sort), page: one(sp.page) }} />
+    </>
+  );
+}
+
+export default function CommunityPage(props: PageProps<"/community">) {
+  return (
+    <Suspense fallback={<div style={{ minHeight: "70vh" }} />}>
+      <Community searchParams={props.searchParams} />
+    </Suspense>
   );
 }

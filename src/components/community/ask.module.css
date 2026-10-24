@@ -1,0 +1,61 @@
+/* /community/ask — design/community/ask.html */
+div.asklay {
+  grid-template-columns: minmax(0, 760px) 360px;
+  justify-content: space-between;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.fieldset legend {
+  padding: 0;
+}
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.details {
+  min-height: 200px !important;
+}
+.tips {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+.tips li {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.tips li b {
+  color: var(--ink);
+}
+.acts3 {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.jobCard {
+  margin-bottom: 16px;
+}
+@media (max-width: 1023px) {
+  div.asklay {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .acts3 {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .acts3 > * {
+    width: 100%;
+    min-height: 50px;
+  }
+}
