@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import { Suspense } from "react";
 import s from "@/src/components/auth/auth.module.css";
 import { CtaButton } from "@/src/components/landing/CtaButton";
+import { syncCommunityMember } from "@/src/lib/community/sync";
 import { createClient } from "@/src/lib/supabase/server";
 import { ProfileForm, type Profile } from "./profile-form";
 
@@ -28,7 +30,9 @@ async function Account({ searchParams }: { searchParams: PageProps<"/account">["
 
   const { data: row, error } = await supabase
     .from("profiles")
-    .select("display_name, job_title, dc_status, years_experience, certifications, disciplines, location, came_from, about, email_on_reply")
+    .select(
+      "display_name, job_title, dc_status, years_experience, certifications, disciplines, location, came_from, about, email_on_reply, mailerlite_synced",
+    )
     .eq("id", claims.sub)
     .maybeSingle();
 
@@ -40,6 +44,17 @@ async function Account({ searchParams }: { searchParams: PageProps<"/account">["
         </p>
       </div>
     );
+  }
+
+  // Retry a MailerLite community sync that failed at signup or confirm. after()
+  // can't read cookies here, so it gets plain values captured during the request.
+  if (row && !row.mailerlite_synced && claims.email) {
+    const target = {
+      userId: claims.sub,
+      email: claims.email,
+      name: row.display_name ?? (claims.user_metadata?.display_name as string | undefined) ?? "",
+    };
+    after(() => syncCommunityMember(target));
   }
 
   // No row yet (e.g. signed up with email confirmation on): seed from signup metadata.

@@ -1,9 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import type { AuthFormState } from "@/app/login/actions";
 import { safeNext } from "@/src/lib/community/format";
-import { syncCommunityMember } from "@/src/lib/community/sync";
+import { pendingCommunitySync, syncCommunityMember } from "@/src/lib/community/sync";
 import { createClient } from "@/src/lib/supabase/server";
 import { getSiteUrl } from "@/src/lib/site-url";
 
@@ -37,7 +38,8 @@ export async function signup(
     await supabase
       .from("profiles")
       .upsert({ id: data.session.user.id, display_name: displayName });
-    await syncCommunityMember();
+    const target = await pendingCommunitySync();
+    if (target) after(() => syncCommunityMember(target));
     redirect(next);
   }
 

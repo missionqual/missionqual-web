@@ -1,7 +1,7 @@
 import { type EmailOtpType } from "@supabase/supabase-js";
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
 import { safeNext } from "@/src/lib/community/format";
-import { syncCommunityMember } from "@/src/lib/community/sync";
+import { pendingCommunitySync, syncCommunityMember } from "@/src/lib/community/sync";
 import { createClient } from "@/src/lib/supabase/server";
 
 // Landing route for links in Supabase auth emails (signup confirmation and
@@ -25,8 +25,10 @@ export async function GET(request: NextRequest) {
   }
 
   if (!error) {
-    // First confirmed session: join the MailerLite community list (no-op once synced).
-    await syncCommunityMember();
+    // First confirmed session: join the MailerLite community list after the
+    // redirect is sent (no-op once synced).
+    const target = await pendingCommunitySync();
+    if (target) after(() => syncCommunityMember(target));
     return NextResponse.redirect(new URL(next, origin));
   }
 
