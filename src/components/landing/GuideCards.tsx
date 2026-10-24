@@ -26,7 +26,7 @@ export function GuideCards() {
           <span className={shared.accent}>year zero</span>
         </h2>
         <p className={shared.lede}>
-          Three things you need before you apply — in plain field language. All in the free guide:
+          Three things you need before you apply — in plain field language. All in the guide:
         </p>
         <div className={s.cards}>
           {CARDS.map((card, i) => (

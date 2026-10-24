@@ -13,7 +13,7 @@ import { pageMetadata } from "@/src/lib/seo";
 
 const TITLE = "MissionQual — From Oil & Gas to Data Center Construction";
 const DESCRIPTION =
-  "A free guide for API inspectors, CWIs, QA/QC and trades: the roles to target, the skills that transfer, and where the data center jobs are.";
+  "A guide for API inspectors, CWIs, QA/QC and trades: the roles to target, the skills that transfer, and where the data center jobs are.";
 
 const base = pageMetadata({ title: TITLE, description: DESCRIPTION, path: "/" });
 

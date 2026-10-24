@@ -18,7 +18,7 @@ export type Job = {
 /**
  * Newest active jobs the public can see. Anonymous client, so RLS only returns
  * jobs added 7+ days ago (members see new ones first). Cached rather than read
- * per request. Returns [] on error.
+ * per request. Throws on error, so a failed fetch is never cached.
  */
 export async function getLatestJobs(limit: number): Promise<Job[]> {
   "use cache";
@@ -35,11 +35,9 @@ export async function getLatestJobs(limit: number): Promise<Job[]> {
     .select("id, title, company, location, state, url, context, posted_at")
     .eq("active", true)
     .order("posted_at", { ascending: false, nullsFirst: false })
+    .order("created_at", { ascending: false })
     .limit(limit);
 
-  if (error) {
-    console.error("Failed to load jobs:", error.message);
-    return [];
-  }
+  if (error) throw new Error(error.message);
   return data;
 }

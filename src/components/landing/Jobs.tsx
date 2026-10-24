@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getLatestJobs } from "@/src/lib/jobs";
+import { getLatestJobs, type Job } from "@/src/lib/jobs";
 import { ArrowRight } from "./icons";
 import { JobCard } from "./JobCard";
 import s from "./Jobs.module.css";
@@ -8,14 +8,20 @@ import shared from "./shared.module.css";
 // The heading says "Recent" on purpose; only say "this week" if it truly updates weekly.
 export async function Jobs() {
   // Anonymous query: RLS only returns jobs added 7+ days ago (members see them first).
-  const jobs = await getLatestJobs(3);
+  let jobs: Job[] = [];
+  try {
+    jobs = await getLatestJobs(3);
+  } catch (err) {
+    // Same as "no public jobs yet": show the members-first line.
+    console.warn("Jobs unavailable:", err instanceof Error ? err.message : String(err));
+  }
 
   return (
     <section className={`${s.jobs} ${shared.section}`} id="jobs">
       <div className={`${shared.wrap} ${s.inner}`}>
         <div className={s.head}>
           <h2 className={`${shared.h2} ${s.h2}`}>Recent data center jobs</h2>
-          <Link href="/jobs" className={shared.linkArrow}>
+          <Link href="/community/jobs" className={shared.linkArrow}>
             See all jobs <ArrowRight width={14} height={11} />
           </Link>
         </div>
