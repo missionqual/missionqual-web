@@ -34,16 +34,16 @@ export async function Jobs() {
           </>
         )}
         {/* Visitors see the join box in the static shell; members get a plain link. */}
-        <Suspense fallback={<JoinBox hasJobs={jobs.length > 0} />}>
-          <AllJobs hasJobs={jobs.length > 0} />
+        <Suspense fallback={<JoinBox />}>
+          <AllJobs />
         </Suspense>
       </div>
     </section>
   );
 }
 
-async function AllJobs({ hasJobs }: { hasJobs: boolean }) {
-  if (!(await getViewer())) return <JoinBox hasJobs={hasJobs} />;
+async function AllJobs() {
+  if (!(await getViewer())) return <JoinBox />;
   return (
     <Link href={ALL_JOBS} className={`${shared.linkArrow} ${s.allLink}`}>
       See all jobs <ArrowRight width={14} height={11} />
@@ -52,12 +52,12 @@ async function AllJobs({ hasJobs }: { hasJobs: boolean }) {
 }
 
 /** Says the full list is for members before anyone clicks through to it. */
-function JoinBox({ hasJobs }: { hasJobs: boolean }) {
+function JoinBox() {
   const back = encodeURIComponent(ALL_JOBS);
   return (
     <div className={s.join}>
       <div className={s.joinText}>
-        <h3>{hasJobs ? "Want to see all the jobs?" : "See the jobs we've picked"}</h3>
+        <h3>Want to see all the jobs?</h3>
         <p>The full list is for community members, along with the Q&amp;A and live sessions.</p>
       </div>
       <div className={s.joinActs}>
