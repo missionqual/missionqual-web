@@ -13,7 +13,7 @@ const FEATURES = [
   },
   {
     title: "Jobs This Week",
-    text: "Hand-picked QA/QC, inspection, commissioning and trade openings, each with a note on why an oil and gas background fits. Members see them first.",
+    text: "Hand-picked QA/QC, inspection, commissioning and trade openings, each with a note on why an oil and gas background fits. Visitors see three. Members see them all.",
   },
   {
     title: "Live sessions",

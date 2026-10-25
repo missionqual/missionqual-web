@@ -28,7 +28,7 @@ async function Jobs({ searchParams }: { searchParams: PageProps<"/community/jobs
   const role = typeof sp.role === "string" && sp.role in JOB_CATEGORIES ? (sp.role as JobCategory) : "";
   const supabase = await createClient();
 
-  // Members see every active job (RLS); the public sees them a week later.
+  // Members see every active job (RLS); visitors see only the 3 newest, on the homepage.
   const { data: all } = await supabase
     .from("jobs")
     .select("id, title, company, location, state, url, context, posted_at, category, created_at")

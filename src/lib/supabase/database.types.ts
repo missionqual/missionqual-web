@@ -627,7 +627,7 @@ export type Database = {
       }
     }
     Functions: {
-      [_ in never]: never
+      active_job_count: { Args: Record<string, never>; Returns: number }
     }
     Enums: {
       [_ in never]: never

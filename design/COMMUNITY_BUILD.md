@@ -40,7 +40,7 @@ The design files are plain HTML/CSS with placeholder people and numbers. Port th
 - `post_votes`, `comment_votes`: the "helpful" toggles.
 - `reports`: members can insert, nothing else.
 - `moderators (user_id)`: a member can read their own row, so `isModerator()` = "does my row exist".
-- `jobs`: plus `category` (`qa_qc`, `commissioning`, `turnover_docs`, `trades`) and `created_at`. Signed-out visitors only see jobs added 7+ days ago. Members see all active jobs. This is the "members see jobs first" rule. The homepage jobs section already uses an anonymous client, so it follows the rule automatically. Real jobs are already loaded, so for the first 7 days the anonymous query returns nothing: when it does, the homepage jobs section must not render an empty grid. Show one line instead, "New openings go to members first. Join the community to see this week's jobs.", with a link to `/community`. On job cards, `context` already reads as the fit line and sometimes ends with the pay (for example "Pays $60–70/hr plus OT."). Show it as is.
+- `jobs`: plus `category` (`qa_qc`, `commissioning`, `turnover_docs`, `trades`) and `created_at`. Signed-out visitors see only the 3 newest active jobs (RLS policy "public reads the 3 newest jobs"); members see every active job. `public.active_job_count()` (anon RPC) returns the total so the homepage can say "You're seeing 3 of N jobs." On job cards, `context` already reads as the fit line and sometimes ends with the pay (for example "Pays $60–70/hr plus OT."). Show it as is.
 - `live_sessions`, `live_session_rsvps`.
 - View `post_feed`: posts plus author name, title and `dc_status`, plus `answer_count` and `helpful_count`. Use it for every list of questions.
 
