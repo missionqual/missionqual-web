@@ -268,6 +268,17 @@
   margin-bottom: 16px;
 }
 
+/* One-time confirmation, e.g. after a password reset. */
+.notice {
+  margin: 0 0 20px;
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--teal-ink);
+  font-weight: 600;
+}
+
 /* ---------- Chips, tags, meta, selects ---------- */
 .chips {
   display: flex;
@@ -766,12 +777,25 @@ textarea.inp {
   .desk {
     display: none !important;
   }
+  /* Member home topics: one row that scrolls, fading out at the right edge.
+     The end padding lets the last chip scroll clear of the fade. */
   .chipsScroll {
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
     min-width: 0;
     max-width: 100%;
+    padding-right: 40px;
+    scroll-padding-inline: 16px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+  }
+  .chipsScroll::-webkit-scrollbar {
+    display: none;
+  }
+  .chipsScroll > .chip {
+    flex: none;
+    white-space: nowrap;
   }
   .sess {
     gap: 14px;

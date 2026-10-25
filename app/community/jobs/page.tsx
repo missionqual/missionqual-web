@@ -61,7 +61,7 @@ async function Jobs({ searchParams }: { searchParams: PageProps<"/community/jobs
         )}
       </div>
 
-      <div className={`${s.chips} ${s.chipsScroll}`} style={{ marginBottom: 24 }}>
+      <div className={s.chips} style={{ marginBottom: 24 }}>
         <Link className={`${s.chip} ${!role ? s.chipOn : ""}`} href={href("", state)} aria-current={!role || undefined}>
           All roles
         </Link>

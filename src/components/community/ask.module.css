@@ -23,7 +23,7 @@ div.asklay {
   gap: 8px;
 }
 .details {
-  min-height: 200px !important;
+  min-height: 120px !important;
 }
 .tips {
   margin: 6px 0 0;

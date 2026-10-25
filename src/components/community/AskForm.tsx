@@ -45,7 +45,7 @@ export function AskForm({ defaultTitle = "", defaultTopic, jobId }: { defaultTit
       </fieldset>
       <div>
         <label className={s.lab} htmlFor="ask-body">
-          Details
+          Details (optional)
         </label>
         <textarea id="ask-body" className={`${s.inp} ${a.details}`} name="body" maxLength={BODY_MAX} aria-describedby="ask-body-help" />
         <p id="ask-body-help" className={s.help}>

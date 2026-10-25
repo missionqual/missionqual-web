@@ -91,7 +91,7 @@ async function Members({ searchParams }: { searchParams: PageProps<"/community/m
         />
       </div>
 
-      <div className={`${s.chips} ${s.chipsScroll}`} style={{ marginBottom: 24 }}>
+      <div className={s.chips} style={{ marginBottom: 24 }}>
         {[["", "Everyone"], ...Object.entries(DC_STATUS)].map(([value, label]) => (
           <Link
             key={value}

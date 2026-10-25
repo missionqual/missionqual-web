@@ -4,9 +4,11 @@ import { ASKABLE_TOPICS, FEED_PAGE_SIZE, TOPICS, isTopic } from "@/src/lib/commu
 import { firstName, profileCompleteness, sessionTime } from "@/src/lib/community/format";
 import { requestTime, type Viewer } from "@/src/lib/community/viewer";
 import { createClient } from "@/src/lib/supabase/server";
+import { ChipScroller } from "./ChipScroller";
 import { DateBlock, FEED_COLUMNS, QuestionCard, type FeedPost } from "./bits";
 import s from "./community.module.css";
 import { FilterSelect } from "./FilterSelect";
+import { Notice } from "./Notice";
 import { PlusIcon } from "./icons";
 import { RsvpButton } from "./RsvpButton";
 
@@ -98,6 +100,7 @@ export async function MemberHome({ viewer, search }: { viewer: Viewer; search: S
 
   return (
     <div className={`${shared.wrap} ${s.page}`}>
+      <Notice />
       <div className={s.layout}>
         <div>
           <div className={s.ph}>
@@ -114,7 +117,7 @@ export async function MemberHome({ viewer, search }: { viewer: Viewer; search: S
             </Link>
           </div>
 
-          <div className={`${s.chips} ${s.chipsScroll}`} style={{ marginBottom: 16 }}>
+          <ChipScroller style={{ marginBottom: 16 }}>
             <Link className={`${s.chip} ${!topic ? s.chipOn : ""}`} href={feedHref({ sort })} aria-current={!topic || undefined}>
               All
             </Link>
@@ -128,7 +131,7 @@ export async function MemberHome({ viewer, search }: { viewer: Viewer; search: S
                 {TOPICS[t]}
               </Link>
             ))}
-          </div>
+          </ChipScroller>
 
           <div className={s.toolbar}>
             <span className={s.meta}>
