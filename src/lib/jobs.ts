@@ -16,9 +16,10 @@ export type Job = {
 };
 
 /**
- * Newest active jobs the public can see. Anonymous client, so RLS only returns
- * jobs added 7+ days ago (members see new ones first). Cached rather than read
- * per request. Throws on error, so a failed fetch is never cached.
+ * Newest active jobs for the homepage sample. Anonymous client, so it needs the
+ * public read policy on jobs (members see the full list in the community).
+ * Cached rather than read per request. Throws on error, so a failed fetch is
+ * never cached.
  */
 export async function getLatestJobs(limit: number): Promise<Job[]> {
   "use cache";

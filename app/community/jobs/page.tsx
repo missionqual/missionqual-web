@@ -47,7 +47,7 @@ async function Jobs({ searchParams }: { searchParams: PageProps<"/community/jobs
           <h1>Jobs This Week</h1>
           <p>
             {jobs.length ? `${countWord(jobs.length)} ${jobs.length === 1 ? "opening" : "openings"}` : "Openings"} picked
-            for oil and gas backgrounds. Members see them first; they go on the public jobs page next week.
+            for oil and gas backgrounds.
           </p>
         </div>
         {states.length > 0 && (
