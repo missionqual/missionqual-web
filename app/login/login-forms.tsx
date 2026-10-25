@@ -6,7 +6,7 @@ import { useActionState } from "react";
 import s from "@/src/components/auth/auth.module.css";
 import shared from "@/src/components/landing/shared.module.css";
 import { safeNext } from "@/src/lib/community/format";
-import { loginWithPassword, sendMagicLink, type AuthFormState } from "./actions";
+import { loginWithPassword, resendConfirmation, type AuthFormState } from "./actions";
 
 const initialState: AuthFormState = {};
 
@@ -14,7 +14,6 @@ export function LoginForms() {
   const searchParams = useSearchParams();
   const next = safeNext(searchParams.get("next"), "/account");
   const [pwState, pwAction, pwPending] = useActionState(loginWithPassword, initialState);
-  const [mlState, mlAction, mlPending] = useActionState(sendMagicLink, initialState);
 
   return (
     <>
@@ -31,6 +30,9 @@ export function LoginForms() {
             Password
           </label>
           <input id="login-password" className={s.input} name="password" type="password" required autoComplete="current-password" />
+          <p className={s.forgot}>
+            <Link href="/forgot-password">Forgot password?</Link>
+          </p>
         </div>
         {pwState.error && (
           <p role="alert" className={s.error}>
@@ -42,30 +44,30 @@ export function LoginForms() {
         </button>
       </form>
 
-      <p className={s.divider}>or get a one-time sign-in link</p>
-      <form action={mlAction} className={s.form} style={{ marginTop: 16 }}>
-        <input type="hidden" name="next" value={next} />
-        <div>
-          <label className={s.label} htmlFor="magic-email">
-            Email
-          </label>
-          <input id="magic-email" className={s.input} name="email" type="email" required autoComplete="email" inputMode="email" placeholder="you@email.com" />
-        </div>
-        {mlState.error && (
-          <p role="alert" className={s.error}>
-            {mlState.error}
-          </p>
-        )}
-        {mlState.message && (
-          <p role="status" className={s.status}>
-            {mlState.message}
-          </p>
-        )}
-        <button type="submit" disabled={mlPending} className={`${shared.btn} ${s.submit}`}>
-          {mlPending ? "Sending…" : "Email me a sign-in link"}
-        </button>
-      </form>
+      {pwState.unconfirmedEmail && <Unconfirmed key={pwState.unconfirmedEmail} email={pwState.unconfirmedEmail} />}
     </>
+  );
+}
+
+/** Sign-in failed because the address isn't confirmed yet: offer a fresh link. */
+function Unconfirmed({ email }: { email: string }) {
+  const [state, action, pending] = useActionState(resendConfirmation, initialState);
+  return (
+    <form action={action} className={s.notice}>
+      <input type="hidden" name="email" value={email} />
+      <p role="alert">
+        Confirm your email first. We sent a link to <b>{email}</b>. Check your spam folder too.
+      </p>
+      <button type="submit" disabled={pending} className={`${shared.btn} ${s.submit}`}>
+        {pending ? "Sending…" : "Resend the link"}
+      </button>
+      {state.error && <p className={s.error}>{state.error}</p>}
+      {state.message && (
+        <p role="status" className={s.status}>
+          {state.message}
+        </p>
+      )}
+    </form>
   );
 }
 

@@ -100,20 +100,33 @@ textarea.input {
   color: var(--teal-dark);
   font-weight: 600;
 }
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 28px 0 0;
-  color: var(--ink-faint);
-  font-size: 0.85rem;
+.forgot {
+  margin: 8px 0 0;
+  text-align: right;
+  font-size: 0.9rem;
 }
-.divider::before,
-.divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--line);
+.forgot a {
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+/* Unconfirmed sign-in: the message and its resend button. */
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 8px;
+  padding: 18px;
+}
+.notice > p:first-of-type {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.notice b {
+  overflow-wrap: anywhere;
 }
 .foot {
   max-width: 460px;
