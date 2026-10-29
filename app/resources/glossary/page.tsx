@@ -9,7 +9,7 @@ import { pageMetadata, SITE_NAME, SITE_URL } from "@/src/lib/seo";
 
 const PATH = "/resources/glossary";
 const TITLE = "Data center terms, matched to oil and gas";
-const DESCRIPTION = "Every term you'll hear on site, next to the word you already use for it.";
+const DESCRIPTION = "Common data center terms, explained in familiar field language.";
 
 export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
