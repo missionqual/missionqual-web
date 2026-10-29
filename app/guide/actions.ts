@@ -2,11 +2,12 @@
 
 import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
+import { checkEmailDomain } from "@/src/lib/email-domain";
+import { emailDomain, GUIDE_COOKIE, isDisposableEmail, isValidEmail } from "@/src/lib/guide";
 import { addToGroup } from "@/src/lib/mailerlite";
 import { createAdminClient } from "@/src/lib/supabase/admin";
-import { GUIDE_COOKIE, isValidEmail } from "@/src/lib/guide";
 
-export type GuideSubmitResult = { error: "invalid" | "server" };
+export type GuideSubmitResult = { error: "invalid" | "disposable" | "domain" | "server" };
 
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
@@ -29,6 +30,9 @@ export async function submitGuideEmail(formData: FormData): Promise<GuideSubmitR
 
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   if (!isValidEmail(email)) return { error: "invalid" };
+  if (isDisposableEmail(email)) return { error: "disposable" };
+  // Only a clear "no such domain" rejects; DNS errors and timeouts let the signup through.
+  if ((await checkEmailDomain(emailDomain(email))) === "missing") return { error: "domain" };
 
   const rawReferrer = String(formData.get("referrer") ?? "");
   const referrer = rawReferrer.startsWith("/") ? rawReferrer.slice(0, 512) : null;

@@ -18,7 +18,7 @@ import { submitGuideEmail } from "@/app/guide/actions";
 import { CTA_LABEL } from "@/src/components/landing/CtaButton";
 import { ArrowRight } from "@/src/components/landing/icons";
 import shared from "@/src/components/landing/shared.module.css";
-import { isValidEmail } from "@/src/lib/guide";
+import { isValidEmail, suggestEmail } from "@/src/lib/guide";
 import s from "./GuideCaptureModal.module.css";
 
 type OpenGuide = (trigger?: HTMLElement | null) => void;
@@ -37,6 +37,8 @@ export function useGuideCapture() {
 
 const ERRORS = {
   invalid: "Enter your full email address, like name@gmail.com.",
+  disposable: "Use an email you check. We'll send the guide there too.",
+  domain: "That email domain doesn't look right. Check the spelling.",
   server: "Something went wrong. Try again.",
 } as const;
 
@@ -68,6 +70,10 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
   /** Path the modal opened on; after a redirect away (thank-you) we must not go back. */
   const openPathRef = useRef<string | null>(null);
   const [error, setError] = useState<keyof typeof ERRORS | null>(null);
+  /** "Did you mean name@gmail.com?" for a close miss of a common domain. */
+  const [suggestion, setSuggestion] = useState<string | null>(null);
+  /** The address a suggestion was already offered for; submitting it again goes through. */
+  const offeredForRef = useRef<string | null>(null);
   const [referrer, setReferrer] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -76,6 +82,8 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
     if (!dialog || dialog.open) return;
     triggerRef.current = trigger ?? (document.activeElement as HTMLElement | null);
     setError(null);
+    setSuggestion(null);
+    offeredForRef.current = null;
     setReferrer(window.location.pathname);
     dialog.showModal();
     document.documentElement.style.overflow = "hidden";
@@ -119,7 +127,16 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
       inputRef.current?.focus();
       return;
     }
+    // A likely typo: offer the fix once. Submitting the same address again sends it as typed.
+    const fix = suggestEmail(email);
+    if (fix && offeredForRef.current !== email) {
+      offeredForRef.current = email;
+      setSuggestion(fix);
+      inputRef.current?.focus();
+      return;
+    }
     setError(null);
+    setSuggestion(null);
     startTransition(async () => {
       try {
         // Redirects to /guide/thank-you on success; only returns on failure.
@@ -129,6 +146,21 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
         setError("server");
       }
     });
+  };
+
+  const offerFix = (value: string) => {
+    const email = value.trim().toLowerCase();
+    const fix = isValidEmail(email) ? suggestEmail(email) : null;
+    if (fix) offeredForRef.current = email;
+    setSuggestion(fix);
+  };
+
+  const applyFix = () => {
+    if (!suggestion || !inputRef.current) return;
+    inputRef.current.value = suggestion;
+    setSuggestion(null);
+    setError(null);
+    inputRef.current.focus();
   };
 
   return (
@@ -177,9 +209,14 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
                 readOnly={pending}
                 required
                 placeholder="you@email.com"
-                aria-invalid={error === "invalid"}
-                aria-describedby="guide-capture-error"
-                onChange={() => error && setError(null)}
+                aria-invalid={error !== null && error !== "server"}
+                aria-describedby="guide-capture-error guide-capture-suggestion"
+                onChange={() => {
+                  if (error) setError(null);
+                  if (suggestion) setSuggestion(null);
+                  offeredForRef.current = null;
+                }}
+                onBlur={(e) => offerFix(e.target.value)}
               />
               <p id="guide-capture-error" className={s.error} aria-live="polite">
                 {error && (
@@ -190,6 +227,13 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
                     </svg>
                     <span>{ERRORS[error]}</span>
                   </>
+                )}
+              </p>
+              <p id="guide-capture-suggestion" className={s.suggest} aria-live="polite">
+                {suggestion && (
+                  <button type="button" onClick={applyFix}>
+                    Did you mean <b>{suggestion}</b>?
+                  </button>
                 )}
               </p>
             </div>
@@ -216,7 +260,6 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
                 </>
               )}
             </button>
-            <p className={s.fine}>Opens right away. We&rsquo;ll email you a copy too.</p>
           </form>
         </div>
       </dialog>

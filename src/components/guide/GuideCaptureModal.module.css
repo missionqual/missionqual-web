@@ -134,12 +134,36 @@
     transform: rotate(360deg);
   }
 }
-.fine {
-  margin: 2px 0 0;
-  text-align: center;
-  color: var(--ink-faint);
-  font-size: 0.86rem;
+/* "Did you mean name@gmail.com?": a button that fills the field in. */
+.suggest {
+  margin: 0;
+}
+.suggest:not(:empty) {
+  margin-top: 10px;
+}
+.suggest button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.92rem;
   line-height: 1.4;
+  color: var(--ink-soft);
+  text-align: left;
+  cursor: pointer;
+}
+.suggest b {
+  font-weight: 600;
+  color: var(--teal-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.suggest button:hover b {
+  color: var(--teal-ink);
+}
+.suggest button:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
