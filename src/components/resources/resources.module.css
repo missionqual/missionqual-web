@@ -40,20 +40,36 @@
   font-size: 1rem;
   max-width: 38rem;
 }
-/* Topic pills: wrap onto as many lines as needed, never scroll sideways. */
+/* Topic pills: wrap onto as many lines as needed, never scroll sideways.
+   Sized so "Getting hired" never ends up alone on the last line: the smaller
+   pills fit two rows of three on phones (360px+) and one row from 661px. */
 .pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin-top: 10px;
 }
 .pills a {
   color: var(--dark-link);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  padding: 0.4rem 0.95rem;
+  padding: 0.45rem 0.7rem;
+}
+@media (min-width: 540px) and (max-width: 660px), (min-width: 1024px) {
+  .pills {
+    gap: 8px;
+  }
+  .pills a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.95rem;
+  }
+}
+@media (min-width: 600px) and (max-width: 660px) {
+  .pills a {
+    padding-inline: 1.15rem;
+  }
 }
 .pills a:hover {
   border-color: var(--teal);
