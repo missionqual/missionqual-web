@@ -20,7 +20,7 @@ export default function RulesPage() {
         <div>
           <p className={s.kicker}>The MissionQual community</p>
           <h1>Community rules</h1>
-          <p>Four rules keep it useful. Break them and you&rsquo;re off the job.</p>
+          <p>Four rules keep it useful.</p>
         </div>
       </div>
       <div className={s.card}>

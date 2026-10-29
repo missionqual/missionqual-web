@@ -158,7 +158,7 @@ export function JoinPage() {
             <h2 className={s.h2}>
               Run like a good <em>site.</em>
             </h2>
-            <p className={s.lede}>Four rules keep it useful. Break them and you&rsquo;re off the job.</p>
+            <p className={s.lede}>Four rules keep it useful.</p>
           </div>
           <ul className={s.rl}>
             {HOUSE_RULES.map((r) => (
