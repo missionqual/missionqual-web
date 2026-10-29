@@ -103,7 +103,7 @@ export function JoinPage() {
           <div className={s.copy}>
             <p className={`${c.kicker} ${s.kickerDark}`}>The MissionQual community</p>
             <h1>
-              Ask the people <em>already on site.</em>
+              Connect with professionals who <em>understand the move.</em>
             </h1>
             <p className={s.sub2}>
               A private community for oil and gas inspectors, QA/QC and trades moving into data center
@@ -144,7 +144,7 @@ export function JoinPage() {
         <div className={shared.wrap}>
           <p className={c.kicker}>How it works</p>
           <h2 className={s.h2}>
-            In and asking in <em>five minutes.</em>
+            Join in <em>three simple steps.</em>
           </h2>
           <div className={s.steps}>
             {STEPS.map((step, i) => (

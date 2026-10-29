@@ -1,7 +1,7 @@
 // Resources topics, in pill order. Plain data, so client components can use it too.
 export const TOPICS = [
   { key: "money", label: "The money" },
-  { key: "boom", label: "The sites and the boom" },
+  { key: "boom", label: "Projects & Locations" },
   { key: "site", label: "Life on site" },
   { key: "equipment", label: "The equipment" },
   { key: "hired", label: "Getting hired" },

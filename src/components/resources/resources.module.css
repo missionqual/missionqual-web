@@ -42,7 +42,7 @@
 }
 /* Topic pills: wrap onto as many lines as needed, never scroll sideways.
    Sized so "Getting hired" never ends up alone on the last line: the smaller
-   pills fit two rows of three on phones (360px+) and one row from 661px. */
+   pills fit two rows of three on phones (360px+) and one row from 644px. */
 .pills {
   display: flex;
   flex-wrap: wrap;
@@ -57,7 +57,7 @@
   border-radius: 999px;
   padding: 0.45rem 0.7rem;
 }
-@media (min-width: 540px) and (max-width: 660px), (min-width: 1024px) {
+@media (min-width: 536px) and (max-width: 643px), (min-width: 1024px) {
   .pills {
     gap: 8px;
   }
@@ -66,7 +66,7 @@
     padding: 0.4rem 0.95rem;
   }
 }
-@media (min-width: 600px) and (max-width: 660px) {
+@media (min-width: 620px) and (max-width: 643px) {
   .pills a {
     padding-inline: 1.15rem;
   }
