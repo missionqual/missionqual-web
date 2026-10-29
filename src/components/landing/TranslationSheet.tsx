@@ -27,7 +27,7 @@ export function TranslationSheet() {
           {/* Opens the guide pop-up (the full sheet is in the guide) instead of scrolling. */}
           <GuideTextButton
             className={`${shared.linkArrow} ${s.sheetLink}`}
-            options={{ heading: "Where should we send the full Translation Sheet?", source: "translation-sheet" }}
+            options={{ heading: "The full sheet is in the Transition Guide. Where should we send it?", source: "translation-sheet" }}
           >
             Get the full sheet <ArrowRight width={14} height={11} />
           </GuideTextButton>
