@@ -5,7 +5,7 @@ import { Suspense, type ReactNode } from "react";
 import { CTA_LABEL } from "@/src/components/landing/CtaButton";
 import { ArrowRight } from "@/src/components/landing/icons";
 import s from "@/src/components/landing/shared.module.css";
-import { useGuideCapture } from "./GuideCaptureProvider";
+import { useGuideCapture, type GuideOptions } from "./GuideCaptureProvider";
 
 /**
  * CtaButton's look (DESIGN_SPEC rule 1) as a <button> that opens the guide
@@ -42,14 +42,23 @@ export function GuideCta({
   );
 }
 
-/** Plain-text trigger for sitemap-style link lists (the footer). */
-export function GuideTextButton({ className = "", children }: { className?: string; children: ReactNode }) {
+/** Plain-text trigger for link lists and text links (the footer, the Translation Sheet). */
+export function GuideTextButton({
+  className = "",
+  options,
+  children,
+}: {
+  className?: string;
+  /** A heading and source for this opening, e.g. the Translation Sheet's. */
+  options?: GuideOptions;
+  children: ReactNode;
+}) {
   const openGuide = useGuideCapture();
   return (
     <button
       type="button"
       aria-haspopup="dialog"
-      onClick={(e) => openGuide(e.currentTarget)}
+      onClick={(e) => openGuide(e.currentTarget, options)}
       className={className}
     >
       {children}

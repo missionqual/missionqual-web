@@ -10,7 +10,8 @@
   flex-direction: column;
   gap: 16px;
 }
-.copy > a {
+.copy > a,
+.copy > button {
   margin-top: 4px;
 }
 .sheet {
@@ -81,4 +82,14 @@
     font-size: 0.97rem;
     padding: 1rem 1.4rem;
   }
+}
+
+/* "Get the full sheet": a <button> that looks like the shared text link. */
+.sheetLink {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
 }

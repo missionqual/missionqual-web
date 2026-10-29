@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { GuideTextButton } from "@/src/components/guide/GuideCta";
 import { ArrowRight } from "./icons";
 import shared from "./shared.module.css";
 import s from "./TranslationSheet.module.css";
@@ -24,9 +24,13 @@ export function TranslationSheet() {
             of them here — the full sheet in the guide covers inspection, welding, piping,
             commissioning and turnover.
           </p>
-          <Link href="#guide" className={shared.linkArrow}>
-            See the full sheet <ArrowRight width={14} height={11} />
-          </Link>
+          {/* Opens the guide pop-up (the full sheet is in the guide) instead of scrolling. */}
+          <GuideTextButton
+            className={`${shared.linkArrow} ${s.sheetLink}`}
+            options={{ heading: "Where should we send the full Translation Sheet?", source: "translation-sheet" }}
+          >
+            Get the full sheet <ArrowRight width={14} height={11} />
+          </GuideTextButton>
         </div>
         <div className={s.sheet}>
           <table>

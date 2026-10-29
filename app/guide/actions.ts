@@ -3,7 +3,7 @@
 import { cookies, headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { checkEmailDomain } from "@/src/lib/email-domain";
-import { emailDomain, GUIDE_COOKIE, isDisposableEmail, isValidEmail } from "@/src/lib/guide";
+import { emailDomain, GUIDE_COOKIE, guideSource, isDisposableEmail, isValidEmail } from "@/src/lib/guide";
 import { addToGroup } from "@/src/lib/mailerlite";
 import { createAdminClient } from "@/src/lib/supabase/admin";
 
@@ -43,7 +43,8 @@ export async function submitGuideEmail(formData: FormData): Promise<GuideSubmitR
   const { error } = await supabase.from("guide_leads").upsert(
     {
       email,
-      source: "modal",
+      // Only known values; anything else is stored as "modal".
+      source: guideSource(formData.get("source")),
       referrer,
       user_agent: userAgent,
       updated_at: new Date().toISOString(),

@@ -18,10 +18,19 @@ import { submitGuideEmail } from "@/app/guide/actions";
 import { CTA_LABEL } from "@/src/components/landing/CtaButton";
 import { ArrowRight } from "@/src/components/landing/icons";
 import shared from "@/src/components/landing/shared.module.css";
-import { isValidEmail, suggestEmail } from "@/src/lib/guide";
+import { isValidEmail, suggestEmail, type GuideSource } from "@/src/lib/guide";
 import s from "./GuideCaptureModal.module.css";
 
-type OpenGuide = (trigger?: HTMLElement | null) => void;
+export type GuideOptions = {
+  /** Replaces "Where should we send your guide?" for this opening only. */
+  heading?: string;
+  /** Stored in guide_leads.source; "modal" when not given. */
+  source?: GuideSource;
+};
+
+type OpenGuide = (trigger?: HTMLElement | null, options?: GuideOptions) => void;
+
+const DEFAULT_HEADING = "Where should we send your guide?";
 
 const GuideCaptureContext = createContext<OpenGuide | null>(null);
 
@@ -76,8 +85,10 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
   const offeredForRef = useRef<string | null>(null);
   const [referrer, setReferrer] = useState("");
   const [pending, startTransition] = useTransition();
+  const [heading, setHeading] = useState(DEFAULT_HEADING);
+  const [source, setSource] = useState<GuideSource>("modal");
 
-  const open = useCallback<OpenGuide>((trigger) => {
+  const open = useCallback<OpenGuide>((trigger, options) => {
     const dialog = dialogRef.current;
     if (!dialog || dialog.open) return;
     triggerRef.current = trigger ?? (document.activeElement as HTMLElement | null);
@@ -85,6 +96,8 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
     setSuggestion(null);
     offeredForRef.current = null;
     setReferrer(window.location.pathname);
+    setHeading(options?.heading ?? DEFAULT_HEADING);
+    setSource(options?.source ?? "modal");
     dialog.showModal();
     document.documentElement.style.overflow = "hidden";
     // Same tap as the click, so phones raise the keyboard with the card above it.
@@ -108,6 +121,9 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
   // Fires for Esc, the X, a backdrop click and the redirect after submit.
   const onClose = () => {
     document.documentElement.style.overflow = "";
+    // Back to the default for whatever opens the pop-up next.
+    setHeading(DEFAULT_HEADING);
+    setSource("modal");
     // Closed with Esc, X or backdrop: drop our history entry. Skipped after the
     // back button (already popped) and after the redirect to /guide/thank-you.
     const openPath = openPathRef.current;
@@ -192,7 +208,7 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
           {/* noValidate: show our inline error instead of the browser bubble. */}
           <form className={s.form} onSubmit={onSubmit} noValidate>
             <label id="guide-capture-label" htmlFor="guide-capture-email" className={s.label}>
-              Where should we send your guide?
+              {heading}
             </label>
             <div className={s.field}>
               <input
@@ -247,6 +263,7 @@ export function GuideCaptureProvider({ children }: { children: ReactNode }) {
               aria-hidden="true"
             />
             <input type="hidden" name="referrer" value={referrer} />
+            <input type="hidden" name="source" value={source} />
             <button type="submit" className={`${shared.btn} ${s.submit}`} disabled={pending}>
               {pending ? (
                 <>

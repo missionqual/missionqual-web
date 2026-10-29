@@ -3,6 +3,14 @@ export const GUIDE_COOKIE = "mq_guide";
 
 export const GUIDE_PDF = "/downloads/missionqual-transition-guide.pdf";
 
+/** Where a guide signup came from, stored in guide_leads.source. */
+export const GUIDE_SOURCES = ["modal", "translation-sheet"] as const;
+export type GuideSource = (typeof GUIDE_SOURCES)[number];
+
+export function guideSource(value: unknown): GuideSource {
+  return GUIDE_SOURCES.find((x) => x === value) ?? "modal";
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Shared by the modal (inline error) and the server action. */
