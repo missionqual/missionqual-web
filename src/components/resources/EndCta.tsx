@@ -102,7 +102,7 @@ async function PayCta({ path }: { path: string }) {
     <section className={a.end} aria-labelledby="h-end">
       <h2 id="h-end">{END_CTA_HEADINGS.pay}</h2>
       <MembersOnly
-        heading="Members see every posting with pay, ranges by state, and can post an offer for a check."
+        heading="Members see every posting with pay, and the ranges by state."
         text={null}
         path={path}
         lock={false}
