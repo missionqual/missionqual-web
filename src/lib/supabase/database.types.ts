@@ -191,6 +191,10 @@ export type Database = {
           created_at: string
           id: string
           location: string | null
+          pay_max: number | null
+          pay_min: number | null
+          pay_unit: string | null
+          per_diem_day: number | null
           posted_at: string | null
           state: string | null
           title: string
@@ -205,6 +209,10 @@ export type Database = {
           created_at?: string
           id?: string
           location?: string | null
+          pay_max?: number | null
+          pay_min?: number | null
+          pay_unit?: string | null
+          per_diem_day?: number | null
           posted_at?: string | null
           state?: string | null
           title: string
@@ -219,6 +227,10 @@ export type Database = {
           created_at?: string
           id?: string
           location?: string | null
+          pay_max?: number | null
+          pay_min?: number | null
+          pay_unit?: string | null
+          per_diem_day?: number | null
           posted_at?: string | null
           state?: string | null
           title?: string
@@ -511,6 +523,54 @@ export type Database = {
         }
         Relationships: []
       }
+      projects: {
+        Row: {
+          active: boolean
+          city: string | null
+          created_at: string
+          id: string
+          name: string
+          owner: string | null
+          size: string | null
+          source_name: string | null
+          source_url: string | null
+          state: string
+          status: string
+          timeline: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          city?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          owner?: string | null
+          size?: string | null
+          source_name?: string | null
+          source_url?: string | null
+          state: string
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          city?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          owner?: string | null
+          size?: string | null
+          source_name?: string | null
+          source_url?: string | null
+          state?: string
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       reports: {
         Row: {
           comment_id: string | null
@@ -629,6 +689,10 @@ export type Database = {
     Functions: {
       active_job_count: { Args: Record<string, never>; Returns: number }
       active_job_counts_by_state: { Args: Record<string, never>; Returns: { state: string; jobs: number }[] }
+      job_pay_summary: {
+        Args: never
+        Returns: { category: string; pay_unit: string; postings: number; low: number; high: number }[]
+      }
     }
     Enums: {
       [_ in never]: never

@@ -309,3 +309,16 @@
     padding: 1.1rem 1.2rem;
   }
 }
+
+/* Tool pages: the intro line under the title. */
+.heroSub {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 1rem;
+  max-width: 40rem;
+}
+@media (min-width: 1024px) {
+  .heroSub {
+    font-size: 1.1rem;
+  }
+}

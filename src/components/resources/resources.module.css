@@ -40,20 +40,14 @@
   font-size: 1rem;
   max-width: 38rem;
 }
-/* Jump links: one scrolling row on phones, wrapping on desktop. */
+/* Jump links: wrap onto as many lines as needed, never scroll sideways. */
 .jump {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  margin: 10px -1.25rem 0;
-  padding-inline: 1.25rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.jump::-webkit-scrollbar {
-  display: none;
+  margin-top: 10px;
 }
 .jump a {
-  flex: none;
   color: var(--dark-link);
   text-decoration: none;
   font-size: 0.9rem;
@@ -64,21 +58,6 @@
 .jump a:hover {
   border-color: var(--teal);
   color: #fff;
-}
-
-/* Nothing published yet: one line and the guide button under the hero. */
-.empty {
-  padding-block: 40px 72px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.25rem;
-}
-.empty p {
-  margin: 0;
-  font-size: 1.05rem;
-  color: var(--ink-soft);
-  max-width: 38rem;
 }
 
 /* ---------- Tools row, overlapping the hero ---------- */
@@ -145,9 +124,10 @@
 /* "Members get more" on tools where visitors see part and members see all. */
 .more {
   align-self: flex-start;
+  white-space: nowrap;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--teal-ink);
   background: var(--tint);
@@ -155,8 +135,10 @@
   border-radius: 999px;
   padding: 0.15rem 0.5rem;
 }
+/* Phones: the tag drops under the icon when the card is too narrow for both. */
 .toolTop {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
@@ -222,7 +204,7 @@
   text-decoration: none;
   color: inherit;
 }
-.card:hover,
+a.card:hover,
 .tool:hover {
   border-color: var(--teal);
 }
@@ -242,6 +224,21 @@
 }
 .card .go {
   font-size: 0.92rem;
+}
+/* Planned, not published: same card, muted, and not a link. */
+.cardSoon {
+  background: var(--card);
+  border-style: dashed;
+}
+.cardSoon h3 {
+  color: var(--ink-soft);
+}
+.soon {
+  color: var(--ink-soft);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 0 0.35rem;
 }
 .cardTool {
   background: var(--tint);
@@ -386,15 +383,6 @@
   .sub {
     font-size: 1.1rem;
   }
-  .jump {
-    flex-wrap: wrap;
-    overflow: visible;
-    margin-inline: 0;
-    padding-inline: 0;
-  }
-  .empty {
-    padding-block: 56px 96px;
-  }
   .tools {
     margin-top: -40px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -409,6 +397,10 @@
   }
   .tool p {
     display: block;
+  }
+  .more {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
   }
   .sec {
     padding-block: 56px 8px;

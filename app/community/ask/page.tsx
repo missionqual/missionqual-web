@@ -18,7 +18,12 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 async function Ask({ searchParams }: { searchParams: PageProps<"/community/ask">["searchParams"] }) {
   const sp = await searchParams;
   const jobParam = typeof sp.job === "string" && UUID_RE.test(sp.job) ? sp.job : null;
-  await requireViewer(jobParam ? `/community/ask?job=${jobParam}` : "/community/ask");
+  // ?title=: a prefilled title from Resources. A trailing space stays, so "Interview question: " reads as a prompt.
+  const titleParam = typeof sp.title === "string" ? sp.title.trimStart().slice(0, TITLE_MAX) : "";
+  const back = new URLSearchParams();
+  if (jobParam) back.set("job", jobParam);
+  if (titleParam) back.set("title", titleParam);
+  await requireViewer(back.size ? `/community/ask?${back}` : "/community/ask");
 
   // ?job=<id>: "About this job: {title}, {location}" under Getting hired.
   let job: { id: string; title: string; company: string | null; location: string | null } | null = null;
@@ -29,7 +34,7 @@ async function Ask({ searchParams }: { searchParams: PageProps<"/community/ask">
   }
   const defaultTitle = job
     ? `About this job: ${[job.title, job.location].filter(Boolean).join(", ")}`.slice(0, TITLE_MAX)
-    : "";
+    : titleParam;
 
   return (
     <div className={`${shared.wrap} ${s.page}`}>

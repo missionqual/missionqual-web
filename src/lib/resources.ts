@@ -26,12 +26,10 @@ export type Tool = {
   label: string;
   title: string;
   blurb: string;
-  /** Off until the tool page ships; a tool that isn't live shows nowhere. */
+  /** Off hides the tool everywhere: the tools row and its section card. */
   live: boolean;
   /** "Members get more" tag: visitors see part of it, members see all. */
   membersMore: boolean;
-  /** Also listed as a card inside this section, with a shorter blurb. */
-  inSection?: { section: SectionKey; blurb: string };
 };
 
 export const TOOLS: Tool[] = [
@@ -41,7 +39,7 @@ export const TOOLS: Tool[] = [
     label: "Glossary",
     title: "Data center terms, matched to oil and gas",
     blurb: "Every term you'll hear on site, next to the word you already use for it.",
-    live: false,
+    live: true,
     membersMore: false,
   },
   {
@@ -49,10 +47,9 @@ export const TOOLS: Tool[] = [
     href: "/resources/interview-questions",
     label: "Interview prep",
     title: "Interview questions",
-    blurb: "Real questions for QA/QC, commissioning and trade roles, and how to answer them.",
-    live: false,
+    blurb: "Questions you're likely to get for QA/QC, commissioning and turnover roles, and how to answer them.",
+    live: true,
     membersMore: true,
-    inSection: { section: "hired", blurb: "Real questions for QA/QC, commissioning and trade roles." },
   },
   {
     key: "projects",
@@ -60,9 +57,8 @@ export const TOOLS: Tool[] = [
     label: "Map",
     title: "Projects by state",
     blurb: "Major campuses under construction, and the jobs we've posted near them.",
-    live: false,
+    live: true,
     membersMore: true,
-    inSection: { section: "boom", blurb: "Major campuses under construction, and the jobs near them." },
   },
   {
     key: "pay",
@@ -70,7 +66,7 @@ export const TOOLS: Tool[] = [
     label: "Live data",
     title: "Pay from real postings",
     blurb: "Rates, per diem and overtime from the jobs we post. Updated as we post.",
-    live: false,
+    live: true,
     membersMore: true,
   },
 ];
@@ -128,11 +124,6 @@ export async function getPublishedArticles(): Promise<Article[]> {
 
 export async function getArticle(slug: string): Promise<Article | null> {
   return (await getArticles()).find((a) => a.slug === slug) ?? null;
-}
-
-/** Whether /resources has anything to show; otherwise it's hidden from the nav and noindexed. */
-export async function hasResources(): Promise<boolean> {
-  return (await getArticles()).length > 0 || liveTools().length > 0;
 }
 
 /** Plain text of a heading, turned into its anchor id. */

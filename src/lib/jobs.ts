@@ -65,7 +65,23 @@ export async function getJobCountsByState(): Promise<{ state: string; jobs: numb
   return data;
 }
 
-function anonClient() {
+export type PaySummary = { category: string; pay_unit: string; postings: number; low: number; high: number };
+
+/**
+ * Pay ranges per role category and unit, from every active job with pay, for
+ * visitors too (they can't read the job rows). Same cache rules as above.
+ */
+export async function getPaySummary(): Promise<PaySummary[]> {
+  "use cache";
+  cacheLife("hours");
+
+  const { data, error } = await anonClient().rpc("job_pay_summary");
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+/** Signed-out Supabase client: cacheable, and RLS applies as for any visitor. */
+export function anonClient() {
   return createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

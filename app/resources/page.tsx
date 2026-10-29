@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PLANNED, type PlannedItem } from "@/content/resources/planned";
 import { GuideCta } from "@/src/components/guide/GuideCta";
 import { ArrowRight } from "@/src/components/landing/icons";
 import shared from "@/src/components/landing/shared.module.css";
@@ -7,7 +8,7 @@ import { ArticleCard } from "@/src/components/resources/ArticleCard";
 import { CommunityBox } from "@/src/components/resources/CommunityBox";
 import { ToolIcon } from "@/src/components/resources/icons";
 import s from "@/src/components/resources/resources.module.css";
-import { getArticles, hasResources, liveTools, SECTIONS, type Article, type Tool } from "@/src/lib/resources";
+import { getArticles, liveTools, SECTIONS, sectionLabel, type Tool } from "@/src/lib/resources";
 import { pageMetadata } from "@/src/lib/seo";
 
 // Ported from design/resources/resources.html.
@@ -16,32 +17,15 @@ const TITLE = "Data center work, explained by people doing it";
 const DESCRIPTION =
   "The pay, the sites, life on site and the equipment, in plain field language for people coming from oil and gas.";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const base = pageMetadata({ title: "Resources", description: DESCRIPTION, path: "/resources" });
-  // Nothing published yet: keep the placeholder page out of search.
-  return (await hasResources()) ? base : { ...base, robots: { index: false, follow: true } };
-}
+export const metadata: Metadata = pageMetadata({ title: "Resources", description: DESCRIPTION, path: "/resources" });
 
 export default async function ResourcesPage() {
-  const articles = await getArticles();
+  const articles = new Map((await getArticles()).map((x) => [x.slug, x]));
   const tools = liveTools();
   const sections = SECTIONS.map((sec) => ({
     ...sec,
-    articles: articles.filter((a) => a.section === sec.key),
-    tools: tools.filter((t) => t.inSection?.section === sec.key),
-  })).filter((sec) => sec.articles.length + sec.tools.length > 0);
-
-  if (!sections.length && !tools.length) {
-    return (
-      <>
-        <Hero />
-        <div className={`${shared.wrap} ${s.empty}`}>
-          <p>The first articles are on the way. Get the Transition Guide in the meantime.</p>
-          <GuideCta>Send me the transition guide</GuideCta>
-        </div>
-      </>
-    );
-  }
+    items: PLANNED.filter((x) => x.section === sec.key),
+  }));
 
   return (
     <>
@@ -71,21 +55,22 @@ export default async function ResourcesPage() {
             </div>
           </div>
           <div className={s.cards}>
-            {sec.articles.map((a: Article) => (
-              <ArticleCard key={a.slug} article={a} />
-            ))}
-            {sec.tools.map((t) => (
-              <SectionToolCard key={t.key} tool={t} />
-            ))}
+            {sec.items.map((item) => {
+              if (item.kind === "tool") {
+                const tool = tools.find((t) => t.key === item.tool);
+                return tool ? <SectionToolCard key={item.tool} tool={tool} item={item} /> : null;
+              }
+              const article = articles.get(item.slug);
+              return article ? (
+                <ArticleCard key={item.slug} article={article} />
+              ) : (
+                <ComingSoonCard key={item.slug} item={item} />
+              );
+            })}
           </div>
           {sec.key === "hired" && <GuideBand />}
         </section>
       ))}
-      {!sections.some((sec) => sec.key === "hired") && (
-        <div className={shared.wrap}>
-          <GuideBand />
-        </div>
-      )}
 
       <CommunityBox
         title="Have a question these don't answer?"
@@ -96,22 +81,20 @@ export default async function ResourcesPage() {
   );
 }
 
-function Hero({ jump = [] }: { jump?: { key: string; label: string }[] }) {
+function Hero({ jump }: { jump: { key: string; label: string }[] }) {
   return (
     <section className={s.hero}>
       <div className={`${shared.wrap} ${s.heroInner}`}>
         <p className={s.kick}>Resources</p>
         <h1>{TITLE}.</h1>
         <p className={s.sub}>{DESCRIPTION}</p>
-        {jump.length > 0 && (
-          <nav className={s.jump} aria-label="Sections">
-            {jump.map((sec) => (
-              <a key={sec.key} href={`#${sec.key}`}>
-                {sec.label}
-              </a>
-            ))}
-          </nav>
-        )}
+        <nav className={s.jump} aria-label="Sections">
+          {jump.map((sec) => (
+            <a key={sec.key} href={`#${sec.key}`}>
+              {sec.label}
+            </a>
+          ))}
+        </nav>
       </div>
     </section>
   );
@@ -136,7 +119,21 @@ function ToolCard({ tool }: { tool: Tool }) {
   );
 }
 
-function SectionToolCard({ tool }: { tool: Tool }) {
+/** A planned article that isn't published yet: same card, muted, not a link. */
+function ComingSoonCard({ item }: { item: Extract<PlannedItem, { kind: "article" }> }) {
+  return (
+    <div className={`${s.card} ${s.cardSoon}`}>
+      <div className={s.meta}>
+        <span className={s.tag}>{sectionLabel(item.section)}</span>
+        <span className={s.soon}>Coming soon</span>
+      </div>
+      <h3>{item.title}</h3>
+      <p>{item.description}</p>
+    </div>
+  );
+}
+
+function SectionToolCard({ tool, item }: { tool: Tool; item: Extract<PlannedItem, { kind: "tool" }> }) {
   return (
     <Link href={tool.href} className={`${s.card} ${s.cardTool}`}>
       <div className={s.meta}>
@@ -146,8 +143,8 @@ function SectionToolCard({ tool }: { tool: Tool }) {
       <span className={s.ic2}>
         <ToolIcon tool={tool.key} />
       </span>
-      <h3>{tool.title}</h3>
-      <p>{tool.inSection?.blurb ?? tool.blurb}</p>
+      <h3>{item.title}</h3>
+      <p>{item.description}</p>
       <span className={s.go}>
         Open <ArrowRight width={14} height={11} />
       </span>
