@@ -51,6 +51,20 @@ export async function getActiveJobCount(): Promise<number> {
   return data;
 }
 
+/**
+ * Open jobs per state, readable by visitors, so a page can say "4 open jobs
+ * near this site" without showing the jobs. Same cache rules as getLatestJobs:
+ * throws on error, so a failure is never cached.
+ */
+export async function getJobCountsByState(): Promise<{ state: string; jobs: number }[]> {
+  "use cache";
+  cacheLife("hours");
+
+  const { data, error } = await anonClient().rpc("active_job_counts_by_state");
+  if (error) throw new Error(error.message);
+  return data;
+}
+
 function anonClient() {
   return createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

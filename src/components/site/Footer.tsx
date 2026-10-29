@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GuideTextButton } from "@/src/components/guide/GuideCta";
 import { Wordmark } from "@/src/components/landing/Wordmark";
 import shared from "@/src/components/landing/shared.module.css";
+import { hasResources } from "@/src/lib/resources";
 import { AccountLink } from "./AccountLink";
 import s from "./Footer.module.css";
 
@@ -28,7 +29,8 @@ async function CurrentYear() {
   return <>{new Date().getFullYear()}</>;
 }
 
-export function Footer() {
+export async function Footer() {
+  const showResources = await hasResources();
   return (
     <footer className={s.footer}>
       <div className={`${shared.wrap} ${s.inner}`}>
@@ -45,7 +47,7 @@ export function Footer() {
                 EXPLORE
               </div>
               <GuideTextButton className={s.linkButton}>Transition Guide</GuideTextButton>
-              {EXPLORE.map((l) => (
+              {EXPLORE.filter((l) => showResources || l.href !== "/resources").map((l) => (
                 <Link key={l.href} href={l.href}>
                   {l.label}
                 </Link>

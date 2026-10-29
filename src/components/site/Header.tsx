@@ -1,13 +1,15 @@
 import { HeaderGuideCta } from "@/src/components/guide/GuideCta";
 import { Wordmark } from "@/src/components/landing/Wordmark";
 import shared from "@/src/components/landing/shared.module.css";
+import { hasResources } from "@/src/lib/resources";
 import { AccountLink, GuideSlot } from "./AccountLink";
 import s from "./Header.module.css";
 import { MobileMenu } from "./MobileMenu";
-import { NAV_LINKS } from "./nav-links";
+import { navLinks } from "./nav-links";
 import { NavLink } from "./NavLink";
 
-export function Header() {
+export async function Header() {
+  const links = navLinks(await hasResources());
   return (
     <header className={s.header}>
       <div className={`${shared.wrap} ${s.inner}`}>
@@ -16,7 +18,7 @@ export function Header() {
         <MobileMenu wrapperClassName={s.mobileOnly} buttonClassName={s.toggle} panelClassName={s.panel}>
           <nav aria-label="Main mobile">
             <ul>
-              {NAV_LINKS.map((l) => (
+              {links.map((l) => (
                 <li key={l.href}>
                   <NavLink href={l.href} className={s.panelLink} activeClassName={s.on}>
                     {l.label}
@@ -42,7 +44,7 @@ export function Header() {
         </MobileMenu>
 
         <nav className={s.navLinks} aria-label="Main">
-          {NAV_LINKS.map((l) => (
+          {links.map((l) => (
             <NavLink key={l.href} href={l.href} activeClassName={s.on}>
               {l.label}
             </NavLink>

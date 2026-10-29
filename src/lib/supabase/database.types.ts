@@ -628,6 +628,7 @@ export type Database = {
     }
     Functions: {
       active_job_count: { Args: Record<string, never>; Returns: number }
+      active_job_counts_by_state: { Args: Record<string, never>; Returns: { state: string; jobs: number }[] }
     }
     Enums: {
       [_ in never]: never

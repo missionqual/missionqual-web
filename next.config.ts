@@ -1,9 +1,14 @@
+import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   devIndicators: false,
+  // Articles in content/resources are imported as .mdx modules.
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  // src/lib/resources.ts lists the articles with fs, so ship the folder with every route.
+  outputFileTracingIncludes: { "/*": ["./content/resources/**/*"] },
   experimental: {
     agentUpgrade: "security",
   },
@@ -25,4 +30,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default createMDX()(nextConfig);

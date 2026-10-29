@@ -1,0 +1,451 @@
+/* /resources index and the pieces the article page reuses (cards, community
+   box), ported from design/resources/resources.html. Phone first; desktop at 1024px. */
+
+.kick {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--navy);
+  color: #fff;
+}
+.heroInner {
+  padding-block: 36px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hero .kick {
+  color: var(--teal);
+}
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  max-width: 46rem;
+  text-wrap: balance;
+}
+.sub {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 1rem;
+  max-width: 38rem;
+}
+/* Jump links: one scrolling row on phones, wrapping on desktop. */
+.jump {
+  display: flex;
+  gap: 8px;
+  margin: 10px -1.25rem 0;
+  padding-inline: 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.jump::-webkit-scrollbar {
+  display: none;
+}
+.jump a {
+  flex: none;
+  color: var(--dark-link);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+}
+.jump a:hover {
+  border-color: var(--teal);
+  color: #fff;
+}
+
+/* Nothing published yet: one line and the guide button under the hero. */
+.empty {
+  padding-block: 40px 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+.empty p {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  max-width: 38rem;
+}
+
+/* ---------- Tools row, overlapping the hero ---------- */
+.tools {
+  margin-top: -28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.tool {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 8px 20px rgba(20, 28, 51, 0.08);
+}
+.ic {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lab {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.tool h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: var(--navy);
+}
+.tool p {
+  display: none;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+.go {
+  margin-top: auto;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--teal-dark);
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+/* "Members get more" on tools where visitors see part and members see all. */
+.more {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-ink);
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+}
+.toolTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* ---------- Numbered sections ---------- */
+.sec {
+  padding-block: 40px 0;
+}
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 22px;
+  margin-bottom: 22px;
+  scroll-margin-top: 16px;
+}
+/* The first section sits right under the hero when no tools are live. */
+.secFirst .head {
+  border-top: 0;
+  padding-top: 0;
+}
+.headText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+}
+.head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+}
+.head p {
+  margin: 0;
+  color: var(--ink-soft);
+  max-width: 40rem;
+}
+
+/* ---------- Cards ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.4rem 1.4rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+}
+.card:hover,
+.tool:hover {
+  border-color: var(--teal);
+}
+.card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: var(--navy);
+}
+.card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+  flex-grow: 1;
+}
+.card .go {
+  font-size: 0.92rem;
+}
+.cardTool {
+  background: var(--tint);
+  border-color: #cfe9e5;
+}
+.ic2 {
+  color: var(--teal-dark);
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.tag {
+  color: var(--teal-dark);
+}
+.draft {
+  color: #8a6a12;
+  background: #fff6dc;
+  border: 1px dashed #d9b54a;
+  border-radius: 4px;
+  padding: 0 0.35rem;
+}
+
+/* ---------- Guide band (under "Getting hired") ---------- */
+.guideband {
+  margin-top: 20px;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 14px;
+  padding: 1.3rem 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: center;
+}
+.guideband h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+.guideband p {
+  margin: 0.35rem 0 0;
+  color: var(--dark-soft);
+  font-size: 0.95rem;
+  max-width: 40rem;
+}
+.guideband .btn {
+  width: 100%;
+  padding-inline: 1rem;
+  font-size: 1rem;
+}
+
+/* ---------- Community box ---------- */
+.ask {
+  margin-block: 40px 56px;
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 14px;
+  padding: 1.4rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.ask h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  color: var(--navy);
+}
+.ask p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+}
+.acts {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: none;
+}
+.btnO {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 50px;
+  padding: 0 1.25rem;
+  background: #fff;
+  border: 1.5px solid var(--navy);
+  border-radius: 8px;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none;
+}
+.btnO:hover {
+  background: var(--navy);
+  color: #fff;
+}
+.ask .si {
+  margin: 0.6rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.si a {
+  color: var(--teal-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+.si a:hover {
+  text-decoration: underline;
+}
+
+.jump a:focus-visible,
+.tool:focus-visible,
+.card:focus-visible,
+.btnO:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 3px;
+}
+.jump a:focus-visible {
+  outline-color: var(--teal);
+}
+
+@media (min-width: 1024px) {
+  .heroInner {
+    padding-block: 64px 72px;
+  }
+  .hero h1 {
+    font-size: 2.9rem;
+  }
+  .sub {
+    font-size: 1.1rem;
+  }
+  .jump {
+    flex-wrap: wrap;
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+  .empty {
+    padding-block: 56px 96px;
+  }
+  .tools {
+    margin-top: -40px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .tool {
+    padding: 1.3rem 1.25rem 1.15rem;
+    box-shadow: 0 14px 32px rgba(20, 28, 51, 0.1);
+  }
+  .tool h3 {
+    font-size: 1.12rem;
+  }
+  .tool p {
+    display: block;
+  }
+  .sec {
+    padding-block: 56px 8px;
+  }
+  .head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-top: 28px;
+  }
+  .head h2 {
+    font-size: 1.65rem;
+  }
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .guideband {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    padding: 1.6rem 1.8rem;
+  }
+  .guideband .btn {
+    width: auto;
+    padding-inline: 1.75rem;
+    font-size: 1.05rem;
+  }
+  .ask {
+    margin-block: 56px 72px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem 2.2rem;
+  }
+  .acts {
+    align-items: center;
+  }
+}
