@@ -1,0 +1,54 @@
+export const meta = {
+  title: "Data center commissioning levels, L1 to L5, explained for oil and gas people",
+  description:
+    "The five commissioning levels on a data center build, what happens at each, and the oil and gas step it matches, from FAT to the integrated systems test.",
+  section: "equipment",
+  readMinutes: 8,
+  author: { name: "Chidi Ajaezi", role: "Co-founder" },
+  publishedAt: "2026-10-28",
+  updatedAt: "2026-10-28",
+  status: "draft",
+};
+
+<ShortVersion>
+Data center projects test equipment in five levels, from the factory (L1) to everything running together (L5). If you've done FAT, receiving inspections, pre-commissioning and startup on a plant, you've already done most of this. The names are what's new.
+</ShortVersion>
+
+## The five levels
+
+Each level has to be signed off before the next one starts. The commissioning agent (CxA) writes most of the test scripts, the GC and subs do the work, and the owner signs off.
+
+<ScrollTable>
+  <thead>
+    <tr><th>Level</th><th>Name</th><th>What happens</th><th>Closest oil and gas step</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><b>L1</b></td><td>Factory witness testing (FAT)</td><td>The vendor tests generators, UPS, switchgear and chillers at the factory before they ship. The owner or CxA may witness.</td><td>FAT. Same idea, same name.</td></tr>
+    <tr><td><b>L2</b></td><td>Delivery and installation checks</td><td>Receiving inspection, nameplate data against the submittal, damage checks, then checking it's installed per the drawings and the manufacturer.</td><td>Receiving inspection and installation QC on the way to mechanical completion.</td></tr>
+    <tr><td><b>L3</b></td><td>Startup and pre-functional checks</td><td>Equipment is energized or started for the first time. Vendor startup, readings, checklists signed. "Level 3 complete" is a milestone.</td><td>Pre-commissioning: loop checks, run-ins, vendor startup. "Level 3 complete" is close to mechanical completion.</td></tr>
+    <tr><td><b>L4</b></td><td>Functional performance testing</td><td>Each system is tested on its own against its sequence of operations: does it do what the design says under each condition?</td><td>System commissioning and function checks before handover.</td></tr>
+    <tr><td><b>L5</b></td><td>Integrated systems test (IST)</td><td>Everything is tested together. Utility power is cut, generators start, the UPS carries the load and cooling has to hold, often with load banks standing in for servers.</td><td>Rough match: startup trip and ESD testing on a new unit. There's no exact equivalent.</td></tr>
+  </tbody>
+</ScrollTable>
+
+Owners word these differently. Some call L2 "pre-functional" and some split L3 in two. Before an interview, ask which owner the project is for and use their terms.
+
+## Where QA/QC fits
+
+QA/QC does most of its work at L2 and L3: receiving inspections, installation checks against the ITP, hold points, and making sure the paperwork is complete before the CxA starts L3 and L4. At L4 and L5 you're usually witnessing, tracking issues and closing out punch items.
+
+<FromOilAndGas>
+- Your ITPs, hold points and NCRs carry over almost unchanged.
+- Most of the piping is B31.9 building services, not B31.3. Lower test pressures, and the flush matters more than the hydro.
+- Turnover packages are split by system and by phase, and the CxA reviews them before L3.
+</FromOilAndGas>
+
+## Words that change
+
+- **Mechanical completion** becomes **Level 3 complete**.
+- **Megger and loop checks** sit inside **point-to-point and pre-functional checklists**.
+- **Turnover package** becomes **turnover documentation package**, reviewed by the CxA.
+
+## In the interview
+
+Expect "Walk me through L1 to L5" or "Where does QA/QC sit in commissioning?" Answer with the level, then the oil and gas work you did that matches it: "At L2 that's receiving and installation inspection, which I did on [your unit or project]."

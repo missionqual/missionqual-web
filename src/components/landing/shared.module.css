@@ -1,0 +1,99 @@
+/* Shared landing primitives, verbatim from design/missionqual-landing.html.
+   Section components override these by nesting under their own root class. */
+
+/* ---------- Buttons: ONE primary style everywhere ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--teal);
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  min-height: 54px;
+  padding: 0 1.75rem;
+  border: 0;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #6fc9c1;
+}
+.btn svg {
+  flex: none;
+}
+.btnSm {
+  min-height: 42px;
+  padding: 0 1.25rem;
+  font-size: 0.9rem;
+}
+
+.linkArrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--teal-dark);
+}
+.linkArrow:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Layout helpers ---------- */
+.wrap {
+  max-width: 1248px;
+  margin: 0 auto;
+  padding-inline: 1.25rem;
+}
+/* Every content section uses this; no per-section overrides (DESIGN_SPEC rule 9). */
+.section {
+  padding-block: var(--section-y);
+}
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+  font-size: 1.65rem;
+  line-height: 1.15;
+}
+/* One heading size for the content sections (Translation, Year Zero, Jobs). */
+@media (min-width: 1024px) {
+  .h2 {
+    font-size: 2.35rem;
+  }
+}
+.accent {
+  color: var(--teal-dark);
+}
+.lede {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  max-width: 40rem;
+}
+
+/* Text wordmark: MISSION + teal QUAL. */
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-decoration: none;
+}
+.logo span {
+  color: var(--teal);
+}
+
+/* Visible focus for every interactive element on the landing. */
+.btn:focus-visible,
+.linkArrow:focus-visible,
+.logo:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}

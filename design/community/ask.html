@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>MissionQual Community — Ask</title>
+
+</head>
+<body>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+<style>
+:root{--navy:#141c33;--navy-deep:#0e1527;--teal:#57bcb3;--teal-dark:#2e7d74;--teal-ink:#1f5a53;--tint:#effaf8;--paper:#f4f6fa;--card:#f8fafd;--cover:#edf1f7;--line:#e6eaf2;--line-strong:#e0e5ef;--ink:#141c33;--ink-soft:#4a5572;--ink-faint:#7e8aa6;--dark-soft:#b9c2d6;--dark-faint:#8d98b2;--dark-link:#d7ddea;--fd:'Space Grotesk',sans-serif;--fb:'IBM Plex Sans',system-ui,sans-serif;--fm:'IBM Plex Mono',monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--teal-dark)}
+p{margin:0}
+.wrap{max-width:1248px;margin:0 auto;padding-inline:1.25rem}
+.logo{font-family:var(--fd);font-weight:700;font-size:1.15rem;letter-spacing:.06em;color:#fff;text-decoration:none}
+.logo span{color:var(--teal)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;background:var(--teal);color:var(--navy);font-family:var(--fb);font-weight:700;font-size:1.05rem;min-height:54px;padding:0 1.75rem;border:0;border-radius:8px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#6fc9c1}
+.btnSm{min-height:42px;padding:0 1.15rem;font-size:.92rem}
+.btn2{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:#fff;color:var(--navy);font-family:var(--fb);font-weight:600;font-size:.92rem;min-height:42px;padding:0 1.1rem;border:1px solid var(--line-strong);border-radius:8px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn2:hover{border-color:var(--ink-faint)}
+.link{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:.92rem;color:var(--teal-dark);text-decoration:none}
+.link:hover{text-decoration:underline}
+.kicker{font-family:var(--fm);font-weight:500;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase}
+.h2{font-family:var(--fd);font-weight:700;margin:0;letter-spacing:-.01em;font-size:2.35rem;line-height:1.15}
+.h2 em,.h1 em{font-style:normal;color:var(--teal-dark)}
+.lede{color:var(--ink-soft);font-size:1.05rem;line-height:1.6}
+.section{padding-block:80px}
+/* header */
+.hdr{background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.hdr .inner{display:flex;align-items:center;justify-content:space-between;min-height:76px}
+.nav{display:flex;align-items:center;gap:2.25rem}
+.nav a{color:var(--dark-link);text-decoration:none;font-size:.95rem}
+.nav a.on{color:#fff;font-weight:600}
+.nav a.signin{color:#fff;font-weight:600}
+.nav a.btn{color:var(--navy)}
+.me{display:flex;align-items:center;gap:.6rem;color:#fff;font-weight:600;font-size:.95rem;text-decoration:none}
+.burger{display:none;color:#fff}
+/* avatars */
+.av{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--cover);color:var(--navy);font-family:var(--fd);font-weight:700;font-size:.85rem;letter-spacing:.02em}
+.av.t{background:var(--teal);color:var(--navy)}
+.av.s{width:28px;height:28px;font-size:.72rem}
+.av.l{width:88px;height:88px;font-size:1.9rem}
+.av.c1{background:#dfe9f6}.av.c2{background:#e3f1ec}.av.c3{background:#f1e9dc}.av.c4{background:#ece4f3}
+/* subnav */
+.sub{background:#fff;border-bottom:1px solid var(--line-strong)}
+.sub .inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:60px}
+.tabs{display:flex;gap:2rem;height:60px}
+.tabs a{display:flex;align-items:center;gap:.45rem;color:var(--ink-soft);text-decoration:none;font-weight:500;font-size:.95rem;border-bottom:3px solid transparent;padding-top:3px;white-space:nowrap}
+.tabs a.on{color:var(--navy);font-weight:600;border-bottom-color:var(--teal)}
+.tabs .cnt{font-family:var(--fm);font-size:.72rem;background:var(--tint);color:var(--teal-ink);padding:1px 6px;border-radius:999px}
+/* page */
+.page{padding-block:40px 80px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:32px;align-items:start}
+.stack{display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border:1px solid var(--line-strong);border-radius:8px;padding:24px}
+.ctitle{font-family:var(--fd);font-weight:700;font-size:1.1rem;margin:0}
+.chead{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:16px}
+.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:24px}
+.ph h1{font-family:var(--fd);font-weight:700;font-size:2rem;line-height:1.15;letter-spacing:-.01em;margin:0}
+.ph p{color:var(--ink-soft);margin-top:.4rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:.35rem;background:#fff;border:1px solid var(--line-strong);color:var(--ink-soft);font-size:.88rem;font-weight:500;padding:7px 14px;border-radius:999px;text-decoration:none;white-space:nowrap}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.tag{display:inline-block;background:var(--tint);color:var(--teal-ink);font-size:.76rem;font-weight:600;padding:3px 9px;border-radius:4px;white-space:nowrap}
+.tag.g{background:var(--cover);color:var(--ink-soft)}
+.meta{color:var(--ink-faint);font-size:.85rem}
+.sel{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--line-strong);border-radius:8px;min-height:42px;padding:0 14px;font-size:.9rem;color:var(--ink);font-weight:500}
+.inp{width:100%;min-height:50px;border:1.5px solid var(--line-strong);border-radius:8px;padding:0 16px;font:inherit;font-size:1rem;color:var(--ink);background:#fff}
+.inp::placeholder{color:var(--ink-faint)}
+textarea.inp{padding:14px 16px;min-height:160px;resize:vertical;line-height:1.55}
+.lab{display:block;font-weight:600;font-size:.95rem;color:var(--navy);margin-bottom:6px}
+.help{color:var(--ink-faint);font-size:.85rem;margin-top:6px}
+.check{display:flex;align-items:flex-start;gap:.6rem;font-size:.92rem;color:var(--ink-soft)}
+.box{flex:none;width:20px;height:20px;border-radius:5px;border:1.5px solid var(--line-strong);background:#fff;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
+.box.on{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
+/* question card */
+.q{display:block;background:#fff;border:1px solid var(--line-strong);border-radius:8px;padding:20px 24px;text-decoration:none;color:inherit}
+.q:hover{border-color:#c9d2df}
+.q .top{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:10px}
+.q h3{font-family:var(--fd);font-weight:600;font-size:1.12rem;line-height:1.3;margin:0;color:var(--ink)}
+.q .ex{color:var(--ink-soft);font-size:.95rem;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.q .bot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:14px}
+.who{display:flex;align-items:center;gap:.6rem;min-width:0}
+.who b{font-weight:600;font-size:.9rem;color:var(--ink)}
+.who .r{color:var(--ink-faint);font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stats{display:flex;align-items:center;gap:1rem;color:var(--ink-faint);font-size:.85rem;white-space:nowrap}
+.stats span{display:inline-flex;align-items:center;gap:.3rem}
+.ok{display:inline-flex;align-items:center;gap:.3rem;color:var(--teal-ink);font-weight:600;font-size:.8rem}
+.pin{display:inline-flex;align-items:center;gap:.3rem;color:var(--ink-soft);font-weight:600;font-size:.8rem}
+.q.pinned{background:var(--tint);border-color:#cfe9e5}
+/* jobs */
+.job{background:#fff;border:1px solid var(--line-strong);border-radius:8px;padding:20px 22px}
+.job .jm{display:flex;justify-content:space-between;font-family:var(--fm);font-size:.72rem;letter-spacing:.14em;color:var(--ink-faint)}
+.job h3{font-weight:700;font-size:1rem;margin:.5rem 0 .2rem;color:var(--ink)}
+.job .co{color:var(--ink-soft);font-size:.92rem}
+.fit{background:var(--tint);color:var(--teal-ink);border-radius:6px;padding:10px 14px;font-size:.9rem;line-height:1.5;margin-top:12px}
+.fit b{font-weight:700}
+.job .acts{display:flex;gap:1.25rem;margin-top:14px;flex-wrap:wrap}
+.mini{padding:14px 0;border-top:1px solid var(--line)}
+.mini:first-of-type{border-top:0;padding-top:0}
+.mini b{display:block;font-size:.95rem;color:var(--ink)}
+.mini span{color:var(--ink-soft);font-size:.88rem}
+/* sessions */
+.date{flex:none;width:64px;border:1px solid var(--line-strong);border-radius:8px;text-align:center;overflow:hidden;background:#fff}
+.date .m{background:var(--navy);color:#fff;font-family:var(--fm);font-size:.68rem;letter-spacing:.14em;padding:4px 0}
+.date .d{font-family:var(--fd);font-weight:700;font-size:1.5rem;line-height:1.2;padding:6px 0 4px;color:var(--navy)}
+.sess{display:flex;gap:20px;align-items:flex-start}
+.sess h3{font-family:var(--fd);font-weight:600;font-size:1.15rem;line-height:1.3;margin:0}
+.going{display:inline-flex;align-items:center;gap:.4rem;color:var(--teal-ink);font-weight:700;font-size:.92rem}
+/* footer */
+.ftr{background:var(--navy-deep);color:var(--dark-soft)}
+.ftr .inner{padding-block:56px 32px}
+.ftr .top{display:flex;justify-content:space-between;gap:3rem}
+.ftr .mission{margin:.9rem 0 0;max-width:24rem;color:var(--dark-faint)}
+.ftr .cols{display:flex;gap:6rem}
+.ftr .col{display:flex;flex-direction:column;gap:.85rem}
+.ftr .col .lab2{font-family:var(--fm);font-size:.78rem;letter-spacing:.18em;color:var(--dark-faint);padding-bottom:.6rem;border-bottom:2px solid rgba(255,255,255,.12);margin-bottom:.4rem}
+.ftr .col a{color:var(--dark-link);text-decoration:none}
+.ftr .bottom{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.12);color:var(--dark-faint);font-size:.95rem}
+.mob{display:none}.mb{display:none}
+@media (max-width:1023px){
+ .hdr .inner{min-height:56px}.nav{display:none}.burger{display:block}
+ .hdr .me-m{display:flex}
+ .sub .inner{min-height:52px}.sub .btn{display:none}
+ .tabs{gap:1.4rem;height:52px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+ .tabs a{font-size:.92rem}
+ .page{padding-block:24px 48px}
+ .layout{grid-template-columns:minmax(0,1fr);gap:24px}
+ .card{padding:20px}
+ .q{padding:16px 18px}.q h3{font-size:1.02rem}
+ .q .bot{flex-direction:column;align-items:flex-start;gap:10px}
+ .who{max-width:100%}.who .r{white-space:normal}
+ .ph{flex-direction:column;align-items:stretch;gap:1rem}.ph h1{font-size:1.6rem}
+ .ph .btn{width:100%}
+ .chips.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-width:0;max-width:100%}
+ .h2{font-size:1.65rem}
+ .section{padding-block:48px}
+ .lede{font-size:.98rem}
+ .ftr .top{flex-direction:column}.ftr .cols{gap:3rem}
+ .desk{display:none!important}.dk{display:none}.mb{display:inline}.btn.mob{display:flex}
+ .tabs .cnt{display:none}
+ .sess{gap:14px}.date{width:52px}.date .d{font-size:1.25rem}
+ .srow{flex-direction:column;align-items:stretch!important}.srow>div{justify-content:flex-start;flex-wrap:wrap;gap:.6rem 1.25rem!important}.srow .btn{width:100%}.going,.srow .link{white-space:nowrap}
+ .mgrid p{min-height:0!important}
+}
+
+.asklay{grid-template-columns:minmax(0,760px) 360px;justify-content:space-between}
+@media (max-width:1023px){.asklay{grid-template-columns:minmax(0,1fr)}}
+.form{display:flex;flex-direction:column;gap:28px}
+.topics{display:flex;flex-wrap:wrap;gap:8px}
+.tips li{margin-top:10px;color:var(--ink-soft);font-size:.95rem;line-height:1.5}
+.tips li b{color:var(--ink)}
+.acts3{display:flex;gap:12px;align-items:center}
+@media (max-width:1023px){.acts3{flex-direction:column-reverse;align-items:stretch}.acts3 .btn{width:100%}.acts3 .btn2{width:100%;min-height:50px}}
+</style>
+
+<div><header class="hdr"><div class="wrap inner">
+<a class="logo" href="#home" aria-label="MissionQual home">MISSION<span>QUAL</span></a>
+<nav class="nav" aria-label="Main"><a href="#jobs">Jobs</a><a href="#resources">Resources</a><a class="on" href="#community" aria-current="page">Community</a><a href="#about">About</a><a class="me" href="#account"><span class="av t s">CA</span>Chidi</a></nav>
+<svg class="burger" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div></header><div class="sub"><div class="wrap inner"><nav class="tabs" aria-label="Community"><a href="#questions" class="on" aria-current="page">Questions</a><a href="#jobs" class=""><span class="dk">Jobs This Week</span><span class="mb">Jobs</span><span class="cnt">6 new</span></a><a href="#sessions" class=""><span class="dk">Live sessions</span><span class="mb">Sessions</span></a><a href="#members" class="">Members</a></nav>
+<a class="btn btnSm" href="#ask"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Ask a question</a></div></div>
+<main class="wrap page"><div class="layout asklay"><div>
+<a class="crumb" href="#questions" style="display:inline-flex;align-items:center;gap:.5rem;color:var(--ink-soft);font-size:.92rem;font-weight:500;text-decoration:none"><svg width="16" height="12" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M14 5.5H2M6 1.5l-4 4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> All questions</a>
+<div class="ph" style="margin-top:16px"><div><h1>Ask a question</h1><p>Members on data center sites get an email when a question in their topic comes in.</p></div></div>
+<form class="card form">
+<div><label class="lab" for="t">Your question</label><input id="t" class="inp" value="Do CxA firms care about API 570, or should I get NETA first?"><p class="help">One line, as you'd ask it on site. "Do CxA firms care about API 570?" gets more answers than "Need advice on certs."</p></div>
+<div><span class="lab">Topic</span><div class="topics"><span class="chip">QA/QC</span><span class="chip">Welding &amp; piping</span><span class="chip">Electrical &amp; I&amp;E</span><span class="chip on">Commissioning</span><span class="chip">Pay &amp; offers</span><span class="chip">Getting hired</span><span class="chip">Life on site</span></div></div>
+<div><label class="lab" for="d">Details</label><textarea id="d" class="inp" style="min-height:200px">Ten years of API 570 on refinery units, CWI too. I've been applying to commissioning agent roles for a month and getting nowhere.
+
+Is NETA Level 2 worth paying for before my first data center job?</textarea><p class="help">Your background, what you've tried, and the state or type of site if it matters.</p></div>
+<span class="check"><span class="box on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Email me when someone answers</span>
+<div class="acts3"><a class="btn" href="#question">Post question</a><a class="btn2" href="#questions">Cancel</a></div>
+</form></div>
+<aside class="stack"><div class="card"><h2 class="ctitle">What gets good answers</h2><ul class="tips" style="margin:6px 0 0;padding-left:18px">
+<li><b>Say where you're coming from.</b> Your trade, certs and years, in one line.</li>
+<li><b>Ask one thing.</b> Two questions? Post two.</li>
+<li><b>Give the numbers.</b> For offers: rate, per diem, hours, length.</li></ul></div>
+<div class="card" style="background:var(--card)"><h2 class="ctitle" style="font-size:1rem">Before you post</h2><p class="meta" style="margin-top:6px;font-size:.92rem;line-height:1.55">No site drawings, photos, owner documents or anything under NDA. Don't name people in a bad light. <a href="#rules">House rules</a></p></div>
+</aside></div></main>
+<footer class="ftr"><div class="wrap inner">
+<div class="top"><div><a class="logo" href="#home">MISSION<span>QUAL</span></a><p class="mission">Helping industrial QA/QC and trades move into data center construction.</p></div>
+<div class="cols"><nav class="col"><div class="lab2">EXPLORE</div><a href="#guide">Transition Guide</a><a href="#jobs">Jobs</a><a href="#resources">Resources</a><a href="#community">Community</a><a href="#about">About</a></nav>
+<nav class="col"><div class="lab2">LEGAL</div><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#rules">Community rules</a></nav></div></div>
+<div class="bottom">© 2026 MissionQual</div>
+</div></footer></div>
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+/* /community/sessions — design/community/sessions.html */
+.body {
+  flex: 1;
+  min-width: 0;
+}
+.desc {
+  color: var(--ink-soft);
+  margin: 10px 0 0;
+  font-size: 0.98rem;
+}
+.srow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.rec {
+  display: flex !important;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+.play {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 1023px) {
+  .srow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .srow > div {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
+  }
+  .srow button[type="button"]:not([class*="quiet"]) {
+    width: 100%;
+  }
+}

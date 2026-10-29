@@ -1,0 +1,51 @@
+export const meta = {
+  title: "Liquid cooling and CDUs: what's new for pipefitters and mechanical QC",
+  description:
+    "How direct-to-chip liquid cooling and CDUs work on AI data centers, and what pipefitters and mechanical QC need to know about flushing and leak testing.",
+  section: "equipment",
+  readMinutes: 8,
+  author: { name: "Chidi Ajaezi", role: "Co-founder" },
+  publishedAt: "2026-10-28",
+  updatedAt: "2026-10-28",
+  status: "published",
+};
+
+<ShortVersion>
+New AI data halls pipe coolant straight to the chips instead of only cooling the room air. That adds a second, small, very clean piping loop to the job. If you've done lube oil flushing or instrument tubing, the cleanliness mindset will feel familiar. The materials, fittings and tests are what's new.
+</ShortVersion>
+
+## How it works
+
+The servers in an AI rack make far more heat than air can carry away, so cold plates sit right on the processors and coolant runs through them.
+
+There are two loops:
+
+- **The facility water system (FWS).** The building's chilled or condenser water, coming from the chillers and cooling towers. Big pipe, building services work.
+- **The technology cooling system (TCS).** The small loop that runs to the racks and through the cold plates. It's usually a propylene glycol and water mix, kept very clean.
+
+A **CDU** (coolant distribution unit) sits between them: a heat exchanger, pumps, filters and controls on a skid. It pulls heat from the rack loop into the building water without the two ever mixing. CDUs can sit in the row with the racks or in a room nearby.
+
+At the rack, hoses connect with **quick disconnect couplings** designed not to drip when you unplug them.
+
+## Why cleanliness matters so much
+
+The channels inside a cold plate are tiny. Debris that would never bother a chilled water coil, like weld slag, flux, thread sealant or a few grams of dirt, can block them and overheat a processor worth tens of thousands of dollars.
+
+That's why the rack loop is treated more like a turbine lube oil system than like HVAC: caps on every open end, clean storage, controlled joining methods, and flushing and filtering until samples meet the spec.
+
+<FromOilAndGas>
+- Lube oil flushing to a cleanliness target is the closest thing you've done. Same idea, different fluid.
+- Material traceability still matters: the spec will list which metals and seals are allowed to touch the coolant. Mixing the wrong ones causes corrosion.
+- Pressure testing still happens, but the spec decides the medium and the hold time. Read it before assuming a hydro.
+</FromOilAndGas>
+
+## What mechanical QC checks
+
+- **Receiving:** material certs against the approved list, end caps on, clean and dry storage.
+- **Installation:** joining method per spec, supports, vents and drains where the drawings show them, flow-direction labels.
+- **Testing:** pressure or leak test records, then flush records, filter changes and fluid sample results.
+- **Before handover:** quick disconnects inspected, leak detection sensors installed and tested, and the turnover package complete for the loop.
+
+## What this means for your next job
+
+Pipefitters and mechanical inspectors who understand clean systems are in demand on AI data halls. If you've done lube oil, hydraulic or instrument work, say so in the interview and connect it to liquid cooling. Look up CDU, TCS and cold plate in our glossary first so the words aren't new.

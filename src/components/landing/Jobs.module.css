@@ -1,0 +1,182 @@
+/* Jobs — exactly 3 cards on the homepage (DESIGN_SPEC rule 8). */
+.jobs .inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+/* Shared .h2 size; nowrap keeps the title on one line on phones. */
+.jobs .h2 {
+  white-space: nowrap;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+.jcard {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.jcard h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.03rem;
+  line-height: 1.25;
+  margin: 0;
+}
+.co {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.pay {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--teal-ink);
+}
+.fit {
+  background: var(--tint);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--teal-ink);
+}
+.fit b {
+  font-weight: 600;
+}
+/* Under the cards. The join button is outlined, not the teal CTA, so it never
+   competes with the guide button (or the sticky guide bar on phones). */
+.allLink {
+  margin-top: 0.5rem;
+}
+.join {
+  margin-top: 0.75rem;
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 10px;
+  padding: 1.15rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.joinText h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  color: var(--navy);
+}
+.joinText p {
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.joinActs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.joinBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 50px;
+  padding: 0 1.25rem;
+  background: #fff;
+  border: 1.5px solid var(--navy);
+  border-radius: 8px;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-align: center;
+  text-decoration: none;
+}
+.joinBtn:hover {
+  background: var(--navy);
+  color: #fff;
+}
+.joinBtn svg {
+  flex: none;
+}
+.joinBtn:focus-visible,
+.signin a:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 3px;
+}
+.signin {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.signin a {
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+@media (min-width: 1024px) {
+  .jobs .h2 {
+    white-space: normal;
+  }
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  .jcard {
+    padding: 1.4rem;
+    border-radius: 12px;
+    gap: 0.6rem;
+  }
+  .jcard h3 {
+    font-size: 1.15rem;
+  }
+  /* Desktop: text left, actions right. */
+  .join {
+    margin-top: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: 12px;
+  }
+  .joinText h3 {
+    font-size: 1.25rem;
+  }
+  .joinText p {
+    font-size: 0.98rem;
+  }
+  .joinActs {
+    flex: none;
+    align-items: center;
+  }
+  .joinBtn {
+    width: auto;
+  }
+  .fit {
+    flex-grow: 1;
+    font-size: 0.88rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+  }
+}

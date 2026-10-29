@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MissionQual — Article: commissioning levels (desktop)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<x-dc>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+.site{--navy:#141c33;--navy-deep:#0e1527;--teal:#57bcb3;--teal-dark:#2e7d74;--teal-ink:#1f5a53;--tint:#effaf8;--paper:#f4f6fa;--card:#f8fafd;--line:#e6eaf2;--line-strong:#e0e5ef;--ink:#141c33;--ink-soft:#4a5572;--ink-faint:#6b7793;--dark-soft:#b9c2d6;--dark-faint:#8d98b2;--dark-link:#d7ddea;
+ --fd:'Space Grotesk',sans-serif;--fb:'IBM Plex Sans',system-ui,sans-serif;--fm:'IBM Plex Mono',monospace;
+ background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.site *{box-sizing:border-box}
+.wrap{max-width:1248px;margin:0 auto;padding-inline:1.25rem}
+a{color:var(--teal-dark)}
+.logo{font-family:var(--fd);font-weight:700;font-size:1.15rem;letter-spacing:.06em;color:#fff;text-decoration:none}
+.logo span{color:var(--teal)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;background:var(--teal);color:var(--navy);font-weight:700;font-size:1.02rem;min-height:52px;padding:0 1.6rem;border:0;border-radius:8px;text-decoration:none}
+.btnO{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:50px;padding:0 1.25rem;background:#fff;border:1.5px solid var(--navy);border-radius:8px;color:var(--navy);font-weight:700;font-size:.98rem;text-decoration:none}
+.btnSm{min-height:42px;padding:0 1.15rem;font-size:.9rem}
+.kick{margin:0;font-family:var(--fm);font-weight:500;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.la{display:inline-flex;align-items:center;gap:.45rem;font-weight:600;text-decoration:none;font-size:.95rem;color:var(--teal-dark)}
+/* header */
+.hdr{background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.hdr .inner{display:flex;align-items:center;justify-content:space-between;min-height:76px}
+.nav{display:flex;align-items:center;gap:2.1rem}
+.nav a{color:var(--dark-link);text-decoration:none;font-size:.95rem}
+.nav a.on{color:#fff;font-weight:600;box-shadow:inset 0 -2px 0 var(--teal);padding-block:.35rem}
+.nav a.btn{color:var(--navy)}
+.burger{display:none;color:#fff}
+/* footer */
+.ftr{background:var(--navy-deep);color:var(--dark-soft)}
+.ftr .inner{padding-block:56px 32px;display:flex;justify-content:space-between;gap:3rem}
+.ftr p{margin:.8rem 0 0;max-width:24rem;color:var(--dark-faint)}
+.ftr .cols{display:flex;gap:5rem}
+.ftr .col{display:flex;flex-direction:column;gap:.8rem}
+.ftr .col b{font-family:var(--fm);font-weight:500;font-size:.76rem;letter-spacing:.16em;color:var(--dark-faint)}
+.ftr .col a{color:var(--dark-link);text-decoration:none}
+/* resources hero */
+.rhero{background:var(--navy);color:#fff}
+.rhero .inner{padding-block:64px 72px;display:flex;flex-direction:column;gap:16px;max-width:1248px}
+.rhero h1{margin:0;font-family:var(--fd);font-weight:700;font-size:2.9rem;line-height:1.08;letter-spacing:-.015em;max-width:46rem;text-wrap:balance}
+.rhero .sub{margin:0;color:var(--dark-soft);font-size:1.1rem;max-width:38rem}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.jump a{color:var(--dark-link);text-decoration:none;font-size:.9rem;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:.4rem .9rem}
+/* featured */
+.feat{margin-top:-36px}
+.fcard{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);background:#fff;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(20,28,51,.10);text-decoration:none;color:inherit}
+.fcard .txt{padding:2.2rem 2.2rem 2rem;display:flex;flex-direction:column;gap:.8rem}
+.fcard h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.85rem;line-height:1.15;letter-spacing:-.01em;color:var(--navy);text-wrap:balance}
+.fcard p{margin:0;color:var(--ink-soft);font-size:1.02rem;max-width:36rem}
+.ladder{background:var(--tint);padding:2rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:8px;border-left:1px solid #cfe9e5}
+.rung{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #cfe9e5;border-radius:8px;padding:.55rem .8rem}
+.rung b{font-family:var(--fm);font-weight:500;font-size:.8rem;color:var(--teal-ink);background:var(--tint);border-radius:5px;padding:.15rem .45rem;min-width:2.4rem;text-align:center}
+.rung span{font-size:.92rem;color:var(--ink)}
+.meta{display:flex;gap:.9rem;align-items:center;font-family:var(--fm);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.meta .tag{color:var(--teal-dark)}
+/* sections */
+.sec{padding-block:56px 8px}
+.sec .head{display:flex;flex-direction:column;gap:.4rem;margin-bottom:22px}
+.sec h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.65rem;letter-spacing:-.01em}
+.sec .head p{margin:0;color:var(--ink-soft);max-width:40rem}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:1.4rem 1.4rem 1.25rem;display:flex;flex-direction:column;gap:.6rem;text-decoration:none;color:inherit}
+.card h3{margin:0;font-family:var(--fd);font-weight:700;font-size:1.15rem;line-height:1.25;color:var(--navy)}
+.card p{margin:0;color:var(--ink-soft);font-size:.93rem;flex-grow:1}
+.card .go{font-weight:600;font-size:.92rem;color:var(--teal-dark);display:inline-flex;gap:.4rem;align-items:center}
+/* bands */
+.band{margin-top:56px;background:var(--navy);color:#fff;border-radius:14px;padding:2rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.band h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.5rem;line-height:1.2}
+.band p{margin:.4rem 0 0;color:var(--dark-soft);max-width:34rem}
+.ask{margin-block:56px 72px;background:var(--tint);border:1px solid #cfe9e5;border-radius:14px;padding:2rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.ask h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.4rem;color:var(--navy)}
+.ask p{margin:.35rem 0 0;color:var(--ink-soft)}
+.ask .si{margin:.6rem 0 0;text-align:center;font-size:.9rem;color:var(--ink-soft)}
+.ask .si a{font-weight:600;text-decoration:none}
+.acts{display:flex;flex-direction:column;align-items:center;flex:none}
+/* article */
+.crumb{font-size:.9rem;color:var(--dark-faint)}
+.crumb a{color:var(--dark-link);text-decoration:none}
+.ahero{background:var(--navy);color:#fff}
+.ahero .inner{padding-block:44px 52px;display:flex;flex-direction:column;gap:14px}
+.ahero h1{margin:0;font-family:var(--fd);font-weight:700;font-size:2.6rem;line-height:1.1;letter-spacing:-.015em;max-width:50rem;text-wrap:balance}
+.by{display:flex;gap:10px;align-items:center;color:var(--dark-soft);font-size:.92rem}
+.av{width:34px;height:34px;border-radius:50%;background:var(--teal);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+.alay{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;padding-block:44px 24px;align-items:start}
+.prose{max-width:44rem;font-size:1.06rem;line-height:1.7}
+.prose h2{font-family:var(--fd);font-weight:700;font-size:1.5rem;line-height:1.2;margin:2.2rem 0 .6rem;color:var(--navy)}
+.prose h3{font-family:var(--fd);font-weight:700;font-size:1.15rem;margin:1.6rem 0 .3rem;color:var(--navy)}
+.prose p{margin:0 0 1rem}
+.prose ul{margin:0 0 1rem;padding-left:1.2rem}
+.prose li{margin-bottom:.35rem}
+.short{background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:1.3rem 1.4rem;margin-bottom:1.6rem}
+.short .kick{color:var(--teal-dark);margin-bottom:.4rem}
+.short p{margin:0}
+.tbl{overflow-x:auto;border:1px solid var(--line-strong);border-radius:12px;background:#fff;margin:0 0 1.2rem}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem;line-height:1.45}
+th{font-family:var(--fm);font-weight:500;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);text-align:left;padding:.8rem 1rem;border-bottom:1px solid var(--line-strong);background:var(--card)}
+td{padding:.8rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td b{font-family:var(--fm);font-weight:500;color:var(--teal-ink)}
+.og{background:var(--tint);border:1px solid #cfe9e5;border-radius:12px;padding:1.3rem 1.4rem;margin:1.6rem 0}
+.og .kick{color:var(--teal-ink);margin-bottom:.5rem}
+.og ul{margin:0;padding-left:1.2rem}
+.slot{background:#fff6dc;border:1px dashed #d9b54a;border-radius:6px;padding:.1rem .35rem;font-size:.95rem}
+.side{position:sticky;top:24px;display:flex;flex-direction:column;gap:18px}
+.toc{background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:1.1rem 1.2rem}
+.toc .kick{color:var(--ink-faint);margin-bottom:.6rem}
+.toc a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.92rem;padding:.3rem 0;border-left:2px solid var(--line-strong);padding-left:.8rem}
+.toc a.on{color:var(--navy);font-weight:600;border-color:var(--teal)}
+.gcard{background:var(--navy);color:#fff;border-radius:12px;padding:1.3rem 1.2rem;display:flex;flex-direction:column;gap:.7rem}
+.gcard h3{margin:0;font-family:var(--fd);font-weight:700;font-size:1.1rem;line-height:1.25}
+.gcard p{margin:0;color:var(--dark-soft);font-size:.9rem}
+.gcard .btn{min-height:46px;font-size:.92rem;padding:0 1rem}
+.more{padding-block:24px 0}
+.more h2{margin:0 0 18px;font-family:var(--fd);font-weight:700;font-size:1.4rem}
+@media (max-width:1023px){
+ .hdr .inner{min-height:56px}.nav{display:none}.burger{display:block}
+ .rhero .inner{padding-block:36px 56px}.rhero h1{font-size:2rem}.rhero .sub{font-size:1rem}
+ .jump{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-1.25rem;padding-inline:1.25rem}
+ .jump a{flex:none}
+ .fcard{grid-template-columns:minmax(0,1fr)}.fcard .txt{padding:1.4rem 1.25rem 1.2rem}.fcard h2{font-size:1.4rem}
+ .ladder{border-left:0;border-top:1px solid #cfe9e5;padding:1.1rem 1.25rem}
+ .sec{padding-block:40px 0}.sec h2{font-size:1.4rem}
+ .cards{grid-template-columns:minmax(0,1fr);gap:12px}
+ .band,.ask{flex-direction:column;align-items:stretch;padding:1.4rem 1.25rem;gap:1.1rem}
+ .band .btn,.ask .btnO{width:100%}
+ .ftr .inner{flex-direction:column}.ftr .cols{gap:3rem}
+ .ahero h1{font-size:1.75rem}.ahero .inner{padding-block:28px 32px}
+ .alay{grid-template-columns:minmax(0,1fr);gap:28px;padding-block:28px 8px}
+ .side{position:static}.toc{display:none}
+ .prose{font-size:1rem}
+}
+</style>
+
+<div class="site"><header class="hdr"><div class="wrap inner"><a class="logo" href="#home" aria-label="MissionQual home">MISSION<span>QUAL</span></a>
+<nav class="nav" aria-label="Main"><a href="#jobs">Jobs</a><a href="#resources" class="on" aria-current="page">Resources</a><a href="#community">Community</a><a href="#about">About</a><a href="#login">Sign in</a><a class="btn btnSm" href="#guide">Get the guide</a></nav>
+<svg class="burger" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg></div></header>
+<section class="ahero"><div class="wrap inner"><p class="crumb"><a href="#resources">Resources</a> / <a href="#work">Understand the work</a></p>
+<h1>Data center commissioning levels, L1 to L5, explained for oil and gas people</h1>
+<div class="by"><span class="av" aria-hidden="true">CA</span><span>Chidi Ajaezi, Co-founder · 8 min read</span></div></div></section>
+<div class="wrap alay"><article class="prose">
+<div class="short" id="short"><p class="kick">The short version</p><p>Data center projects test equipment in five levels, from the factory (L1) to everything running together (L5). If you've done FAT, receiving inspections, pre-commissioning and startup on a plant, you've already done most of this. The names are what's new.</p></div>
+<h2 id="levels">The five levels</h2>
+<p>Each level has to be signed off before the next one starts. The commissioning agent (CxA) writes most of the test scripts, the GC and subs do the work, and the owner signs off.</p>
+<div class="tbl"><table><thead><tr><th>Level</th><th>Name</th><th>What happens</th><th>Closest oil and gas step</th></tr></thead><tbody><tr><td><b>L1</b></td><td>Factory witness testing (FAT)</td><td>The vendor tests generators, UPS, switchgear and chillers at the factory before they ship. The owner or CxA may witness.</td><td>FAT. Same idea, same name.</td></tr><tr><td><b>L2</b></td><td>Delivery and installation checks</td><td>Receiving inspection, nameplate data against the submittal, damage checks, then checking it's installed per the drawings and the manufacturer.</td><td>Receiving inspection and installation QC on the way to mechanical completion.</td></tr><tr><td><b>L3</b></td><td>Startup and pre-functional checks</td><td>Equipment is energized or started for the first time. Vendor startup, readings, checklists signed. "Level 3 complete" is a milestone.</td><td>Pre-commissioning: loop checks, run-ins, vendor startup. "Level 3 complete" is close to mechanical completion.</td></tr><tr><td><b>L4</b></td><td>Functional performance testing</td><td>Each system is tested on its own against its sequence of operations: does it do what the design says under each condition?</td><td>System commissioning and function checks before handover.</td></tr><tr><td><b>L5</b></td><td>Integrated systems test (IST)</td><td>Everything is tested together. Utility power is cut, generators start, the UPS carries the load and cooling has to hold, often with load banks standing in for servers.</td><td>Rough match: startup trip and ESD testing on a new unit. There's no exact equivalent.</td></tr></tbody></table></div>
+<p>Owners word these differently. Some call L2 "pre-functional" and some split L3 in two. Before an interview, ask which owner the project is for and use their terms.</p>
+<h2 id="qaqc">Where QA/QC fits</h2>
+<p>QA/QC does most of its work at L2 and L3: receiving inspections, installation checks against the ITP, hold points, and making sure the paperwork is complete before the CxA starts L3 and L4. At L4 and L5 you're usually witnessing, tracking issues and closing out punch items.</p>
+<p><span class="slot">[Chidi: one or two lines from your own site about which level kept you busiest, and what surprised you.]</span></p>
+<div class="og"><p class="kick">If you're coming from oil and gas</p><ul>
+<li>Your ITPs, hold points and NCRs carry over almost unchanged.</li>
+<li>Most of the piping is B31.9 building services, not B31.3. Lower test pressures, and the flush matters more than the hydro.</li>
+<li>Turnover packages are split by system and by phase, and the CxA reviews them before L3.</li></ul></div>
+<h2 id="words">Words that change</h2>
+<ul><li><b>Mechanical completion</b> becomes <b>Level 3 complete</b>.</li>
+<li><b>Megger and loop checks</b> sit inside <b>point-to-point and pre-functional checklists</b>.</li>
+<li><b>Turnover package</b> becomes <b>turnover documentation package</b>, reviewed by the CxA.</li></ul>
+<h2 id="interview">In the interview</h2>
+<p>Expect "Walk me through L1 to L5" or "Where does QA/QC sit in commissioning?" Answer with the level, then the oil and gas work you did that matches it: "At L2 that's receiving and installation inspection, which I did on [your unit or project]."</p>
+</article>
+<aside class="side"><nav class="toc" aria-label="On this page"><p class="kick">On this page</p><a href="#short" class="on">The short version</a><a href="#levels">The five levels</a><a href="#qaqc">Where QA/QC fits</a><a href="#words">Words that change</a><a href="#interview">In the interview</a></nav>
+<div class="gcard"><h3>Get the Transition Guide</h3><p>The roles to target, the skills that transfer, and how to sell your experience.</p><a class="btn" href="#guide">Send me the guide <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></aside></div>
+<section class="wrap more" aria-labelledby="h-more"><h2 id="h-more">Keep reading</h2><div class="cards"><a class="card" href="#article"><div class="meta"><span class="tag">Understand the work</span><span>7 min read</span></div><h3>What a data center QA/QC inspector actually does</h3><p>ITPs, hold points, receiving inspections and turnover packages, and what's new for someone coming from a plant.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">Make the move</span><span>9 min read</span></div><h3>Oil and gas to data center: which role matches yours</h3><p>Inspectors, CWIs, I&amp;E techs, electricians, pipefitters and document control, matched to the data center jobs that hire them.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">Pay and the long view</span><span>6 min read</span></div><h3>Data center per diem and the 12-month rule, in plain terms</h3><p>Why most offers include per diem, when it becomes taxable, and what to ask before you sign.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div></section>
+<div class="wrap"><div class="ask"><div><h2>Questions about commissioning on your site?</h2><p>Ask the people already doing it. Members answer in the community.</p></div>
+<div class="acts"><a class="btnO" href="#community">Join the community <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><p class="si">Already a member? <a href="#login">Sign in</a></p></div></div></div>
+<footer class="ftr"><div class="wrap inner"><div><a class="logo" href="#home">MISSION<span>QUAL</span></a><p>Helping industrial QA/QC and trades move into data center construction.</p></div>
+<div class="cols"><nav class="col" aria-label="Explore"><b>EXPLORE</b><a href="#guide">Transition Guide</a><a href="#jobs">Jobs</a><a href="#resources">Resources</a><a href="#community">Community</a><a href="#about">About</a></nav>
+<nav class="col" aria-label="Legal"><b>LEGAL</b><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#rules">Community rules</a></nav></div></div></footer></div>
+</x-dc>
+
+</body>
+</html>

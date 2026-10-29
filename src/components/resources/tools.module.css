@@ -1,0 +1,355 @@
+/* The glossary page and the <InterviewQuestions /> article block. Same tokens
+   and card language as the index and article pages. Chip and tab rows wrap. */
+
+.page {
+  padding-block: 28px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.kick {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.devTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+.lede {
+  margin: 0;
+  color: var(--ink-soft);
+  max-width: 44rem;
+}
+
+/* ---------- Chips and tabs (always wrap) ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: var(--teal);
+  color: var(--navy);
+}
+.chip[aria-pressed="true"],
+.chip[aria-current="page"] {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---------- Search ---------- */
+.search {
+  position: relative;
+  max-width: 34rem;
+}
+.search svg {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-faint);
+  pointer-events: none;
+}
+.search input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 1rem 0 2.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.search input:focus {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 1px;
+  border-color: var(--teal-dark);
+}
+.count {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Glossary ---------- */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.letter {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--teal-dark);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 6px;
+}
+.terms {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.term {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.15rem 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  scroll-margin-top: 16px;
+}
+.term:target {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px var(--tint);
+}
+.termHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.term h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: var(--navy);
+}
+.aka {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+}
+.term p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.term .plant {
+  background: var(--tint);
+  border-radius: 6px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.88rem;
+  color: var(--teal-ink);
+}
+.plant b {
+  font-weight: 600;
+}
+.area {
+  margin-top: auto;
+  padding-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.copy {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 32px;
+  padding: 0 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  color: var(--ink-faint);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.copy:hover {
+  color: var(--teal-dark);
+  border-color: var(--line-strong);
+}
+.none {
+  margin: 0;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Interview questions ---------- */
+.questions,
+.iq .questions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.q,
+.iq .q {
+  margin: 0;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.25rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.qHead {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.qNum {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--teal-ink);
+  background: var(--tint);
+  border-radius: 5px;
+  padding: 0.15rem 0.45rem;
+  margin-top: 0.15rem;
+}
+.q h3,
+.iq .q h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.12rem;
+  line-height: 1.3;
+  color: var(--navy);
+}
+.asked {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-ink);
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+}
+.parts {
+  margin: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+.parts dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+.parts dd {
+  margin: 0.2rem 0 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.parts .mistake dt {
+  color: #9a5b13;
+}
+/* Visitors: the questions after the open ones, without their answers. */
+.qShort {
+  padding-block: 0.95rem;
+}
+/* Members: a small link, not a second call to action. */
+.iq {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0 0 1.2rem;
+}
+/* Inside an article's .prose: keep its list, link and paragraph styles out. */
+.iq .chips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.iq .chips li {
+  margin: 0;
+}
+.iq .chip {
+  color: var(--ink-soft);
+}
+.iq .chip[aria-current="page"] {
+  color: #fff;
+}
+.iq .parts dd {
+  margin: 0.2rem 0 0;
+}
+.iq > div:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.iq .addQ {
+  align-self: flex-start;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+}
+
+.chip:focus-visible,
+.copy:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 2px;
+}
+
+@media (min-width: 640px) {
+  .terms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .page {
+    padding-block: 44px 24px;
+    gap: 24px;
+  }
+  .terms {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .q {
+    padding: 1.5rem 1.6rem;
+  }
+  .q h3 {
+    font-size: 1.2rem;
+  }
+}

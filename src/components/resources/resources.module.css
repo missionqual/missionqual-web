@@ -1,0 +1,299 @@
+/* /resources index and the pieces the article page reuses (cards, community
+   box), ported from design/resources/resources-v2.html. Phone first; desktop at 1024px. */
+
+.kick {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--navy);
+  color: #fff;
+}
+.heroInner {
+  padding-block: 36px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hero .kick {
+  color: var(--teal);
+}
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  max-width: 46rem;
+  text-wrap: balance;
+}
+.sub {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 1rem;
+  max-width: 38rem;
+}
+/* Topic pills: wrap onto as many lines as needed, never scroll sideways. */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.pills a {
+  color: var(--dark-link);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem;
+}
+.pills a:hover {
+  border-color: var(--teal);
+  color: #fff;
+}
+.pills a.on {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* ---------- Glossary bar, overlapping the hero edge ---------- */
+.gloss {
+  margin-top: -24px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  box-shadow: 0 14px 32px rgba(20, 28, 51, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+.gloss:hover {
+  border-color: var(--teal);
+}
+.ic {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--tint);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.glossCopy {
+  flex: 1 1 14rem;
+}
+.gloss b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  color: var(--navy);
+}
+.glossText {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+.go {
+  flex: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--teal-dark);
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+/* ---------- Library ---------- */
+.lib {
+  padding-block: 40px 0;
+}
+.cnt {
+  margin: 0 0 16px;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.4rem 1.4rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+}
+a.card:hover {
+  border-color: var(--teal);
+}
+.card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: var(--navy);
+}
+.card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+  flex-grow: 1;
+}
+.card .go {
+  font-size: 0.92rem;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.tag {
+  color: var(--teal-dark);
+}
+.draft {
+  color: #8a6a12;
+  background: #fff6dc;
+  border: 1px dashed #d9b54a;
+  border-radius: 4px;
+  padding: 0 0.35rem;
+}
+
+/* ---------- Community box ---------- */
+.ask {
+  margin-block: 40px 56px;
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 14px;
+  padding: 1.4rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.ask h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  color: var(--navy);
+}
+.ask p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+}
+.acts {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: none;
+}
+.btnO {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 50px;
+  padding: 0 1.25rem;
+  background: #fff;
+  border: 1.5px solid var(--navy);
+  border-radius: 8px;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none;
+}
+.btnO:hover {
+  background: var(--navy);
+  color: #fff;
+}
+.ask .si {
+  margin: 0.6rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.si a {
+  color: var(--teal-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+.si a:hover {
+  text-decoration: underline;
+}
+
+.gloss:focus-visible,
+.card:focus-visible,
+.btnO:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 3px;
+}
+.pills a:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+@media (min-width: 1024px) {
+  .heroInner {
+    padding-block: 64px 72px;
+  }
+  .hero h1 {
+    font-size: 2.9rem;
+  }
+  .sub {
+    font-size: 1.1rem;
+  }
+  .gloss {
+    margin-top: -30px;
+    flex-wrap: nowrap;
+    padding: 1.1rem 1.4rem;
+  }
+  .gloss .go {
+    margin-left: auto;
+    font-size: 0.95rem;
+  }
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .ask {
+    margin-block: 56px 72px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem 2.2rem;
+  }
+  .acts {
+    align-items: center;
+  }
+}

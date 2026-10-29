@@ -1,0 +1,387 @@
+/* /about, ported from design/about/about.html. Phone first; desktop at 1024px. */
+
+.kick {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  color: #fff;
+}
+.heroInner {
+  padding-block: 44px 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  align-items: end;
+}
+.hero .kick {
+  color: var(--teal);
+}
+.hero h1 {
+  margin: 0.8rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.15rem;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--teal);
+}
+.sub {
+  margin: 1.2rem 0 0;
+  color: var(--dark-soft);
+  font-size: 1rem;
+  max-width: 36rem;
+}
+/* "At a glance" */
+.ledger {
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.ledger div {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.95rem 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ledger div:last-child {
+  border-bottom: 0;
+}
+.ledger dt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #fff;
+  min-width: 3.6rem;
+}
+.ledger dd {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+/* ---------- Why we started ---------- */
+.story {
+  padding-block: 52px 8px;
+}
+.storyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+.h2 {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+.body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+.body p {
+  margin: 0 0 1.15rem;
+}
+.body .pull {
+  margin: 1.6rem 0 0;
+  padding: 1.2rem 1.4rem;
+  border-left: 3px solid var(--teal);
+  background: #fff;
+  border-radius: 0 10px 10px 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--navy);
+}
+
+/* ---------- Sections with a heading block ---------- */
+.sec {
+  padding-block: 52px 0;
+}
+.head {
+  max-width: 44rem;
+  margin-bottom: 28px;
+}
+
+/* ---------- Founders ---------- */
+.founders {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.fd {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.ph {
+  position: relative;
+  min-height: 180px;
+  background: var(--cover);
+  border-bottom: 1px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph img {
+  object-fit: cover;
+}
+.ini {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+.tx {
+  padding: 1.5rem 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.role {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+.fd h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--navy);
+}
+.fd p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.creds li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--tint);
+  color: var(--teal-ink);
+  border-radius: 6px;
+  padding: 0.25rem 0.55rem;
+}
+
+/* ---------- What you'll find here: plain links with a navy top rule ---------- */
+.offer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+.of {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.2rem 0;
+  border: 0;
+  border-top: 2px solid var(--navy);
+  background: none;
+  text-align: left;
+  font: inherit;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.of b {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+.ofText {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.go {
+  margin-top: 0.2rem;
+  color: var(--teal-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.of:hover .go {
+  text-decoration: underline;
+}
+
+/* ---------- The one call to action ---------- */
+.finale {
+  margin-block: 52px 64px;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 16px;
+  padding: 1.6rem 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+.finale h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.finale p {
+  margin: 0.6rem 0 0;
+  color: var(--dark-soft);
+  max-width: 36rem;
+}
+.acts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+.finale .btn {
+  width: 100%;
+}
+.finale .si {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 0.92rem;
+}
+.si a {
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: none;
+}
+.si a:hover {
+  text-decoration: underline;
+}
+.contact {
+  margin: -40px 0 56px;
+  color: var(--ink-faint);
+  font-size: 0.92rem;
+  text-align: center;
+}
+.contact b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.of:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 3px;
+}
+.si a:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+@media (min-width: 481px) {
+  .offer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .heroInner {
+    padding-block: 80px 88px;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 56px;
+  }
+  .hero h1 {
+    font-size: 3.3rem;
+  }
+  .sub {
+    font-size: 1.15rem;
+  }
+  .ledger dt {
+    font-size: 1.7rem;
+    min-width: 4.6rem;
+  }
+  .story {
+    padding-block: 88px 24px;
+  }
+  .storyGrid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 64px;
+  }
+  .h2 {
+    font-size: 2.1rem;
+  }
+  .body {
+    font-size: 1.1rem;
+  }
+  .sec {
+    padding-block: 72px 8px;
+  }
+  .founders {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fd {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+  .ph {
+    min-height: 260px;
+    border-bottom: 0;
+    border-right: 1px solid var(--line-strong);
+  }
+  .offer {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .finale {
+    margin-block: 80px 88px;
+    padding: 3rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2.5rem;
+  }
+  .finale h2 {
+    font-size: 2rem;
+  }
+  .finale .btn {
+    width: auto;
+  }
+  .contact {
+    margin: -56px 0 72px;
+  }
+}

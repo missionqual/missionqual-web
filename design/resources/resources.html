@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MissionQual — /resources (desktop)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<x-dc>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+<style>
+body{margin:0}
+.site{--navy:#141c33;--navy-deep:#0e1527;--teal:#57bcb3;--teal-dark:#2e7d74;--teal-ink:#1f5a53;--tint:#effaf8;--paper:#f4f6fa;--card:#f8fafd;--line:#e6eaf2;--line-strong:#e0e5ef;--ink:#141c33;--ink-soft:#4a5572;--ink-faint:#6b7793;--dark-soft:#b9c2d6;--dark-faint:#8d98b2;--dark-link:#d7ddea;
+ --fd:'Space Grotesk',sans-serif;--fb:'IBM Plex Sans',system-ui,sans-serif;--fm:'IBM Plex Mono',monospace;
+ background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.site *{box-sizing:border-box}
+.wrap{max-width:1248px;margin:0 auto;padding-inline:1.25rem}
+a{color:var(--teal-dark)}
+.logo{font-family:var(--fd);font-weight:700;font-size:1.15rem;letter-spacing:.06em;color:#fff;text-decoration:none}
+.logo span{color:var(--teal)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;background:var(--teal);color:var(--navy);font-weight:700;font-size:1.02rem;min-height:52px;padding:0 1.6rem;border:0;border-radius:8px;text-decoration:none}
+.btnO{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:50px;padding:0 1.25rem;background:#fff;border:1.5px solid var(--navy);border-radius:8px;color:var(--navy);font-weight:700;font-size:.98rem;text-decoration:none}
+.btnSm{min-height:42px;padding:0 1.15rem;font-size:.9rem}
+.kick{margin:0;font-family:var(--fm);font-weight:500;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.la{display:inline-flex;align-items:center;gap:.45rem;font-weight:600;text-decoration:none;font-size:.95rem;color:var(--teal-dark)}
+/* header */
+.hdr{background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.hdr .inner{display:flex;align-items:center;justify-content:space-between;min-height:76px}
+.nav{display:flex;align-items:center;gap:2.1rem}
+.nav a{color:var(--dark-link);text-decoration:none;font-size:.95rem}
+.nav a.on{color:#fff;font-weight:600;box-shadow:inset 0 -2px 0 var(--teal);padding-block:.35rem}
+.nav a.btn{color:var(--navy)}
+.burger{display:none;color:#fff}
+/* footer */
+.ftr{background:var(--navy-deep);color:var(--dark-soft)}
+.ftr .inner{padding-block:56px 32px;display:flex;justify-content:space-between;gap:3rem}
+.ftr p{margin:.8rem 0 0;max-width:24rem;color:var(--dark-faint)}
+.ftr .cols{display:flex;gap:5rem}
+.ftr .col{display:flex;flex-direction:column;gap:.8rem}
+.ftr .col b{font-family:var(--fm);font-weight:500;font-size:.76rem;letter-spacing:.16em;color:var(--dark-faint)}
+.ftr .col a{color:var(--dark-link);text-decoration:none}
+/* resources hero */
+.rhero{background:var(--navy);color:#fff}
+.rhero .inner{padding-block:64px 72px;display:flex;flex-direction:column;gap:16px;max-width:1248px}
+.rhero h1{margin:0;font-family:var(--fd);font-weight:700;font-size:2.9rem;line-height:1.08;letter-spacing:-.015em;max-width:46rem;text-wrap:balance}
+.rhero .sub{margin:0;color:var(--dark-soft);font-size:1.1rem;max-width:38rem}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.jump a{color:var(--dark-link);text-decoration:none;font-size:.9rem;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:.4rem .9rem}
+/* featured */
+.feat{margin-top:-36px}
+.fcard{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);background:#fff;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(20,28,51,.10);text-decoration:none;color:inherit}
+.fcard .txt{padding:2.2rem 2.2rem 2rem;display:flex;flex-direction:column;gap:.8rem}
+.fcard h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.85rem;line-height:1.15;letter-spacing:-.01em;color:var(--navy);text-wrap:balance}
+.fcard p{margin:0;color:var(--ink-soft);font-size:1.02rem;max-width:36rem}
+.ladder{background:var(--tint);padding:2rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:8px;border-left:1px solid #cfe9e5}
+.rung{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #cfe9e5;border-radius:8px;padding:.55rem .8rem}
+.rung b{font-family:var(--fm);font-weight:500;font-size:.8rem;color:var(--teal-ink);background:var(--tint);border-radius:5px;padding:.15rem .45rem;min-width:2.4rem;text-align:center}
+.rung span{font-size:.92rem;color:var(--ink)}
+.meta{display:flex;gap:.9rem;align-items:center;font-family:var(--fm);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.meta .tag{color:var(--teal-dark)}
+/* sections */
+.sec{padding-block:56px 8px}
+.sec .head{display:flex;flex-direction:column;gap:.4rem;margin-bottom:22px}
+.sec h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.65rem;letter-spacing:-.01em}
+.sec .head p{margin:0;color:var(--ink-soft);max-width:40rem}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:1.4rem 1.4rem 1.25rem;display:flex;flex-direction:column;gap:.6rem;text-decoration:none;color:inherit}
+.card h3{margin:0;font-family:var(--fd);font-weight:700;font-size:1.15rem;line-height:1.25;color:var(--navy)}
+.card p{margin:0;color:var(--ink-soft);font-size:.93rem;flex-grow:1}
+.card .go{font-weight:600;font-size:.92rem;color:var(--teal-dark);display:inline-flex;gap:.4rem;align-items:center}
+/* bands */
+.band{margin-top:56px;background:var(--navy);color:#fff;border-radius:14px;padding:2rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.band h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.5rem;line-height:1.2}
+.band p{margin:.4rem 0 0;color:var(--dark-soft);max-width:34rem}
+.ask{margin-block:56px 72px;background:var(--tint);border:1px solid #cfe9e5;border-radius:14px;padding:2rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.ask h2{margin:0;font-family:var(--fd);font-weight:700;font-size:1.4rem;color:var(--navy)}
+.ask p{margin:.35rem 0 0;color:var(--ink-soft)}
+.ask .si{margin:.6rem 0 0;text-align:center;font-size:.9rem;color:var(--ink-soft)}
+.ask .si a{font-weight:600;text-decoration:none}
+.acts{display:flex;flex-direction:column;align-items:center;flex:none}
+/* article */
+.crumb{font-size:.9rem;color:var(--dark-faint)}
+.crumb a{color:var(--dark-link);text-decoration:none}
+.ahero{background:var(--navy);color:#fff}
+.ahero .inner{padding-block:44px 52px;display:flex;flex-direction:column;gap:14px}
+.ahero h1{margin:0;font-family:var(--fd);font-weight:700;font-size:2.6rem;line-height:1.1;letter-spacing:-.015em;max-width:50rem;text-wrap:balance}
+.by{display:flex;gap:10px;align-items:center;color:var(--dark-soft);font-size:.92rem}
+.av{width:34px;height:34px;border-radius:50%;background:var(--teal);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+.alay{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;padding-block:44px 24px;align-items:start}
+.prose{max-width:44rem;font-size:1.06rem;line-height:1.7}
+.prose h2{font-family:var(--fd);font-weight:700;font-size:1.5rem;line-height:1.2;margin:2.2rem 0 .6rem;color:var(--navy)}
+.prose h3{font-family:var(--fd);font-weight:700;font-size:1.15rem;margin:1.6rem 0 .3rem;color:var(--navy)}
+.prose p{margin:0 0 1rem}
+.prose ul{margin:0 0 1rem;padding-left:1.2rem}
+.prose li{margin-bottom:.35rem}
+.short{background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:1.3rem 1.4rem;margin-bottom:1.6rem}
+.short .kick{color:var(--teal-dark);margin-bottom:.4rem}
+.short p{margin:0}
+.tbl{overflow-x:auto;border:1px solid var(--line-strong);border-radius:12px;background:#fff;margin:0 0 1.2rem}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem;line-height:1.45}
+th{font-family:var(--fm);font-weight:500;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);text-align:left;padding:.8rem 1rem;border-bottom:1px solid var(--line-strong);background:var(--card)}
+td{padding:.8rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td b{font-family:var(--fm);font-weight:500;color:var(--teal-ink)}
+.og{background:var(--tint);border:1px solid #cfe9e5;border-radius:12px;padding:1.3rem 1.4rem;margin:1.6rem 0}
+.og .kick{color:var(--teal-ink);margin-bottom:.5rem}
+.og ul{margin:0;padding-left:1.2rem}
+.slot{background:#fff6dc;border:1px dashed #d9b54a;border-radius:6px;padding:.1rem .35rem;font-size:.95rem}
+.side{position:sticky;top:24px;display:flex;flex-direction:column;gap:18px}
+.toc{background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:1.1rem 1.2rem}
+.toc .kick{color:var(--ink-faint);margin-bottom:.6rem}
+.toc a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.92rem;padding:.3rem 0;border-left:2px solid var(--line-strong);padding-left:.8rem}
+.toc a.on{color:var(--navy);font-weight:600;border-color:var(--teal)}
+.gcard{background:var(--navy);color:#fff;border-radius:12px;padding:1.3rem 1.2rem;display:flex;flex-direction:column;gap:.7rem}
+.gcard h3{margin:0;font-family:var(--fd);font-weight:700;font-size:1.1rem;line-height:1.25}
+.gcard p{margin:0;color:var(--dark-soft);font-size:.9rem}
+.gcard .btn{min-height:46px;font-size:.92rem;padding:0 1rem}
+.more{padding-block:24px 0}
+.more h2{margin:0 0 18px;font-family:var(--fd);font-weight:700;font-size:1.4rem}
+@media (max-width:1023px){
+ .hdr .inner{min-height:56px}.nav{display:none}.burger{display:block}
+ .rhero .inner{padding-block:36px 56px}.rhero h1{font-size:2rem}.rhero .sub{font-size:1rem}
+ .jump{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-1.25rem;padding-inline:1.25rem}
+ .jump a{flex:none}
+ .fcard{grid-template-columns:minmax(0,1fr)}.fcard .txt{padding:1.4rem 1.25rem 1.2rem}.fcard h2{font-size:1.4rem}
+ .ladder{border-left:0;border-top:1px solid #cfe9e5;padding:1.1rem 1.25rem}
+ .sec{padding-block:40px 0}.sec h2{font-size:1.4rem}
+ .cards{grid-template-columns:minmax(0,1fr);gap:12px}
+ .band,.ask{flex-direction:column;align-items:stretch;padding:1.4rem 1.25rem;gap:1.1rem}
+ .band .btn,.ask .btnO{width:100%}
+ .ftr .inner{flex-direction:column}.ftr .cols{gap:3rem}
+ .ahero h1{font-size:1.75rem}.ahero .inner{padding-block:28px 32px}
+ .alay{grid-template-columns:minmax(0,1fr);gap:28px;padding-block:28px 8px}
+ .side{position:static}.toc{display:none}
+ .prose{font-size:1rem}
+}
+
+.tools{margin-top:-40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.tool{background:#fff;border:1px solid var(--line-strong);border-radius:14px;padding:1.3rem 1.25rem 1.15rem;display:flex;flex-direction:column;gap:.55rem;text-decoration:none;color:inherit;box-shadow:0 14px 32px rgba(20,28,51,.10)}
+.tool .ic{width:44px;height:44px;border-radius:10px;background:var(--tint);color:var(--teal-dark);display:flex;align-items:center;justify-content:center}
+.tool .lab{font-family:var(--fm);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.tool h3{margin:0;font-family:var(--fd);font-weight:700;font-size:1.12rem;line-height:1.25;color:var(--navy)}
+.tool p{margin:0;color:var(--ink-soft);font-size:.9rem;flex-grow:1}
+.tool .go{font-weight:600;font-size:.9rem;color:var(--teal-dark);display:inline-flex;gap:.4rem;align-items:center}
+.sec .head{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:1.5rem;border-top:1px solid var(--line-strong);padding-top:28px}
+.sec .head .l{display:flex;flex-direction:column;gap:.35rem}
+.sec .num{font-family:var(--fm);font-size:.72rem;letter-spacing:.14em;color:var(--teal-dark);text-transform:uppercase}
+.card .ic2{color:var(--teal-dark)}
+.card.tl{background:var(--tint);border-color:#cfe9e5}
+.guideband{margin-top:20px;background:var(--navy);color:#fff;border-radius:14px;padding:1.6rem 1.8rem;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;align-items:center}
+.guideband h3{margin:0;font-family:var(--fd);font-weight:700;font-size:1.3rem;line-height:1.2}
+.guideband p{margin:.35rem 0 0;color:var(--dark-soft);font-size:.95rem;max-width:40rem}
+@media (max-width:1023px){
+ .tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:-28px}
+ .tool{padding:1rem .9rem;box-shadow:0 8px 20px rgba(20,28,51,.08)}
+ .tool p{display:none}.tool h3{font-size:1rem}
+ .sec .head{flex-direction:column;align-items:flex-start;padding-top:22px}
+ .guideband{grid-template-columns:minmax(0,1fr);padding:1.3rem 1.25rem}
+ .guideband .btn{width:100%}
+}
+</style>
+
+<div class="site"><header class="hdr"><div class="wrap inner"><a class="logo" href="#home" aria-label="MissionQual home">MISSION<span>QUAL</span></a>
+<nav class="nav" aria-label="Main"><a href="#jobs">Jobs</a><a href="#resources" class="on" aria-current="page">Resources</a><a href="#community">Community</a><a href="#about">About</a><a href="#login">Sign in</a><a class="btn btnSm" href="#guide">Get the guide</a></nav>
+<svg class="burger" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg></div></header>
+<section class="rhero"><div class="wrap inner"><p class="kick" style="color:var(--teal)">Resources</p>
+<h1>Data center work, explained by people doing it.</h1>
+<p class="sub">The pay, the sites, life on site and the equipment, in plain field language for people coming from oil and gas.</p>
+<nav class="jump" aria-label="Sections"><a href="#money">The money</a><a href="#boom">The sites and the boom</a><a href="#site">Life on site</a><a href="#equipment">The equipment</a><a href="#hired">Getting hired</a></nav></div></section>
+<div class="wrap"><div class="tools"><a class="tool" href="#tool"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"></path><path d="M4 19a2 2 0 0 1 2-2h13"></path><path d="M9 7h6M9 10.5h4"></path></svg></span><span class="lab">Glossary</span><h3>Data center terms, matched to oil and gas</h3><p>Every term you'll hear on site, next to the word you already use for it.</p><span class="go">Open <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="tool" href="#tool"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z"></path><path d="M8.5 9.5h7M8.5 12.5h4"></path></svg></span><span class="lab">Interview prep</span><h3>Interview questions</h3><p>Real questions for QA/QC, commissioning and trade roles, and how to answer them.</p><span class="go">Open <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="tool" href="#tool"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.3"></circle></svg></span><span class="lab">Map</span><h3>Projects by state</h3><p>Major campuses under construction, and the jobs we've posted near them.</p><span class="go">Open <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="tool" href="#tool"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.6"></circle><path d="M6.5 9.5v.01M17.5 14.5v.01"></path></svg></span><span class="lab">Live data</span><h3>Pay from real postings</h3><p>Rates, per diem and overtime from the jobs we post. Updated as we post.</p><span class="go">Open <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div></div>
+<section class="sec wrap" id="money" aria-labelledby="h-money"><div class="head"><div class="l"><span class="num">01</span><h2 id="h-money">The money</h2><p>What the work pays, and the parts of an offer people get wrong.</p></div></div><div class="cards"><a class="card" href="#article"><div class="meta"><span class="tag">The money</span><span>7 min read</span></div><h3>Data center electrician pay: base, overtime and per diem</h3><p>Why the $200K headlines are real for some and not others, and how to read an offer.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">The money</span><span>6 min read</span></div><h3>Per diem and the 12-month rule, in plain terms</h3><p>When per diem is tax-free, when it isn't, and what to ask before you sign.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">The money</span><span>6 min read</span></div><h3>Union or open shop on a data center job?</h3><p>How pay, travel and getting hired differ, and how to find out which a project is.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div></section><section class="sec wrap" id="boom" aria-labelledby="h-boom"><div class="head"><div class="l"><span class="num">02</span><h2 id="h-boom">The sites and the boom</h2><p>Where the work is, and how long it lasts.</p></div></div><div class="cards"><a class="card" href="#article"><div class="meta"><span class="tag">The sites and the boom</span><span>7 min read</span></div><h3>How long will the data center build-out last?</h3><p>What the announced projects and hiring data say, from a worker's point of view.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">The sites and the boom</span><span>6 min read</span></div><h3>Is it an AI bubble? What it means for your next five years</h3><p>The honest risks, and how to keep your options open.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card tl" href="#tool"><div class="meta"><span class="tag">Tool</span></div><span class="ic2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.3"></circle></svg></span><h3>Projects by state</h3><p>Major campuses under construction, and the jobs near them.</p><span class="go">Open <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div></section><section class="sec wrap" id="site" aria-labelledby="h-site"><div class="head"><div class="l"><span class="num">03</span><h2 id="h-site">Life on site</h2><p>The parts the job ads leave out.</p></div></div><div class="cards"><a class="card" href="#article"><div class="meta"><span class="tag">Life on site</span><span>6 min read</span></div><h3>What a week on a data center build really looks like</h3><p>Six tens or six twelves, travel, rotations, and who you answer to.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">Life on site</span><span>5 min read</span></div><h3>Getting badged: background checks, drug tests and no-phone rules</h3><p>What to expect before day one, and how long it takes.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">Life on site</span><span>5 min read</span></div><h3>Clean rules, PPE and what's different from a plant</h3><p>Why a data center feels different from a refinery the first week.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div></section><section class="sec wrap" id="equipment" aria-labelledby="h-equipment"><div class="head"><div class="l"><span class="num">04</span><h2 id="h-equipment">The equipment</h2><p>What you'll be working around, explained for the trades.</p></div></div><div class="cards"><a class="card" href="#article"><div class="meta"><span class="tag">The equipment</span><span>10 min read</span></div><h3>UPS, generators and switchgear: the power side in 10 minutes</h3><p>How power gets to the servers, and what stays on when the utility drops.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">The equipment</span><span>9 min read</span></div><h3>Chillers, cooling towers and CRAHs: the cooling side</h3><p>Where the heat goes, and the piping that carries it.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">The equipment</span><span>8 min read</span></div><h3>Liquid cooling and CDUs: what's new for pipefitters and mechanical QC</h3><p>The newest change on AI data centers, and what it means for your scope.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div></section><section class="sec wrap" id="hired" aria-labelledby="h-hired"><div class="head"><div class="l"><span class="num">05</span><h2 id="h-hired">Getting hired</h2><p>Picking the right door in.</p></div></div><div class="cards"><a class="card" href="#article"><div class="meta"><span class="tag">Getting hired</span><span>6 min read</span></div><h3>Data center technician or construction: which job fits you?</h3><p>Operations vs. building it: pay, schedule, and who each one hires.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card" href="#article"><div class="meta"><span class="tag">Getting hired</span><span>7 min read</span></div><h3>Is NETA, BCxP or OSHA 30 worth it before your first job?</h3><p>Which certs help, which can wait, and which employers pay for.</p><span class="go">Read <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="card tl" href="#tool"><div class="meta"><span class="tag">Tool</span></div><span class="ic2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5z"></path><path d="M8.5 9.5h7M8.5 12.5h4"></path></svg></span><h3>Interview questions</h3><p>Real questions for QA/QC, commissioning and trade roles.</p><span class="go">Open <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div><div class="guideband"><div><h3>The full path is in the Transition Guide.</h3><p>The roles to target, what transfers, what changes, and the résumé rewrite, in one place.</p></div><a class="btn" href="#guide">Send me the transition guide <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div></section>
+<div class="wrap"><div class="ask"><div><h2>Have a question these don't answer?</h2><p>Ask the people already on data center sites. Members answer in the community.</p></div>
+<div class="acts"><a class="btnO" href="#community">Join the community <svg width="14" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><p class="si">Already a member? <a href="#login">Sign in</a></p></div></div></div>
+<footer class="ftr"><div class="wrap inner"><div><a class="logo" href="#home">MISSION<span>QUAL</span></a><p>Helping industrial QA/QC and trades move into data center construction.</p></div>
+<div class="cols"><nav class="col" aria-label="Explore"><b>EXPLORE</b><a href="#guide">Transition Guide</a><a href="#jobs">Jobs</a><a href="#resources">Resources</a><a href="#community">Community</a><a href="#about">About</a></nav>
+<nav class="col" aria-label="Legal"><b>LEGAL</b><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#rules">Community rules</a></nav></div></div></footer></div>
+</x-dc>
+
+</body>
+</html>

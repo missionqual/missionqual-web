@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
+/* ============================================================
+   MissionQual landing design tokens — verbatim from
+   design/missionqual-landing.html (see design/DESIGN_SPEC.md).
+   Font tokens point at the next/font variables set in app/layout.tsx.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy: #141c33; /* primary dark / hero bg */
+  --navy-deep: #0e1527; /* ticker + footer bg */
+  --teal: #57bcb3; /* CTA fill, accents on dark */
+  --teal-dark: #2e7d74; /* accents on light bg (AA contrast) */
+  --teal-ink: #1f5a53; /* emphasized text on light/tint */
+  --tint: #effaf8; /* teal tint fills */
+  --paper: #f4f6fa; /* page bg */
+  --card: #f8fafd; /* card fill on white */
+  --cover: #edf1f7; /* guide cover fill */
+  --line: #e6eaf2; /* hairlines on light */
+  --line-strong: #e0e5ef; /* card borders */
+  --ink: #141c33; /* body text on light */
+  --ink-soft: #4a5572; /* secondary text on light */
+  --ink-faint: #7e8aa6; /* mono labels */
+  --dark-soft: #b9c2d6; /* secondary text on dark */
+  --dark-faint: #8d98b2; /* tertiary text on dark */
+  --dark-link: #d7ddea; /* nav/footer links on dark */
+  --bar-h: 4.6rem; /* mobile sticky bar height */
+  --section-y: 48px; /* vertical padding of every content section */
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-body: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@media (min-width: 1024px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --section-y: 80px;
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* MISSIONQUAL brand tokens. Each --color-* generates utilities such as
+   bg-navy, text-teal-dark, border-line, bg-paper, text-ink. */
+@theme {
+  /* Brand */
+  --color-navy: #1f2a44;
+  --color-navy-dark: #141c2f;
+  --color-teal: #0f9d9a;
+  /* Teal for text on light backgrounds (meets contrast). */
+  --color-teal-dark: #0b7c7a;
+  /* Teal for use on navy. */
+  --color-teal-bright: #2bc0bc;
+  --color-paper: #f7f9fa;
+  --color-ink: #1a1f2b;
+
+  /* Supporting tones from the approved homepage design. */
+  --color-mist: #dce2ee;
+  --color-fog: #a9b4cc;
+  --color-body: #3a4560;
+  --color-muted: #4a5672;
+  --color-steel: #2e3b5c;
+  --color-strip: #e9eef3;
+  --color-sheet-head: #e4eaf2;
+  --color-fit: #eaf6f6;
+  --color-line: #d5dce6;
+  --color-line-strong: #c9d2df;
+  --color-line-soft: #e6ebf1;
+}
+
+/* Inline so the utilities resolve to the next/font variables set on <html>. */
+@theme inline {
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal-dark);
+  outline-offset: 3px;
 }

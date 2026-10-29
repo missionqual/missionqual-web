@@ -1,0 +1,118 @@
+.header {
+  position: relative;
+  background: var(--navy);
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+}
+.navLinks {
+  display: none;
+}
+
+/* Mobile menu (the reference has the toggle but no panel design). */
+.toggle {
+  background: none;
+  border: 0;
+  padding: 0.5rem;
+  margin-right: -0.5rem;
+  cursor: pointer;
+  color: #fff;
+}
+.panel {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  z-index: 60;
+  background: var(--navy);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+  padding: 0.5rem 1.25rem 1.25rem;
+}
+.panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.panelLink {
+  display: block;
+  padding: 0.75rem 0;
+  color: var(--dark-link);
+  text-decoration: none;
+  font-size: 1rem;
+}
+.panelLink:hover {
+  color: #fff;
+}
+.panelLink.on {
+  color: #fff;
+  font-weight: 600;
+}
+/* Sign in, or the member's avatar + name (and Moderation for moderators). */
+.panelAccount {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 0.25rem;
+}
+.panelSignin {
+  color: #fff;
+  font-weight: 600;
+}
+/* Initials avatar + first name, linking to /account. */
+.me {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.panel .panelBtn {
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.toggle:focus-visible,
+.navLinks a:focus-visible,
+.navLinks button:focus-visible,
+.panel a:focus-visible,
+.panel button:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+@media (min-width: 1024px) {
+  .inner {
+    min-height: 76px;
+  }
+  .mobileOnly {
+    display: none;
+  }
+  .navLinks {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+  }
+  .navLinks a {
+    color: var(--dark-link);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .navLinks a:hover {
+    color: #fff;
+  }
+  .navLinks a.on {
+    color: #fff;
+    font-weight: 600;
+  }
+  /* Plain text, not a second button (DESIGN_SPEC rule 7). */
+  .navLinks a.signin {
+    color: #fff;
+    font-weight: 600;
+  }
+  /* Keep the button's own colors against the generic nav link rule. */
+  .navLinks .headerBtn {
+    color: var(--navy);
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,158 @@
+/* /community/members and /community/members/[id] — design/community/members.html, profile.html */
+.filter {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.search {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-faint);
+  display: flex;
+}
+.searchInput {
+  padding-left: 44px !important;
+  min-height: 46px !important;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  padding: 22px !important;
+}
+.card:hover {
+  border-color: #c9d2df;
+}
+.card:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 3px;
+}
+.head {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.name {
+  display: block;
+  font-size: 1rem;
+}
+.where {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.role {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  min-height: 2.7em;
+}
+
+/* Profile */
+.pf {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+.pf h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+  line-height: 1.15;
+}
+.pfRole {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+.pfTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.pstats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+.pstats b {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--navy);
+}
+.pstats span {
+  color: var(--ink-faint);
+  font-size: 0.88rem;
+}
+.sec h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0 0 12px;
+}
+.about {
+  color: var(--ink);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.about p {
+  margin: 0;
+}
+.about p + p {
+  margin-top: 10px;
+}
+.label {
+  font-size: 0.8rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  color: var(--ink-faint) !important;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .sel {
+    flex: 1;
+  }
+  .search {
+    flex-basis: 100%;
+  }
+  .pf {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .pf h1 {
+    font-size: 1.6rem;
+  }
+  .pact,
+  .pact > * {
+    width: 100%;
+  }
+}

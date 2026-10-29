@@ -1,17 +1,39 @@
+import type { Metadata } from "next";
+import { FinalCta } from "@/src/components/landing/FinalCta";
+import { GuideCards } from "@/src/components/landing/GuideCards";
+import { Hero } from "@/src/components/landing/Hero";
+import { Jobs } from "@/src/components/landing/Jobs";
+import { StickyCta } from "@/src/components/landing/StickyCta";
+import { Ticker } from "@/src/components/landing/Ticker";
+import { TranslationSheet } from "@/src/components/landing/TranslationSheet";
+import { pageMetadata } from "@/src/lib/seo";
+
+// Landing page ported from design/missionqual-landing.html; the rules in
+// design/DESIGN_SPEC.md (one CTA style, fold order, section order) must hold.
+
+const TITLE = "MissionQual — From Oil & Gas to Data Center Construction";
+const DESCRIPTION =
+  "A guide for API inspectors, CWIs, QA/QC and trades: the roles to target, the skills that transfer, and where the data center jobs are.";
+
+const base = pageMetadata({ title: TITLE, description: DESCRIPTION, path: "/" });
+
+export const metadata: Metadata = {
+  ...base,
+  title: { absolute: TITLE },
+  openGraph: { ...base.openGraph, title: TITLE },
+  twitter: { ...base.twitter, title: TITLE },
+};
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-      <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-        Welcome to MissionQual
-      </h1>
-
-      <p className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-gray-600">
-        You've already built the skills. Now discover where they can take you.
-        MissionQual helps experienced industrial professionals turn their
-        expertise into opportunities in data centers and mission-critical
-        construction — without starting over.
-      </p>
-    </main>
+    <>
+      <Hero />
+      <Ticker />
+      <TranslationSheet />
+      <GuideCards />
+      <Jobs />
+      <FinalCta />
+      <StickyCta />
+    </>
   );
 }

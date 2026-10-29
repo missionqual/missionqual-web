@@ -1,0 +1,35 @@
+/* Final CTA */
+.final {
+  background: var(--navy);
+  color: #fff;
+}
+.final .inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  text-align: left;
+}
+.final .h2 {
+  font-size: 1.55rem;
+  line-height: 1.18;
+}
+.final p {
+  color: var(--dark-soft);
+  font-size: 0.92rem;
+  max-width: 34rem;
+}
+.final .btn {
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .final .h2 {
+    font-size: 2.25rem;
+  }
+  .final p {
+    font-size: 1.05rem;
+  }
+  .final .btn {
+    width: auto;
+  }
+}

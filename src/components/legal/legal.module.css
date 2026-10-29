@@ -1,0 +1,32 @@
+/* /privacy and /terms: the article hero and prose, in one column of about 44rem. */
+.heroInner {
+  gap: 10px;
+}
+.kick {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.updated {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 0.92rem;
+}
+.layout {
+  padding-bottom: 56px;
+}
+/* Scoped under .layout so it beats the article's max-width: none whatever the CSS order. */
+.layout .prose {
+  max-width: 44rem;
+}
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 44rem) 240px;
+    justify-content: space-between;
+    padding-bottom: 80px;
+  }
+}

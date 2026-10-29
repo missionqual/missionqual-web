@@ -1,0 +1,189 @@
+/* "A look inside" guide preview card (design/update-hero.png) — DESIGN_SPEC rule 3.
+   Mobile: compact, no descriptions; sits below the hero CTA. */
+.coverWrap {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  margin-top: 0.9rem; /* ~32px below the hero CTA */
+}
+.cover {
+  width: 100%;
+  max-width: 480px;
+  background: var(--cover);
+  border-radius: 6px;
+  border-left: 5px solid var(--teal);
+  padding: 0.95rem 1rem 0.9rem;
+  text-align: left;
+  color: var(--navy);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+.kicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  font-weight: 500;
+}
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  margin: 0.25rem 0 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+.list {
+  list-style: none;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.num {
+  flex: none;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--teal-dark);
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.q {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+/* Descriptions and the wordmark are desktop-only. */
+.text,
+.coverLogo {
+  display: none;
+}
+.text {
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+.also {
+  margin: 0.65rem 0 0;
+  padding: 0.4rem 0.6rem;
+  background: #e3ece9;
+  border-left: 3px solid var(--teal);
+  color: var(--navy);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.also b {
+  font-weight: 700;
+}
+.coverLogo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+}
+.coverLogo span {
+  color: var(--teal-dark);
+}
+
+/* Translation chip: DESKTOP ONLY, hangs off bottom-RIGHT (never covers the
+   wordmark) — DESIGN_SPEC rule 4. */
+.chip {
+  display: none;
+  position: absolute;
+  right: -2.5rem;
+  bottom: -2rem;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.9rem 1.15rem;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+.chipKicker {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.chipLine {
+  font-size: 0.95rem;
+  color: var(--navy);
+  margin-top: 0.3rem;
+}
+.chipLine b {
+  color: var(--teal-dark);
+  font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+  .coverWrap {
+    flex: none;
+    align-self: auto;
+    margin-top: 0;
+    margin-right: 2.5rem;
+  }
+  .cover {
+    width: 448px;
+    max-width: none;
+    border-left-width: 8px;
+    border-radius: 8px;
+    padding: 2rem 2rem 1.6rem;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  }
+  .kicker {
+    font-size: 0.74rem;
+  }
+  .title {
+    font-size: 1.85rem;
+    margin-top: 0.55rem;
+    padding-bottom: 1.1rem;
+  }
+  .list {
+    margin-top: 1.1rem;
+    gap: 0.9rem;
+  }
+  .item {
+    gap: 1.25rem;
+  }
+  .num {
+    font-size: 0.95rem;
+    width: 1.6rem;
+  }
+  .body {
+    border-left: 2px solid var(--line-strong);
+    padding-left: 0.9rem;
+  }
+  .q {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .text {
+    display: block;
+    font-size: 0.9rem;
+  }
+  .also {
+    margin-top: 1.1rem;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+  }
+  .coverLogo {
+    display: block;
+    margin-top: 1.1rem;
+    font-size: 0.8rem;
+  }
+  .chip {
+    display: block;
+  }
+}

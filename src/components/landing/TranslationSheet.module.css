@@ -1,0 +1,95 @@
+/* Translation Sheet — FIRST section after the hero (DESIGN_SPEC rule 5). */
+.translate .inner {
+  display: flex;
+  flex-direction: column;
+  gap: 28px; /* link → table */
+}
+/* 16px h2 → paragraph; the link's 4px margin makes 20px paragraph → link. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.copy > a,
+.copy > button {
+  margin-top: 4px;
+}
+.sheet {
+  border: 1px solid #d8deea;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(20, 28, 51, 0.07);
+}
+.sheet table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.sheet th {
+  background: var(--navy);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+}
+.sheet th + th,
+.sheet td + td {
+  border-left: 1px solid var(--line);
+}
+.sheet th + th {
+  border-left-color: rgba(255, 255, 255, 0.15);
+}
+.sheet td {
+  border-top: 1px solid var(--line);
+  padding: 0.8rem 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  width: 50%;
+  vertical-align: top;
+}
+.sheet td.dc {
+  font-weight: 600;
+  color: var(--teal-ink);
+}
+/* Highlight row = 10-week turnaround, always FIRST. */
+.sheet tr.hl {
+  background: var(--tint);
+}
+@media (min-width: 1024px) {
+  .translate .inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4.5rem;
+  }
+  .copy {
+    flex: 0 0 400px;
+  }
+  .translate .lede {
+    font-size: 1rem;
+  }
+  .sheet {
+    flex: 1;
+    margin-top: 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(20, 28, 51, 0.08);
+  }
+  .sheet th {
+    font-size: 0.95rem;
+    padding: 0.95rem 1.4rem;
+  }
+  .sheet td {
+    font-size: 0.97rem;
+    padding: 1rem 1.4rem;
+  }
+}
+
+/* "Get the full sheet": a <button> that looks like the shared text link. */
+.sheetLink {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
