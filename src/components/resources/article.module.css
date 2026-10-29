@@ -63,6 +63,21 @@
   font-weight: 700;
   font-size: 0.8rem;
 }
+/* Name on line 1; "6 min read · October 2026" on line 2. On a very narrow
+   screen the "· October 2026" phrase wraps whole onto its own line. */
+.byText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.byMeta {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.3em;
+}
+.nowrap {
+  white-space: nowrap;
+}
 .updated {
   color: var(--dark-faint);
   font-size: 0.88rem;
