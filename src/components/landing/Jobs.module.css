@@ -43,6 +43,12 @@
   font-size: 0.82rem;
   color: var(--ink-soft);
 }
+.pay {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--teal-ink);
+}
 .fit {
   background: var(--tint);
   border-radius: 6px;

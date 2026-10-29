@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { GuideCta } from "@/src/components/guide/GuideCta";
 import shared from "@/src/components/landing/shared.module.css";
 import a from "@/src/components/resources/article.module.css";
 import { ArticleCard } from "@/src/components/resources/ArticleCard";
-import { CommunityBox } from "@/src/components/resources/CommunityBox";
+import { EndCta } from "@/src/components/resources/EndCta";
 import s from "@/src/components/resources/resources.module.css";
 import { Toc } from "@/src/components/resources/Toc";
 import { initials } from "@/src/lib/community/format";
-import { getArticle, getArticles, getRelated, getToc, sectionLabel } from "@/src/lib/resources";
+import { getProjects, groupByState, type Project } from "@/src/lib/projects";
+import { getArticle, getArticles, getRelated, getToc, topicLabel, type TocItem } from "@/src/lib/resources";
 import { pageMetadata, SITE_NAME, SITE_URL } from "@/src/lib/seo";
 
 // Ported from design/resources/article.html.
@@ -38,10 +38,23 @@ export async function generateMetadata({ params }: PageProps<"/resources/[slug]"
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
       authors: [article.author.name],
-      section: sectionLabel(article.section),
+      section: topicLabel(article.section),
     },
     ...(article.status === "draft" && { robots: { index: false, follow: false } }),
   };
+}
+
+// updatedAt is a calendar date, so format it in UTC.
+const monthYear = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+
+/** "On this page", with a state anchor per state wherever the article uses <ProjectList />. */
+async function resolveToc(slug: string): Promise<TocItem[]> {
+  const raw = await getToc(slug);
+  if (!raw.some((x) => "projects" in x)) return raw as TocItem[];
+  const projects = await getProjects().catch((): Project[] => []);
+  const states = groupByState(projects).map((g) => ({ id: g.id, label: g.name, sub: true }));
+  return raw.flatMap((x) => ("projects" in x ? states : [x]));
 }
 
 export default function ArticlePage(props: PageProps<"/resources/[slug]">) {
@@ -60,7 +73,7 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
 
   const [{ default: Body }, toc, related] = await Promise.all([
     import(`@/content/resources/${slug}.mdx`),
-    getToc(slug),
+    resolveToc(slug),
     getRelated(article),
   ]);
   const path = `/resources/${slug}`;
@@ -90,7 +103,7 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
         <div className={`${shared.wrap} ${a.heroInner}`}>
           <p className={a.crumb}>
             <Link href="/resources">Resources</Link> /{" "}
-            <Link href={`/resources#${article.section}`}>{sectionLabel(article.section)}</Link>
+            <Link href={`/resources?topic=${article.section}`}>{topicLabel(article.section)}</Link>
           </p>
           <h1>{article.title}</h1>
           <div className={a.by}>
@@ -100,6 +113,7 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
             <span>
               {byline} · {article.readMinutes} min read
             </span>
+            <span className={a.updated}>· Updated {monthYear(article.updatedAt)}</span>
           </div>
           {article.status === "draft" && <p className={a.draftNote}>Draft: only visible in development</p>}
         </div>
@@ -109,14 +123,7 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
         <article className={a.prose}>
           <Body />
         </article>
-        <aside className={a.side}>
-          {toc.length > 0 && <Toc items={toc} />}
-          <div className={a.gcard}>
-            <h3>Get the Transition Guide</h3>
-            <p>The roles to target, the skills that transfer, and how to sell your experience.</p>
-            <GuideCta className={a.gbtn}>Send me the guide</GuideCta>
-          </div>
-        </aside>
+        {toc.length > 0 && <Toc items={toc} />}
       </div>
 
       {related.length > 0 && (
@@ -130,11 +137,7 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
         </section>
       )}
 
-      <CommunityBox
-        title="Questions about this? Ask the people already doing it."
-        text="Members answer in the community."
-        back={path}
-      />
+      <EndCta kind={article.endCta} path={path} />
     </>
   );
 }

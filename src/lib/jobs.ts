@@ -15,6 +15,13 @@ export type Job = {
   posted_at: string | null;
 };
 
+export type JobWithPay = Job & {
+  pay_min: number;
+  pay_max: number | null;
+  pay_unit: string | null;
+  per_diem_day: number | null;
+};
+
 /**
  * Newest active jobs for the homepage. Anonymous client, so RLS returns only
  * the 3 newest (members see every job in the community). Cached rather than
@@ -78,6 +85,35 @@ export async function getPaySummary(): Promise<PaySummary[]> {
   const { data, error } = await anonClient().rpc("job_pay_summary");
   if (error) throw new Error(error.message);
   return data;
+}
+
+/**
+ * The public jobs (visitors see the 3 newest) that list pay, for the pay
+ * article. Same cache rules as getLatestJobs: throws on error.
+ */
+export async function getPublicJobsWithPay(limit: number): Promise<JobWithPay[]> {
+  "use cache";
+  cacheLife("hours");
+
+  const { data, error } = await anonClient()
+    .from("jobs")
+    .select("id, title, company, location, state, url, context, posted_at, pay_min, pay_max, pay_unit, per_diem_day")
+    .eq("active", true)
+    .not("pay_min", "is", null)
+    .order("posted_at", { ascending: false, nullsFirst: false })
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw new Error(error.message);
+  return data.filter((j): j is JobWithPay => j.pay_min !== null);
+}
+
+/** "$60–70/hr", "$100k–150k/yr", or one number when low and high match. */
+export function formatPay(low: number, high: number | null, unit: string | null) {
+  const year = unit === "year";
+  const fmt = (n: number) => (year ? `${Math.round(n / 1000)}k` : `${Math.round(n * 100) / 100}`);
+  const lo = fmt(low);
+  const hi = fmt(high ?? low);
+  return `$${lo === hi ? lo : `${lo}–${hi}`}${year ? "/yr" : "/hr"}`;
 }
 
 /** Signed-out Supabase client: cacheable, and RLS applies as for any visitor. */

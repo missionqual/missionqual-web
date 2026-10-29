@@ -15,7 +15,16 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   // The guide is an email modal now; old /guide links (PDF, emails, posts) open it.
   async redirects() {
-    return [{ source: "/guide", destination: "/?guide=1", permanent: true }];
+    return [
+      { source: "/guide", destination: "/?guide=1", permanent: true },
+      // The old Resources tool pages are articles now.
+      {
+        source: "/resources/projects-by-state",
+        destination: "/resources/where-data-centers-are-being-built",
+        permanent: true,
+      },
+      { source: "/resources/pay", destination: "/resources/what-data-center-jobs-pay", permanent: true },
+    ];
   },
   turbopack: {
     rules: {

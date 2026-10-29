@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { ArrowRight } from "@/src/components/landing/icons";
-import { sectionLabel, type Article } from "@/src/lib/resources";
+import type { Article } from "@/src/lib/resources";
+import { topicLabel } from "@/src/lib/topics";
 import s from "./resources.module.css";
 
 export function ArticleCard({ article }: { article: Article }) {
   return (
     <Link href={`/resources/${article.slug}`} className={s.card}>
       <div className={s.meta}>
-        <span className={s.tag}>{sectionLabel(article.section)}</span>
+        <span className={s.tag}>{topicLabel(article.section)}</span>
         <span>{article.readMinutes} min read</span>
         {article.status === "draft" && <span className={s.draft}>Draft</span>}
       </div>

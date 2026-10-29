@@ -1,16 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { GLOSSARY_AREAS, type GlossaryArea, type GlossaryTerm } from "@/content/resources/glossary";
-import { ArrowRight } from "@/src/components/landing/icons";
 import t from "./tools.module.css";
 
 const AREAS = Object.entries(GLOSSARY_AREAS) as [GlossaryArea, string][];
-
-function askHref(term: string) {
-  return `/community/ask?title=${encodeURIComponent(`What does ${term} mean on your site?`)}`;
-}
 
 /** Search (term, aka, definition) and area chips over the A–Z term cards. */
 export function Glossary({ terms }: { terms: GlossaryTerm[] }) {
@@ -72,9 +66,7 @@ export function Glossary({ terms }: { terms: GlossaryTerm[] }) {
       </p>
 
       {groups.length === 0 && (
-        <p className={t.none}>
-          No terms match that. Try another word, or <Link href={askHref(query.trim() || "a term")}>ask the community</Link>.
-        </p>
+        <p className={t.none}>No terms match that. Try another word.</p>
       )}
       {groups.map(([letter, xs]) => (
         <section key={letter} className={t.group} aria-labelledby={`letter-${letter}`}>
@@ -128,12 +120,7 @@ function TermCard({ term: x }: { term: GlossaryTerm }) {
           <b>In oil and gas:</b> {x.plant}
         </p>
       )}
-      <div className={t.termFoot}>
-        <span className={t.area}>{GLOSSARY_AREAS[x.area]}</span>
-        <Link href={askHref(x.term)} className={t.askLink}>
-          Ask about this <ArrowRight width={13} height={10} />
-        </Link>
-      </div>
+      <span className={t.area}>{GLOSSARY_AREAS[x.area]}</span>
     </article>
   );
 }

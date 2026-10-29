@@ -1,6 +1,10 @@
+import type { MDXComponents } from "mdx/types";
 import { Children, isValidElement, type ReactNode } from "react";
 import { slugify } from "@/src/lib/resources";
 import s from "./article.module.css";
+import { InterviewQuestions } from "./InterviewQuestions";
+import { PayRanges } from "./PayRanges";
+import { ProjectList } from "./ProjectList";
 
 /** Plain text of a node tree, for heading ids. */
 function textOf(node: ReactNode): string {
@@ -57,3 +61,15 @@ export function Placeholder({ children }: { children: ReactNode }) {
     </p>
   );
 }
+
+/** Every component an article in content/resources can use without importing it. */
+export const MDX_COMPONENTS: MDXComponents = {
+  h2: H2,
+  ShortVersion,
+  ScrollTable,
+  FromOilAndGas,
+  Placeholder,
+  ProjectList,
+  PayRanges,
+  InterviewQuestions,
+};

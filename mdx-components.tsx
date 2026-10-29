@@ -1,15 +1,7 @@
 import type { MDXComponents } from "mdx/types";
-import { FromOilAndGas, H2, Placeholder, ScrollTable, ShortVersion } from "@/src/components/resources/mdx";
+import { MDX_COMPONENTS } from "@/src/components/resources/mdx";
 
-// Components every article in content/resources can use without importing.
-const components: MDXComponents = {
-  h2: H2,
-  ShortVersion,
-  ScrollTable,
-  FromOilAndGas,
-  Placeholder,
-};
-
+// The article components are registered in src/components/resources/mdx.tsx.
 export function useMDXComponents(): MDXComponents {
-  return components;
+  return MDX_COMPONENTS;
 }

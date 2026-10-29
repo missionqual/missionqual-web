@@ -1,6 +1,5 @@
-/* The four tool pages under /resources (glossary, interview questions, projects
-   by state, pay). Same tokens and card language as the index and article pages.
-   Every chip and tab row wraps; only tables scroll, inside their own box. */
+/* The glossary page and the <InterviewQuestions /> article block. Same tokens
+   and card language as the index and article pages. Chip and tab rows wrap. */
 
 .page {
   padding-block: 28px 8px;
@@ -17,6 +16,12 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-faint);
+}
+.devTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
 }
 .lede {
   margin: 0;
@@ -164,16 +169,9 @@
 .plant b {
   font-weight: 600;
 }
-.termFoot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+.area {
   margin-top: auto;
   padding-top: 0.25rem;
-}
-.area {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.1em;
@@ -199,18 +197,6 @@
   color: var(--teal-dark);
   border-color: var(--line-strong);
 }
-.askLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--teal-dark);
-  text-decoration: none;
-}
-.askLink:hover {
-  text-decoration: underline;
-}
 .none {
   margin: 0;
   padding: 1.5rem;
@@ -221,7 +207,8 @@
 }
 
 /* ---------- Interview questions ---------- */
-.questions {
+.questions,
+.iq .questions {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -229,7 +216,9 @@
   flex-direction: column;
   gap: 14px;
 }
-.q {
+.q,
+.iq .q {
+  margin: 0;
   background: #fff;
   border: 1px solid var(--line-strong);
   border-radius: 12px;
@@ -253,7 +242,8 @@
   padding: 0.15rem 0.45rem;
   margin-top: 0.15rem;
 }
-.q h3 {
+.q h3,
+.iq .q h3 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
@@ -295,244 +285,55 @@
 .parts .mistake dt {
   color: #9a5b13;
 }
-/* Visitors: questions 4+ without their answers. */
+/* Visitors: the questions after the open ones, without their answers. */
 .qShort {
   padding-block: 0.95rem;
 }
-.addQ {
-  align-self: flex-start;
-}
-
-/* ---------- Projects by state ---------- */
-.jumpSel {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-width: 22rem;
-}
-.jumpSel label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ink-soft);
-}
-.jumpSel select {
-  min-height: 48px;
-  padding: 0 0.9rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 10px;
-  background: #fff;
-  font: inherit;
-  color: var(--ink);
-}
-.state {
+/* Members: a small link, not a second call to action. */
+.iq {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line-strong);
-  scroll-margin-top: 16px;
+  margin: 0 0 1.2rem;
 }
-.state h2 {
+/* Inside an article's .prose: keep its list, link and paragraph styles out. */
+.iq .chips {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: -0.01em;
+  padding: 0;
+  list-style: none;
 }
-.stateHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.4rem 0.9rem;
-}
-.cards {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 12px;
-}
-.project {
-  background: #fff;
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  padding: 1.15rem 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-.project h3 {
+.iq .chips li {
   margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
-  line-height: 1.25;
-  color: var(--navy);
 }
-.owner {
-  margin: 0;
-  font-size: 0.9rem;
+.iq .chip {
   color: var(--ink-soft);
 }
-.facts {
-  margin: 0;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.3rem 0.9rem;
-  font-size: 0.9rem;
+.iq .chip[aria-current="page"] {
+  color: #fff;
 }
-.facts dt {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  padding-top: 0.2rem;
+.iq .parts dd {
+  margin: 0.2rem 0 0;
 }
-.facts dd {
-  margin: 0;
-  color: var(--ink);
+.iq > div:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
-.status {
+.iq .addQ {
   align-self: flex-start;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--teal-ink);
-  background: var(--tint);
-  border-radius: 999px;
-  padding: 0.15rem 0.6rem;
-}
-.source {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.3rem 0.8rem;
-  margin-top: auto;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.82rem;
-  color: var(--ink-faint);
-}
-.source a {
-  color: var(--teal-dark);
-  font-weight: 600;
-}
-.job {
-  background: #fff;
-  border: 1px solid var(--line-strong);
-  border-radius: 10px;
-  padding: 0.85rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  text-decoration: none;
-  color: inherit;
-}
-.job:hover {
-  border-color: var(--teal);
-}
-.job b {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--navy);
-}
-.job span {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-}
-
-/* ---------- Pay ---------- */
-.payCard {
-  background: #fff;
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  padding: 1.2rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-.payCard h3 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--navy);
-}
-.range {
-  display: flex;
-  flex-direction: column;
-}
-.range b {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.6rem;
-  line-height: 1.2;
-  color: var(--teal-ink);
-}
-.range span {
-  font-size: 0.85rem;
-  color: var(--ink-faint);
-}
-.h2 {
-  margin: 12px 0 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: -0.01em;
-}
-.tbl {
-  overflow-x: auto;
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  background: #fff;
-}
-.tbl table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 620px;
   font-size: 0.92rem;
-  line-height: 1.45;
-}
-.tbl th {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  text-align: left;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--line-strong);
-  background: var(--card);
-}
-.tbl td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-}
-.tbl tr:last-child td {
-  border-bottom: 0;
-}
-.num {
-  font-family: var(--font-mono);
-  white-space: nowrap;
-}
-.offer {
-  align-self: flex-start;
+  font-weight: 600;
+  color: var(--teal-dark);
 }
 
 .chip:focus-visible,
-.copy:focus-visible,
-.askLink:focus-visible,
-.job:focus-visible,
-.source a:focus-visible,
-.jumpSel select:focus-visible,
-.tbl:focus-visible {
+.copy:focus-visible {
   outline: 2px solid var(--teal-dark);
   outline-offset: 2px;
 }
 
 @media (min-width: 640px) {
-  .terms,
-  .cards {
+  .terms {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -541,8 +342,7 @@
     padding-block: 44px 24px;
     gap: 24px;
   }
-  .terms,
-  .cards {
+  .terms {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
   }
@@ -551,9 +351,5 @@
   }
   .q h3 {
     font-size: 1.2rem;
-  }
-  .state h2,
-  .h2 {
-    font-size: 1.6rem;
   }
 }

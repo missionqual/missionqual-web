@@ -13,6 +13,8 @@ type Props = {
   text?: string | null;
   /** The current page, so Join and Sign in come back to it. */
   path: string;
+  /** The lock icon; off for a plain join box. */
+  lock?: boolean;
   /** Shown to visitors above the locked card, e.g. the questions without their answers. */
   teaser?: ReactNode;
   children: ReactNode;
@@ -38,16 +40,18 @@ async function Gate({ children, ...props }: Props) {
   return <>{children}</>;
 }
 
-function Locked({ heading, text = "Join the community to see them.", path, teaser }: LockedProps) {
+function Locked({ heading, text = "Join the community to see them.", path, lock = true, teaser }: LockedProps) {
   const next = encodeURIComponent(path);
   return (
     <>
       {teaser}
       <div className={j.join}>
         <div className={s.text}>
-          <span className={s.lock}>
-            <LockIcon />
-          </span>
+          {lock && (
+            <span className={s.lock}>
+              <LockIcon />
+            </span>
+          )}
           <div className={j.joinText}>
             <h3>{heading}</h3>
             {text && <p>{text}</p>}

@@ -44,7 +44,7 @@ export function Toc({ items }: { items: TocItem[] }) {
         <a
           key={item.id}
           href={`#${item.id}`}
-          className={item.id === current ? s.on : undefined}
+          className={[item.sub && s.sub, item.id === current && s.on].filter(Boolean).join(" ") || undefined}
           aria-current={item.id === current ? "location" : undefined}
         >
           {item.label}

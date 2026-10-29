@@ -63,6 +63,10 @@
   font-weight: 700;
   font-size: 0.8rem;
 }
+.updated {
+  color: var(--dark-faint);
+  font-size: 0.88rem;
+}
 .draftNote {
   align-self: flex-start;
   margin: 0;
@@ -77,6 +81,8 @@
 }
 
 /* ---------- Article + sidebar ---------- */
+/* Prose element styles use :where(), so they never beat a component's own
+   classes (join boxes, interview cards) rendered inside an article. */
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -86,11 +92,11 @@
 }
 
 .prose {
-  max-width: 44rem;
+  max-width: none;
   font-size: 1rem;
   line-height: 1.7;
 }
-.prose h2 {
+:where(.prose) h2 {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.5rem;
@@ -99,34 +105,34 @@
   color: var(--navy);
   scroll-margin-top: 16px;
 }
-.prose h3 {
+:where(.prose) h3 {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.15rem;
   margin: 1.6rem 0 0.3rem;
   color: var(--navy);
 }
-.prose p {
+:where(.prose) p {
   margin: 0 0 1rem;
 }
-.prose ul,
-.prose ol {
+:where(.prose) ul,
+:where(.prose) ol {
   margin: 0 0 1rem;
   padding-left: 1.2rem;
 }
-.prose ul {
+:where(.prose) ul {
   list-style: disc;
 }
-.prose ol {
+:where(.prose) ol {
   list-style: decimal;
 }
-.prose li {
+:where(.prose) li {
   margin-bottom: 0.35rem;
 }
-.prose a {
+:where(.prose) a {
   color: var(--teal-dark);
 }
-.prose strong {
+:where(.prose) strong {
   font-weight: 700;
 }
 
@@ -210,26 +216,26 @@
   font-size: 0.95rem;
 }
 
-.side {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-/* Phones: no table of contents; the guide card sits under the article. */
+/* Phones: no sidebar at all. */
 .toc {
   display: none;
 }
 .toc .kick {
   color: var(--ink-faint);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 .toc a {
   display: block;
   color: var(--ink-soft);
   text-decoration: none;
-  font-size: 0.92rem;
-  padding: 0.3rem 0 0.3rem 0.8rem;
+  font-size: 0.88rem;
+  padding: 0.22rem 0 0.22rem 0.7rem;
   border-left: 2px solid var(--line-strong);
+}
+/* State anchors under "Projects by state". */
+.toc a.sub {
+  padding-left: 1.4rem;
+  font-size: 0.85rem;
 }
 .toc a:hover {
   color: var(--navy);
@@ -239,33 +245,6 @@
   font-weight: 600;
   border-color: var(--teal);
 }
-.gcard {
-  background: var(--navy);
-  color: #fff;
-  border-radius: 12px;
-  padding: 1.3rem 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-.gcard h3 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
-  line-height: 1.25;
-}
-.gcard p {
-  margin: 0;
-  color: var(--dark-soft);
-  font-size: 0.9rem;
-}
-.gcard .gbtn {
-  min-height: 46px;
-  font-size: 0.92rem;
-  padding: 0 1rem;
-}
-
 .more {
   padding-block: 24px 0;
 }
@@ -274,6 +253,164 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.4rem;
+}
+
+/* ---------- <ProjectList /> ---------- */
+.states {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin: 0 0 1.6rem;
+}
+.st {
+  scroll-margin-top: 16px;
+}
+.prose .st h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.6rem;
+}
+.st h3 small {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.stbl {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* Phones: one column, the status chip under the name. 640px+: chip top right. */
+.proj {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.2rem 1rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.proj b {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--navy);
+}
+.o {
+  grid-column: 1;
+  color: var(--ink-soft);
+}
+.sz {
+  grid-column: 1;
+  color: var(--ink);
+}
+.chip {
+  justify-self: start;
+  margin: 0.15rem 0 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--tint);
+  color: var(--teal-ink);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  white-space: nowrap;
+}
+.chipAmber {
+  background: #fff6dc;
+  color: #7a5b00;
+}
+.src {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+.prose .src a {
+  color: var(--teal-dark);
+  text-decoration: none;
+}
+.prose .src a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- <PayRanges /> ---------- */
+.prose .pay {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.2rem;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+}
+.prose .pay li {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.prose .pay li:last-child {
+  border-bottom: 0;
+}
+.payRole {
+  font-weight: 600;
+  color: var(--navy);
+}
+.pay b {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--teal-ink);
+}
+.payN {
+  color: var(--ink-soft);
+}
+
+/* ---------- The one call to action after "Keep reading" ---------- */
+.end {
+  padding-block: 40px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.end h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--navy);
+}
+.endLede {
+  margin: -0.5rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+.jgrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.payLine {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--teal-ink);
+}
+.allJobs {
+  align-self: flex-start;
+}
+.stateRow td {
+  background: var(--card);
+  font-weight: 700;
+  color: var(--navy);
+}
+.num {
+  font-family: var(--font-mono);
+  white-space: nowrap;
 }
 
 .tbl:focus-visible,
@@ -290,23 +427,28 @@
     font-size: 2.6rem;
   }
   .layout {
-    grid-template-columns: minmax(0, 1fr) 300px;
-    gap: 56px;
-    padding-block: 44px 24px;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 48px;
+    padding-block: 40px 24px;
   }
   .prose {
     font-size: 1.06rem;
   }
-  .side {
-    position: sticky;
-    top: 24px;
+  .jgrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .end h2 {
+    font-size: 1.5rem;
   }
   .toc {
     display: block;
+    position: sticky;
+    top: 24px;
     background: #fff;
     border: 1px solid var(--line-strong);
     border-radius: 12px;
-    padding: 1.1rem 1.2rem;
+    padding: 1rem 1.1rem;
   }
 }
 
@@ -321,4 +463,22 @@
   .heroSub {
     font-size: 1.1rem;
   }
+}
+
+@media (min-width: 640px) {
+  .proj {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .chip {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    justify-self: end;
+    margin: 0;
+  }
+}
+
+/* endCta "interview": no box, just the space it would have taken. */
+.endGap {
+  height: 40px;
 }

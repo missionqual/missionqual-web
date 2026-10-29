@@ -48,7 +48,7 @@ export default function GlossaryPage() {
       </div>
       <CommunityBox
         title="Heard a term that isn't here?"
-        text="Ask the people already on data center sites. Members answer in the community."
+        text="Ask the people already on site."
         back={PATH}
       />
     </>

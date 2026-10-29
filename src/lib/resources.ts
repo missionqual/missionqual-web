@@ -2,87 +2,27 @@ import "server-only";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { cacheLife } from "next/cache";
+import type { TopicKey } from "./topics";
 
-/** Index sections, in page order. The key is the jump-link anchor. */
-export const SECTIONS = [
-  { key: "money", label: "The money", blurb: "What the work pays, and the parts of an offer people get wrong." },
-  { key: "boom", label: "The sites and the boom", blurb: "Where the work is, and how long it lasts." },
-  { key: "site", label: "Life on site", blurb: "The parts the job ads leave out." },
-  { key: "equipment", label: "The equipment", blurb: "What you'll be working around, explained for the trades." },
-  { key: "hired", label: "Getting hired", blurb: "Picking the right door in." },
-] as const;
-
-export type SectionKey = (typeof SECTIONS)[number]["key"];
-
-export function sectionLabel(key: SectionKey) {
-  return SECTIONS.find((x) => x.key === key)?.label ?? key;
-}
-
-export type ToolKey = "glossary" | "interview" | "projects" | "pay";
-
-export type Tool = {
-  key: ToolKey;
-  href: string;
-  label: string;
-  title: string;
-  blurb: string;
-  /** Off hides the tool everywhere: the tools row and its section card. */
-  live: boolean;
-  /** "Members get more" tag: visitors see part of it, members see all. */
-  membersMore: boolean;
-};
-
-export const TOOLS: Tool[] = [
-  {
-    key: "glossary",
-    href: "/resources/glossary",
-    label: "Glossary",
-    title: "Data center terms, matched to oil and gas",
-    blurb: "Every term you'll hear on site, next to the word you already use for it.",
-    live: true,
-    membersMore: false,
-  },
-  {
-    key: "interview",
-    href: "/resources/interview-questions",
-    label: "Interview prep",
-    title: "Interview questions",
-    blurb: "Questions you're likely to get for QA/QC, commissioning and turnover roles, and how to answer them.",
-    live: true,
-    membersMore: true,
-  },
-  {
-    key: "projects",
-    href: "/resources/projects-by-state",
-    label: "Map",
-    title: "Projects by state",
-    blurb: "Major campuses under construction, and the jobs we've posted near them.",
-    live: true,
-    membersMore: true,
-  },
-  {
-    key: "pay",
-    href: "/resources/pay",
-    label: "Live data",
-    title: "Pay from real postings",
-    blurb: "Rates, per diem and overtime from the jobs we post. Updated as we post.",
-    live: true,
-    membersMore: true,
-  },
-];
-
-export const liveTools = () => TOOLS.filter((t) => t.live);
+export { topicLabel, TOPICS, type TopicKey } from "./topics";
 
 export type ArticleMeta = {
   title: string;
   description: string;
-  section: SectionKey;
+  /** The topic: the pill on /resources and the breadcrumb. */
+  section: TopicKey;
   readMinutes: number;
   author: { name: string; role?: string };
   /** ISO dates, e.g. "2026-10-28". */
   publishedAt: string;
   updatedAt: string;
   status: "draft" | "published";
+  /**
+   * The one call to action after "Keep reading": the newest jobs, the postings
+   * behind the pay numbers, none (InterviewQuestions has its own), or, unset,
+   * the community box.
+   */
+  endCta?: "jobs" | "pay" | "interview";
 };
 
 export type Article = ArticleMeta & { slug: string };
@@ -135,23 +75,30 @@ export function slugify(text: string) {
     .replace(/^-|-$/g, "");
 }
 
-export type TocItem = { id: string; label: string };
+export type TocItem = { id: string; label: string; sub?: boolean };
 
-/** "On this page": the short version box, then each ## heading in the file. */
-export async function getToc(slug: string): Promise<TocItem[]> {
+/**
+ * "On this page": each ## heading in the file, in order. Where the file uses
+ * <ProjectList />, a { projects: true } marker holds the place of the state
+ * anchors, which the page fills in from the projects table.
+ */
+export async function getToc(slug: string): Promise<(TocItem | { projects: true })[]> {
   "use cache";
   cacheLife("max");
   const source = await readFile(path.join(DIR, `${slug}.mdx`), "utf8");
-  const items: TocItem[] = [];
-  if (source.includes("<ShortVersion")) items.push({ id: "short", label: "The short version" });
-  for (const [, heading] of source.matchAll(/^## (.+)$/gm)) {
+  const items: (TocItem | { projects: true })[] = [];
+  for (const [, heading] of source.matchAll(/^## (.+)$|^<ProjectList\b.*$/gm)) {
+    if (!heading) {
+      items.push({ projects: true });
+      continue;
+    }
     const label = heading.replace(/[*_`]/g, "").trim();
     items.push({ id: slugify(label), label });
   }
   return items;
 }
 
-/** Up to 3 other articles, same section first, then newest. */
+/** Up to 3 other articles, same topic first, then newest. */
 export async function getRelated(article: Article): Promise<Article[]> {
   const others = (await getArticles()).filter((a) => a.slug !== article.slug);
   const same = others.filter((a) => a.section === article.section);

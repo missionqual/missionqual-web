@@ -10,7 +10,8 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
 });
 
-export function JobCard({ job }: { job: Job }) {
+/** `pay` adds a pay line under the company, e.g. "$60–70/hr" in the pay article. */
+export function JobCard({ job, pay }: { job: Job; pay?: string }) {
   // Real postings are external and open in a new tab.
   const external = Boolean(job.url && /^https?:\/\//.test(job.url));
 
@@ -24,6 +25,7 @@ export function JobCard({ job }: { job: Job }) {
       </div>
       <h3>{job.title}</h3>
       <div className={s.co}>{[job.company, job.location].filter(Boolean).join(" · ")}</div>
+      {pay && <div className={s.pay}>{pay}</div>}
       {/* context already reads as the fit line (sometimes ending with the pay). */}
       {job.context && (
         <div className={s.fit}>

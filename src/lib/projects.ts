@@ -51,3 +51,14 @@ const STATES: Record<string, string> = {
 export function stateName(code: string) {
   return STATES[code.toUpperCase()] ?? code;
 }
+
+export type StateGroup = { state: string; id: string; name: string; projects: Project[] };
+
+/** Projects by state: most projects first, then by state name. */
+export function groupByState(projects: Project[]): StateGroup[] {
+  const by = new Map<string, Project[]>();
+  for (const p of projects) by.set(p.state, [...(by.get(p.state) ?? []), p]);
+  return [...by]
+    .map(([state, list]) => ({ state, id: `state-${state.toLowerCase()}`, name: stateName(state), projects: list }))
+    .sort((a, b) => b.projects.length - a.projects.length || a.name.localeCompare(b.name));
+}
