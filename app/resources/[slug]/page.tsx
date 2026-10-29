@@ -54,9 +54,9 @@ export async function generateMetadata({ params }: PageProps<"/resources/[slug]"
   };
 }
 
-// updatedAt is a calendar date, so format it in UTC.
-const monthYear = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+// updatedAt is a calendar date, so format it in UTC: "October 2026".
+const MONTH_YEAR = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
+const monthYear = (iso: string) => MONTH_YEAR.format(new Date(iso));
 
 /** "On this page", with a state anchor per state wherever the article uses <ProjectList />. */
 async function resolveToc(slug: string, endCta: Article["endCta"]): Promise<TocItem[]> {
@@ -92,7 +92,6 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
     getRelated(article),
   ]);
   const path = `/resources/${slug}`;
-  const byline = [article.author.name, article.author.role].filter(Boolean).join(", ");
 
   const url = new URL(path, SITE_URL).toString();
   const jsonLd = [
@@ -145,10 +144,15 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
             <span className={a.av} aria-hidden="true">
               {initials(article.author.name)}
             </span>
-            <span>
-              {byline} · {article.readMinutes} min read
-            </span>
-            <span className={a.updated}>· Updated {monthYear(article.updatedAt)}</span>
+            <div className={a.byText}>
+              <span>{article.author.name}</span>
+              <span className={a.byMeta}>
+                <span className={a.nowrap}>{article.readMinutes} min read</span>
+                <span className={`${a.updated} ${a.nowrap}`}>
+                  · {monthYear(article.updatedAt || article.publishedAt)}
+                </span>
+              </span>
+            </div>
           </div>
           {article.status === "draft" && <p className={a.draftNote}>Draft: only visible in development</p>}
         </div>
