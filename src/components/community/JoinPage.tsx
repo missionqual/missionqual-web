@@ -34,9 +34,14 @@ const STEPS = [
   },
 ];
 
-/** Invented people, so: an "Example" label, role-only lines, grey avatars, no times or counts. */
+/** The community's small teal initials avatar, with fixed initials for the invented people below. */
+function ExampleAvatar({ initials }: { initials: string }) {
+  return <span className={`${c.av} ${c.avSmall} ${c.avTeal}`}>{initials}</span>;
+}
+
+/** Invented people, so: an "Example" label, role-only lines, no names, times or counts. */
 function ExamplePreview() {
-  const q = (tag: string, title: string, ex: string, role: string, extra = "") => (
+  const q = (tag: string, title: string, ex: string, initials: string, role: string, extra = "") => (
     <div className={`${c.q} ${s.q} ${extra}`}>
       <div className={c.top}>
         <span className={c.tag}>{tag}</span>
@@ -48,7 +53,7 @@ function ExamplePreview() {
       <p className={`${c.ex} ${s.ex}`}>{ex}</p>
       <div className={c.bot}>
         <div className={c.who}>
-          <span className={s.ghost} />
+          <ExampleAvatar initials={initials} />
           <span className={c.r}>{role}</span>
         </div>
       </div>
@@ -61,12 +66,14 @@ function ExamplePreview() {
         "Commissioning",
         "Do CxA firms care about API 570, or should I get NETA first?",
         "Ten years of API 570 on refinery units, CWI too. Applying to commissioning agent roles and getting nowhere. Is NETA worth paying for before my first data center job?",
+        "DB",
         "API 570 inspector · making the move",
       )}
       {q(
         "Pay & offers",
         "Staffing firm offered $58/hr plus $150/day per diem for QA/QC in Abilene. Fair?",
         "Six tens, 12-month assignment, they want an answer by Friday. I make more base on turnarounds, but this is steady. What should I push back on?",
+        "SO",
         "QA/QC manager · making the move",
         s.q2,
       )}
@@ -79,7 +86,7 @@ function ExamplePreview() {
           your résumé with pre-commissioning, not the API numbers.&rdquo;
         </p>
         <div className={`${c.who} ${s.ansWho}`}>
-          <span className={s.ghost} />
+          <ExampleAvatar initials="KH" />
           <span className={c.r}>Commissioning agent · was API 510 inspector</span>
         </div>
       </div>
