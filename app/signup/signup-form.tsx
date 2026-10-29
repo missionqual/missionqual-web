@@ -60,7 +60,7 @@ export function SignupForm() {
         {pending ? "Creating your account…" : "Join the community"}
       </button>
       <p className={s.small}>
-        By joining you agree to the <Link href="/community/rules">community rules</Link>.
+        By joining, you agree to our <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Policy</Link>.
       </p>
     </form>
   );

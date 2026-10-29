@@ -47,6 +47,13 @@ export default function RulesPage() {
         </p>
       </div>
       <p className={s.meta} style={{ marginTop: 24 }}>
+        These rules are part of our{" "}
+        <Link className={s.link} href="/terms">
+          Terms of Use
+        </Link>
+        .
+      </p>
+      <p className={s.meta} style={{ marginTop: 12 }}>
         <Link className={s.link} href="/community">
           Back to the community
         </Link>

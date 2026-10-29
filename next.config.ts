@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   // Articles in content/resources are imported as .mdx modules.
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  // src/lib/resources.ts lists the articles with fs, so ship the folder with every route.
-  outputFileTracingIncludes: { "/*": ["./content/resources/**/*"] },
+  // src/lib/resources.ts and src/lib/legal.ts read content/ with fs, so ship it with every route.
+  outputFileTracingIncludes: { "/*": ["./content/resources/**/*", "./content/legal/**/*"] },
   experimental: {
     agentUpgrade: "security",
   },
