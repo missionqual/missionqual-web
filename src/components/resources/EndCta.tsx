@@ -21,12 +21,26 @@ function warn(what: string, err: unknown) {
   console.warn(`${what} unavailable:`, err instanceof Error ? err.message : String(err));
 }
 
-/** The article's one call to action, chosen by meta.endCta. */
+/** Section headings of the in-article calls to action, also listed in "On this page". */
+export const END_CTA_HEADINGS = {
+  jobs: "Jobs near these sites",
+  pay: "Postings behind these numbers",
+} as const;
+
+/**
+ * The article's one call to action, chosen by meta.endCta. "jobs" and "pay"
+ * sit in the article column right after the body; "interview" has none
+ * (InterviewQuestions ends with the only join box). Unset, the community box
+ * goes at the very bottom of the page instead (see the article page).
+ */
 export function EndCta({ kind, path }: { kind: ArticleMeta["endCta"]; path: string }) {
   if (kind === "jobs") return <JobsCta path={path} />;
   if (kind === "pay") return <PayCta path={path} />;
-  // InterviewQuestions ends with the article's only join box.
-  if (kind === "interview") return <div className={a.endGap} />;
+  return null;
+}
+
+/** For articles without endCta: the bottom-of-page community box. */
+export function EndCommunityBox({ path }: { path: string }) {
   return (
     <CommunityBox
       title="Questions about this? Ask the people already doing it."
@@ -50,8 +64,8 @@ async function JobsCta({ path }: { path: string }) {
   const more = total > jobs.length;
 
   return (
-    <section className={`${shared.wrap} ${a.end}`} aria-labelledby="h-end">
-      <h2 id="h-end">Jobs near these sites</h2>
+    <section className={a.end} aria-labelledby="h-end">
+      <h2 id="h-end">{END_CTA_HEADINGS.jobs}</h2>
       {jobs.length > 0 && (
         <>
           <p className={a.endLede}>
@@ -85,8 +99,8 @@ async function PayCta({ path }: { path: string }) {
   });
 
   return (
-    <section className={`${shared.wrap} ${a.end}`} aria-labelledby="h-end">
-      <h2 id="h-end">Postings behind these numbers</h2>
+    <section className={a.end} aria-labelledby="h-end">
+      <h2 id="h-end">{END_CTA_HEADINGS.pay}</h2>
       <MembersOnly
         heading="Members see every posting with pay, ranges by state, and can post an offer for a check."
         text={null}

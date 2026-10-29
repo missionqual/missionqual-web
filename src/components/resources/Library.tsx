@@ -67,9 +67,10 @@ function UrlGrid({ articles, topics }: { articles: Article[]; topics: Topic[] })
 function Grid({ articles }: { articles: Article[] }) {
   return (
     <>
-      <p className={s.cnt} aria-live="polite">
+      {/* The grid's heading, so the page goes h1 > h2 > card h3. */}
+      <h2 className={s.cnt} aria-live="polite">
         {articles.length} {articles.length === 1 ? "article" : "articles"}
-      </p>
+      </h2>
       <div className={s.cards}>
         {articles.map((a) => (
           <ArticleCard key={a.slug} article={a} />

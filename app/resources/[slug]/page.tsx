@@ -5,13 +5,21 @@ import { Suspense } from "react";
 import shared from "@/src/components/landing/shared.module.css";
 import a from "@/src/components/resources/article.module.css";
 import { ArticleCard } from "@/src/components/resources/ArticleCard";
-import { EndCta } from "@/src/components/resources/EndCta";
+import { END_CTA_HEADINGS, EndCommunityBox, EndCta } from "@/src/components/resources/EndCta";
 import s from "@/src/components/resources/resources.module.css";
 import { Toc } from "@/src/components/resources/Toc";
 import { initials } from "@/src/lib/community/format";
 import { getProjects, groupByState, type Project } from "@/src/lib/projects";
-import { getArticle, getArticles, getRelated, getToc, topicLabel, type TocItem } from "@/src/lib/resources";
-import { pageMetadata, SITE_NAME, SITE_URL } from "@/src/lib/seo";
+import {
+  getArticle,
+  getArticles,
+  getRelated,
+  getToc,
+  topicLabel,
+  type Article,
+  type TocItem,
+} from "@/src/lib/resources";
+import { DEFAULT_OG_IMAGE, pageMetadata, SITE_NAME, SITE_URL } from "@/src/lib/seo";
 
 // Ported from design/resources/article.html.
 
@@ -31,6 +39,8 @@ export async function generateMetadata({ params }: PageProps<"/resources/[slug]"
   const base = pageMetadata({ title: article.title, description: article.description, path: `/resources/${slug}` });
   return {
     ...base,
+    // Search results cut titles at about 60 characters, so long ones skip the " | MissionQual" suffix.
+    ...(article.title.length + ` | ${SITE_NAME}`.length > 60 && { title: { absolute: article.title } }),
     authors: [{ name: article.author.name }],
     openGraph: {
       ...base.openGraph,
@@ -49,12 +59,17 @@ const monthYear = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
 
 /** "On this page", with a state anchor per state wherever the article uses <ProjectList />. */
-async function resolveToc(slug: string): Promise<TocItem[]> {
+async function resolveToc(slug: string, endCta: Article["endCta"]): Promise<TocItem[]> {
   const raw = await getToc(slug);
-  if (!raw.some((x) => "projects" in x)) return raw as TocItem[];
-  const projects = await getProjects().catch((): Project[] => []);
-  const states = groupByState(projects).map((g) => ({ id: g.id, label: g.name, sub: true }));
-  return raw.flatMap((x) => ("projects" in x ? states : [x]));
+  let items = raw as TocItem[];
+  if (raw.some((x) => "projects" in x)) {
+    const projects = await getProjects().catch((): Project[] => []);
+    const states = groupByState(projects).map((g) => ({ id: g.id, label: g.name, sub: true }));
+    items = raw.flatMap((x) => ("projects" in x ? states : [x]));
+  }
+  // The jobs or pay section right after the body is part of the article.
+  if (endCta === "jobs" || endCta === "pay") items = [...items, { id: "h-end", label: END_CTA_HEADINGS[endCta] }];
+  return items;
 }
 
 export default function ArticlePage(props: PageProps<"/resources/[slug]">) {
@@ -73,23 +88,43 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
 
   const [{ default: Body }, toc, related] = await Promise.all([
     import(`@/content/resources/${slug}.mdx`),
-    resolveToc(slug),
+    resolveToc(slug, article.endCta),
     getRelated(article),
   ]);
   const path = `/resources/${slug}`;
   const byline = [article.author.name, article.author.role].filter(Boolean).join(", ");
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.description,
-    author: { "@type": "Person", name: article.author.name },
-    datePublished: article.publishedAt,
-    dateModified: article.updatedAt,
-    mainEntityOfPage: new URL(path, SITE_URL).toString(),
-    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-  };
+  const url = new URL(path, SITE_URL).toString();
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.description,
+      image: [new URL(DEFAULT_OG_IMAGE, SITE_URL).toString()],
+      author: { "@type": "Person", name: article.author.name },
+      datePublished: article.publishedAt,
+      dateModified: article.updatedAt,
+      url,
+      mainEntityOfPage: url,
+      articleSection: topicLabel(article.section),
+      publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Resources", item: new URL("/resources", SITE_URL).toString() },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: topicLabel(article.section),
+          item: new URL(`/resources?topic=${article.section}`, SITE_URL).toString(),
+        },
+        { "@type": "ListItem", position: 3, name: article.title, item: url },
+      ],
+    },
+  ];
 
   return (
     <>
@@ -120,24 +155,31 @@ async function Article({ params }: { params: PageProps<"/resources/[slug]">["par
       </section>
 
       <div className={`${shared.wrap} ${a.layout}`}>
-        <article className={a.prose}>
-          <Body />
-        </article>
+        <div className={a.main}>
+          <article className={a.prose}>
+            <Body />
+          </article>
+          <EndCta kind={article.endCta} path={path} />
+        </div>
         {toc.length > 0 && <Toc items={toc} />}
       </div>
 
+      {/* A separate band, so it reads as "the article is over". */}
       {related.length > 0 && (
-        <section className={`${shared.wrap} ${a.more}`} aria-labelledby="h-more">
-          <h2 id="h-more">Keep reading</h2>
-          <div className={s.cards}>
-            {related.map((x) => (
-              <ArticleCard key={x.slug} article={x} />
-            ))}
+        <section className={a.moreBand} aria-labelledby="h-more">
+          <div className={shared.wrap}>
+            <p className={a.moreKick}>More from Resources</p>
+            <h2 id="h-more">Keep reading</h2>
+            <div className={s.cards}>
+              {related.map((x) => (
+                <ArticleCard key={x.slug} article={x} />
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-      <EndCta kind={article.endCta} path={path} />
+      {!article.endCta && <EndCommunityBox path={path} />}
     </>
   );
 }

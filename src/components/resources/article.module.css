@@ -245,14 +245,34 @@
   font-weight: 600;
   border-color: var(--teal);
 }
-.more {
-  padding-block: 24px 0;
+/* Article column: the body, then the jobs or pay section (endCta). */
+.main {
+  min-width: 0;
 }
-.more h2 {
+
+/* "Keep reading": a full-width band of its own, so it's clearly not part of the article. */
+.moreBand {
+  margin-top: 32px;
+  padding-block: 36px 44px;
+  background: var(--cover);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+.moreKick {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+.moreBand h2 {
   margin: 0 0 18px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.4rem;
+  color: var(--navy);
 }
 
 /* ---------- <ProjectList /> ---------- */
@@ -371,14 +391,18 @@
   color: var(--ink-soft);
 }
 
-/* ---------- The one call to action after "Keep reading" ---------- */
+/* ---------- The jobs or pay section right after the body (endCta) ---------- */
 .end {
-  padding-block: 40px 56px;
+  margin-top: 2.4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-strong);
+  scroll-margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 .end h2 {
+  scroll-margin-top: 16px;
   margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
@@ -441,6 +465,13 @@
   .end h2 {
     font-size: 1.5rem;
   }
+  .moreBand {
+    margin-top: 40px;
+    padding-block: 48px 56px;
+  }
+  .moreBand h2 {
+    font-size: 1.6rem;
+  }
   .toc {
     display: block;
     position: sticky;
@@ -476,9 +507,4 @@
     justify-self: end;
     margin: 0;
   }
-}
-
-/* endCta "interview": no box, just the space it would have taken. */
-.endGap {
-  height: 40px;
 }

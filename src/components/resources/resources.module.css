@@ -124,6 +124,7 @@
 }
 .cnt {
   margin: 0 0 16px;
+  font-weight: 500;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
