@@ -57,7 +57,7 @@ export const GLOSSARY: GlossaryTerm[] = [
     plant: "The same heat-rejection principle used in industrial cooling towers, configured for the facility's cooling load and redundancy requirements." },
   { slug: "chilled-water-loop", term: "Chilled water loop", area: "cooling",
     definition: "The piping that carries cold water from the chillers to the cooling units in the data halls and back. Building-services piping may fall under ASME B31.9. Always confirm the governing code in the project specifications.",
-    plant: "Cooling water system, built to B31.9 instead of B31.3." },
+    plant: "Like a plant cooling water system. The governing piping code is set by the project specifications, not assumed to be B31.3." },
   { slug: "crah", term: "CRAH", aka: "Computer room air handler", area: "cooling",
     definition: "A fan and coil unit that uses chilled water to cool the air in the data hall." },
   { slug: "crac", term: "CRAC", aka: "Computer room air conditioner", area: "cooling",

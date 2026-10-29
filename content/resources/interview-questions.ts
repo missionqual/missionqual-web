@@ -50,7 +50,7 @@ export const INTERVIEW_QUESTIONS: InterviewQuestion[] = [
   { role: "qaqc-inspector",
     question: "What's different about B31.9 piping compared with B31.3?",
     checking: "Whether a piping inspector will adjust to building services work.",
-    answer: "Lower test pressures and simpler requirements, and the flush and water treatment matter more than the hydro. Say you'd read the project's flushing spec first.",
+    answer: "Say you'd confirm the governing code in the project specifications first. Where building-services piping falls under B31.9, test requirements are usually lighter than process piping, and flushing and water treatment get a lot of attention. Then say you'd read the project's test and flushing specs.",
     mistake: "Treating it like process piping and over-inspecting." },
 
   // QA/QC manager

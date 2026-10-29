@@ -111,7 +111,7 @@ export default function AboutPage() {
             </div>
             <div>
               <dt>Now</dt>
-              <dd>working data center QA/QC, not watching it from outside</dd>
+              <dd>working directly in data center QA/QC</dd>
             </div>
           </dl>
         </div>
@@ -133,7 +133,7 @@ export default function AboutPage() {
             </p>
             <p>
               What we didn&apos;t have was the language. Commissioning, FOK (first of kind), benchmarking, Level 3
-              complete. Nobody had written any of it down for people like us.
+              complete. We struggled to find one practical resource that explained the transition in language experienced industrial workers would recognize.
             </p>
             <p>
               Then people from our old crews started asking. Inspectors, fitters and QA/QC people, all with the same

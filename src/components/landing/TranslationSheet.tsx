@@ -3,11 +3,10 @@ import { ArrowRight } from "./icons";
 import shared from "./shared.module.css";
 import s from "./TranslationSheet.module.css";
 
-// Row order is fixed by DESIGN_SPEC rule 5: the 10-week turnaround leads, highlighted.
-const ROWS = [
-  { refinery: "10-week turnaround", dataCenter: "Multi-year campus build", highlight: true },
-  { refinery: "ITPs, hold & witness points", dataCenter: "Witnessed Cx tests — FWT, SAT & L4 scripts" },
-  { refinery: "Mechanical completion", dataCenter: "Commissioning levels L1–L5" },
+const ROWS: { refinery: string; dataCenter: string; highlight?: boolean }[] = [
+  { refinery: "ITPs, hold & witness points", dataCenter: "Quality checkpoints & witnessed tests" },
+  { refinery: "Hydrotesting & leak testing", dataCenter: "Piping pressure & leak tests" },
+  { refinery: "Mechanical completion & turnover", dataCenter: "System readiness & commissioning support" },
   { refinery: "Process unit", dataCenter: "Data hall" },
 ];
 
