@@ -1,0 +1,195 @@
+/* /jobs: the public jobs page. Same hero and card language as /resources.
+   Phone first; desktop at 1024px. */
+
+.kick {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--navy);
+  color: #fff;
+}
+.heroInner {
+  padding-block: 36px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  max-width: 46rem;
+  text-wrap: balance;
+}
+.sub {
+  margin: 0;
+  color: var(--dark-soft);
+  font-size: 1rem;
+  max-width: 40rem;
+}
+.stat {
+  margin: 4px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-soft);
+}
+.stat b {
+  font-weight: 500;
+  color: var(--teal);
+}
+
+/* ---------- Page ---------- */
+.page {
+  padding-block: 36px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+.lede {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.grid {
+  margin-top: 16px;
+}
+
+/* Where the jobs are | What they pay */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+.panel {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.25rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.panel > a {
+  margin-top: 1rem;
+  align-self: flex-start;
+}
+
+.bars {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bars li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) 2rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+}
+.barLabel {
+  color: var(--ink);
+}
+.barTrack {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--tint);
+  overflow: hidden;
+}
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--teal-dark);
+}
+.barNum {
+  font-family: var(--font-mono);
+  text-align: right;
+  color: var(--ink-soft);
+}
+
+.pay {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+.pay li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.1rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.pay li:first-child {
+  padding-top: 0;
+}
+.pay li:last-child {
+  border-bottom: 0;
+}
+.payRole {
+  font-weight: 600;
+  color: var(--navy);
+}
+.pay b {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--teal-ink);
+  white-space: nowrap;
+}
+.payN {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+@media (min-width: 1024px) {
+  .heroInner {
+    padding-block: 56px 64px;
+  }
+  .hero h1 {
+    font-size: 2.6rem;
+  }
+  .sub {
+    font-size: 1.1rem;
+  }
+  .page {
+    padding-block: 48px 72px;
+    gap: 48px;
+  }
+  .h2 {
+    font-size: 1.65rem;
+  }
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .panel {
+    padding: 1.6rem 1.7rem;
+  }
+}
