@@ -229,7 +229,7 @@ export default function AboutPage() {
           </div>
         </div>
         <p className={s.contact}>
-          Press, partnerships or anything else: <b>{EMAIL}</b> · Houston, Texas
+          Press, partnerships or anything else: <b>{EMAIL}</b>
         </p>
       </div>
     </>
