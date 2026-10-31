@@ -20,13 +20,13 @@ export async function signup(
   }
   if (password.length < 8) return { error: "Use at least 8 characters for your password." };
 
-  const next = safeNext(formData.get("next"), "/account?welcome=1");
+  const next = safeNext(formData.get("next"), "/welcome");
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      // Stored in user metadata; /account uses it to seed the profile row.
+      // Stored in user metadata; /welcome uses it to prefill the name.
       data: { display_name: displayName },
       emailRedirectTo: `${await getSiteUrl()}/auth/confirm?next=${encodeURIComponent(next)}`,
     },

@@ -2,6 +2,7 @@ import "server-only";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import { createClient } from "@/src/lib/supabase/server";
+import { REQUIRED_PROFILE_FIELDS, requiredFilled } from "./format";
 
 export type Viewer = {
   id: string;
@@ -10,14 +11,16 @@ export type Viewer = {
   profile: {
     display_name: string | null;
     job_title: string | null;
+    industry: string | null;
     dc_status: string | null;
     years_experience: number | null;
     certifications: string[] | null;
-    disciplines: string[] | null;
     location: string | null;
     about: string | null;
   } | null;
 };
+
+const PROFILE_COLUMNS = "display_name, job_title, industry, dc_status, years_experience, certifications, location, about";
 
 /**
  * The signed-in member for this request, or null. Deduped per request. Reads
@@ -31,7 +34,7 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name, job_title, dc_status, years_experience, certifications, disciplines, location, about")
+    .select(PROFILE_COLUMNS)
     .eq("id", claims.sub)
     .maybeSingle();
 
@@ -43,6 +46,25 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
     profile,
   };
 });
+
+/**
+ * Where to send a member right after they confirm their email or sign in:
+ * /welcome while any required profile field is empty, otherwise /community.
+ * An explicit destination (e.g. /community/ask) wins, after /welcome if needed.
+ */
+export async function landingPath(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+  next: string | null,
+) {
+  const { data: profile } = await supabase.from("profiles").select(PROFILE_COLUMNS).eq("id", userId).maybeSingle();
+  // The old defaults (/account, /account?welcome=1) and /welcome itself aren't a real choice.
+  const explicit = next && !next.startsWith("/account") && !next.startsWith("/welcome") ? next : null;
+  if (!profile || requiredFilled(profile) < REQUIRED_PROFILE_FIELDS) {
+    return explicit ? `/welcome?next=${encodeURIComponent(explicit)}` : "/welcome";
+  }
+  return explicit ?? "/community";
+}
 
 /** For members-only pages: the viewer, or a redirect to sign in that comes back here. */
 export async function requireViewer(path: string) {

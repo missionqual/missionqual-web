@@ -43,6 +43,28 @@ export const DISCIPLINES = [
   "Civil/structural",
 ] as const;
 
+/** "Your current or most recent industry" (profiles.industry). */
+export const INDUSTRIES = [
+  "Oil, gas & chemical",
+  "Power & utilities",
+  "Other industrial / manufacturing",
+  "Data centers",
+  "Other",
+] as const;
+
+export function isIndustry(value: unknown): value is (typeof INDUSTRIES)[number] {
+  return typeof value === "string" && (INDUSTRIES as readonly string[]).includes(value);
+}
+
+/** Inline errors for the five required profile fields (/welcome and /account). */
+export const REQUIRED_MESSAGES = {
+  display_name: "Enter your full name.",
+  job_title: "Enter your current or most recent role.",
+  industry: "Choose your industry.",
+  dc_status: "Choose where you are now.",
+  location: "Enter your location, e.g. Houston, TX.",
+} as const;
+
 export const DC_STATUS = {
   on_site: "On a data center site",
   making_move: "Making the move",
@@ -90,5 +112,5 @@ export const HOUSE_RULES = [
   },
 ] as const;
 
-export const SIGNUP_HREF = `/signup?next=${encodeURIComponent("/account?welcome=1")}`;
+export const SIGNUP_HREF = "/signup?next=/welcome";
 export const SIGNIN_HREF = "/login?next=/community";

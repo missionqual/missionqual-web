@@ -10,7 +10,7 @@ import { signup } from "./actions";
 
 export function SignupForm() {
   const searchParams = useSearchParams();
-  const next = safeNext(searchParams.get("next"), "/account?welcome=1");
+  const next = safeNext(searchParams.get("next"), "/welcome");
   const [state, action, pending] = useActionState(signup, {});
 
   return (

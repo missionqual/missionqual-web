@@ -12,6 +12,7 @@ import {
   AnswerBox,
   DeleteButton,
   Editable,
+  EditButton,
   FollowButton,
   HelpfulButton,
   ModAnswerTools,
@@ -114,24 +115,22 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
           line={[roleLine(a.author?.job_title, a.author?.dc_status), relativeTime(a.created_at, now)].filter(Boolean).join(" · ")}
         />
         <Editable target="answer" id={a.id} body={a.body}>
-          {(editButton) => (
-            <>
-              <PlainText text={a.body} className={q.ab} />
-              <div className={q.af}>
-                <div className={q.afLeft}>
-                  <HelpfulButton target="answer" id={a.id} count={voteCount.get(a.id) ?? 0} on={myVotes.has(a.id)} own={own} />
-                  <ReplyButton name={firstName(name)} />
-                  {isAuthor && <AcceptButton postId={id} commentId={a.id} accepted={accepted} />}
-                </div>
-                <div className={q.afRight}>
-                  {own && editButton}
-                  {own && <DeleteButton target="answer" id={a.id} />}
-                  {!own && <ReportButton commentId={a.id} />}
-                  {mod && <ModAnswerTools commentId={a.id} hidden={a.status === "hidden"} />}
-                </div>
+          <>
+            <PlainText text={a.body} className={q.ab} />
+            <div className={q.af}>
+              <div className={q.afLeft}>
+                <HelpfulButton target="answer" id={a.id} count={voteCount.get(a.id) ?? 0} on={myVotes.has(a.id)} own={own} />
+                <ReplyButton name={firstName(name)} />
+                {isAuthor && <AcceptButton postId={id} commentId={a.id} accepted={accepted} />}
               </div>
-            </>
-          )}
+              <div className={q.afRight}>
+                {own && <EditButton />}
+                {own && <DeleteButton target="answer" id={a.id} />}
+                {!own && <ReportButton commentId={a.id} />}
+                {mod && <ModAnswerTools commentId={a.id} hidden={a.status === "hidden"} />}
+              </div>
+            </div>
+          </>
         </Editable>
       </div>
     );
@@ -157,31 +156,29 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
             {post.accepted_comment_id && <AnsweredBadge />}
           </div>
           <Editable target="question" id={id} title={post.title ?? ""} body={post.body ?? ""}>
-            {(editButton) => (
-              <>
-                <h1>{post.title}</h1>
-                <div style={{ marginTop: 16 }}>
-                  <Who
-                    id={post.author_id}
-                    name={post.author_name}
-                    line={[roleLine(author?.job_title, author?.dc_status), `Asked ${relativeTime(post.created_at, now)}`]
-                      .filter(Boolean)
-                      .join(" · ")}
-                  />
+            <>
+              <h1>{post.title}</h1>
+              <div style={{ marginTop: 16 }}>
+                <Who
+                  id={post.author_id}
+                  name={post.author_name}
+                  line={[roleLine(author?.job_title, author?.dc_status), `Asked ${relativeTime(post.created_at, now)}`]
+                    .filter(Boolean)
+                    .join(" · ")}
+                />
+              </div>
+              <PlainText text={post.body} className={q.body} />
+              <div className={q.acts2}>
+                <HelpfulButton target="post" id={id} count={post.helpful_count ?? 0} on={Boolean(myPostVote)} own={isAuthor} />
+                <FollowButton postId={id} following={Boolean(follow)} />
+                <div className={q.owner}>
+                  {isAuthor && <EditButton />}
+                  {isAuthor && <DeleteButton target="question" id={id} />}
+                  {!isAuthor && <ReportButton postId={id} />}
+                  {mod && <ModPostTools postId={id} pinned={Boolean(post.pinned)} hidden={post.status === "hidden"} />}
                 </div>
-                <PlainText text={post.body} className={q.body} />
-                <div className={q.acts2}>
-                  <HelpfulButton target="post" id={id} count={post.helpful_count ?? 0} on={Boolean(myPostVote)} own={isAuthor} />
-                  <FollowButton postId={id} following={Boolean(follow)} />
-                  <div className={q.owner}>
-                    {isAuthor && editButton}
-                    {isAuthor && <DeleteButton target="question" id={id} />}
-                    {!isAuthor && <ReportButton postId={id} />}
-                    {mod && <ModPostTools postId={id} pinned={Boolean(post.pinned)} hidden={post.status === "hidden"} />}
-                  </div>
-                </div>
-              </>
-            )}
+              </div>
+            </>
           </Editable>
 
           <h2 className={q.ansh}>{plural(visibleCount, "answer")}</h2>

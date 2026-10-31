@@ -27,7 +27,7 @@ async function Profile({ params }: { params: PageProps<"/community/members/[id]"
 
   const { data: p } = await supabase
     .from("profiles")
-    .select("id, display_name, job_title, dc_status, location, years_experience, certifications, disciplines, came_from, about, created_at")
+    .select("id, display_name, job_title, dc_status, location, years_experience, certifications, industry, came_from, about, created_at")
     .eq("id", id)
     .maybeSingle();
   if (!p) notFound();
@@ -178,22 +178,11 @@ async function Profile({ params }: { params: PageProps<"/community/members/[id]"
               </div>
             </div>
           )}
-          {p.disciplines && p.disciplines.length > 0 && (
+          {/* Older profiles have only the free-text "Came from"; show it until they pick an industry. */}
+          {(p.industry || p.came_from) && (
             <div className={`${s.card} ${m.sec}`}>
-              <h2>Disciplines</h2>
-              <div className={s.tags}>
-                {p.disciplines.map((d) => (
-                  <span key={d} className={s.tagGrey}>
-                    {d}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          {p.came_from && (
-            <div className={`${s.card} ${m.sec}`}>
-              <h2>Came from</h2>
-              <p style={{ margin: 0, color: "var(--ink-soft)", fontSize: ".95rem" }}>{p.came_from}</p>
+              <h2>Industry</h2>
+              <p style={{ margin: 0, color: "var(--ink-soft)", fontSize: ".95rem" }}>{p.industry || p.came_from}</p>
             </div>
           )}
         </aside>

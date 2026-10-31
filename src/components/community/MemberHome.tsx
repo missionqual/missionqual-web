@@ -11,6 +11,7 @@ import { FilterSelect } from "./FilterSelect";
 import { Notice } from "./Notice";
 import { PlusIcon } from "./icons";
 import { RsvpButton } from "./RsvpButton";
+import { WelcomePanel } from "./WelcomePanel";
 
 const SORTS = [
   { value: "", label: "Newest" },
@@ -44,7 +45,7 @@ async function followedAnswerCount(viewerId: string) {
 }
 
 /** /community for signed-in members (design/community/home.html). */
-export async function MemberHome({ viewer, search }: { viewer: Viewer; search: Search }) {
+export async function MemberHome({ viewer, search, welcome = false }: { viewer: Viewer; search: Search; welcome?: boolean }) {
   const supabase = await createClient();
   const topic = isTopic(search.topic) ? search.topic : "";
   const sort = SORTS.some((o) => o.value === search.sort) ? (search.sort as string) : "";
@@ -97,10 +98,18 @@ export async function MemberHome({ viewer, search }: { viewer: Viewer; search: S
   const going = Boolean(session?.live_session_rsvps.some((r) => r.user_id === viewer.id));
   const percent = viewer.profile ? profileCompleteness(viewer.profile) : 0;
   const empty = !pinned.length && !posts.length;
+  // "Introduce yourself" opens the pinned "Start here" thread.
+  const intro = pinned.find((p) => p.category === "introductions") ?? pinned[0];
 
   return (
     <div className={`${shared.wrap} ${s.page}`}>
       <Notice />
+      {welcome && (
+        <WelcomePanel
+          firstName={firstName(viewer.name)}
+          introHref={intro?.id ? `/community/questions/${intro.id}` : "/community/ask"}
+        />
+      )}
       <div className={s.layout}>
         <div>
           <div className={s.ph}>

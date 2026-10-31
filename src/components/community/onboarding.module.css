@@ -1,0 +1,437 @@
+/* /welcome and /account (design/onboarding/profile-setup.html) and the welcome
+   panel on the member home (design/onboarding/welcome-panel.html). Phone first; desktop at 1024px. */
+
+/* ---------- Profile card ---------- */
+.page {
+  background: var(--paper);
+  padding-block: 20px 48px;
+}
+.card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 14px 36px rgba(20, 28, 51, 0.08);
+}
+.top {
+  padding: 1.4rem 1.25rem 1.2rem;
+  border-bottom: 1px solid var(--line);
+}
+.kick {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+.top h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+.top p:not(.kick) {
+  margin: 0.5rem 0 0;
+  color: var(--ink-soft);
+}
+.prog {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--line);
+  overflow: hidden;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--teal);
+  transition: width 0.2s;
+}
+
+.form {
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+.grp {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+.gh {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+.gh h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: var(--navy);
+}
+.gh > span {
+  flex: none;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+.reqMark {
+  color: var(--teal-dark);
+}
+.row2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.15rem 1rem;
+}
+.f {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+.f label,
+.f legend {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ink);
+  padding: 0;
+}
+.f fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.req {
+  color: var(--teal-dark);
+  margin-left: 0.15rem;
+}
+.inp {
+  width: 100%;
+  min-height: 48px;
+  border: 1.5px solid #c9d0de;
+  border-radius: 8px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fff;
+}
+.inp::placeholder {
+  color: var(--ink-faint);
+}
+.inp:focus {
+  outline: none;
+  border-color: var(--teal-dark);
+  box-shadow: 0 0 0 3px rgba(87, 188, 179, 0.25);
+}
+.inp[aria-invalid="true"] {
+  border-color: #b42318;
+}
+select.inp {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a5572' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+/* "Choose one" reads as a placeholder until something is picked. */
+select.inp:has(option[value=""]:checked) {
+  color: var(--ink-faint);
+}
+textarea.inp {
+  min-height: 110px;
+  padding: 12px 14px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.help {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+.err {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #b42318;
+}
+
+/* "Where you are now": two option cards drawn from native radios. */
+.seg {
+  margin-top: 0.4rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+.seg label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px solid #c9d0de;
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  background: #fff;
+}
+.seg input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.dot {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #b5bdcc;
+}
+.seg small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+}
+.seg label:has(input:checked) {
+  border-color: var(--teal-dark);
+  background: var(--tint);
+}
+.seg label:has(input:checked) .dot {
+  border-color: var(--teal-dark);
+  box-shadow: inset 0 0 0 4px var(--teal-dark);
+}
+.seg label:has(input:focus-visible) {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 2px;
+}
+.seg label:has(input[data-invalid]) {
+  border-color: #b42318;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.acts {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: stretch;
+  gap: 1rem;
+  padding-top: 0.4rem;
+}
+.acts button {
+  width: 100%;
+}
+.acts button:disabled {
+  cursor: progress;
+  opacity: 0.75;
+}
+.skip {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  text-decoration: none;
+  text-align: center;
+}
+.skip u {
+  text-decoration-color: #c9d0de;
+  text-underline-offset: 3px;
+}
+.saved {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1rem;
+  color: var(--teal-ink);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.saved a {
+  color: var(--teal-dark);
+}
+.note {
+  max-width: 720px;
+  margin: 14px auto 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+/* ---------- Welcome panel on the member home ---------- */
+.wp {
+  position: relative;
+  margin-bottom: 28px;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 12px;
+  padding: 1.3rem 1.2rem 1.4rem;
+}
+.x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 0;
+  background: none;
+  color: var(--dark-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.x:hover {
+  color: #fff;
+}
+.wpKick {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.wp h2 {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.15;
+  padding-right: 40px;
+}
+.wpLine {
+  margin: 0.45rem 0 0;
+  color: var(--dark-soft);
+  max-width: 40rem;
+}
+.steps {
+  margin-top: 1.4rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+.st {
+  background: #fff;
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 1.15rem 1.15rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  text-decoration: none;
+}
+.st:hover b {
+  color: var(--teal-dark);
+}
+.n {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--teal-dark);
+}
+.st b {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  color: var(--navy);
+}
+.t {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+.go {
+  color: var(--teal-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.skip:focus-visible,
+.saved a:focus-visible,
+.st:focus-visible,
+.x:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding-block: 48px 72px;
+  }
+  .card {
+    border-radius: 16px;
+  }
+  .top {
+    padding: 2rem 2.25rem 1.6rem;
+  }
+  .top h1 {
+    font-size: 1.9rem;
+  }
+  .form {
+    padding: 1.6rem 2.25rem 2rem;
+  }
+  .row2,
+  .seg {
+    grid-template-columns: 1fr 1fr;
+  }
+  .acts {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .acts button {
+    width: auto;
+  }
+  .saved {
+    justify-content: flex-start;
+  }
+  .wp {
+    border-radius: 16px;
+    padding: 1.8rem 2rem 2rem;
+  }
+  .wp h2 {
+    font-size: 1.75rem;
+  }
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+}

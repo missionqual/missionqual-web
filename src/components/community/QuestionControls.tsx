@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState, useTransition, type ReactNode } from "react";
+import { createContext, useActionState, useContext, useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 import {
   deleteAnswer,
   deleteQuestion,
@@ -124,6 +124,21 @@ export function DeleteButton({ target, id }: { target: "question" | "answer"; id
 }
 
 /** Own question or answer: swaps the read view for an inline form. */
+// The page is a Server Component, so it can't hand Editable a render function:
+// <EditButton /> inside the children reaches Editable through this context instead.
+const StartEdit = createContext<(() => void) | null>(null);
+
+/** "Edit" for a question or answer; only works inside <Editable>. */
+export function EditButton() {
+  const start = useContext(StartEdit);
+  if (!start) return null;
+  return (
+    <button type="button" className={s.quiet} onClick={start}>
+      Edit
+    </button>
+  );
+}
+
 export function Editable({
   target,
   id,
@@ -135,7 +150,7 @@ export function Editable({
   id: string;
   title?: string;
   body: string;
-  children: (startEdit: ReactNode) => ReactNode;
+  children: ReactNode;
 }) {
   const [editing, setEditing] = useState(false);
   const [state, action, pending] = useActionState<ActionState, FormData>(
@@ -147,13 +162,7 @@ export function Editable({
     {},
   );
 
-  if (!editing) {
-    return children(
-      <button type="button" className={s.quiet} onClick={() => setEditing(true)}>
-        Edit
-      </button>,
-    );
-  }
+  if (!editing) return <StartEdit.Provider value={() => setEditing(true)}>{children}</StartEdit.Provider>;
   return (
     <form action={action} className={q.editForm}>
       <input type="hidden" name={target === "question" ? "post_id" : "comment_id"} value={id} />

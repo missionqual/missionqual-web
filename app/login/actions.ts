@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/src/lib/supabase/server";
 import { safeNext } from "@/src/lib/community/format";
+import { landingPath } from "@/src/lib/community/viewer";
 import { getSiteUrl } from "@/src/lib/site-url";
 import { tooSoon } from "@/src/lib/throttle";
 
@@ -17,11 +18,12 @@ export async function loginWithPassword(
   if (!email || !password) return { error: "Email and password are required." };
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error?.code === "email_not_confirmed") return { unconfirmedEmail: email };
   if (error) return { error: error.message };
 
-  redirect(safeNext(formData.get("next"), "/account"));
+  // /welcome until the profile's required fields are filled, then ?next= or /community.
+  redirect(await landingPath(supabase, data.user.id, safeNext(formData.get("next"), "") || null));
 }
 
 /** Resends the signup confirmation link, at most once a minute per address. */
@@ -40,7 +42,7 @@ export async function resendConfirmation(
     type: "signup",
     email,
     options: {
-      emailRedirectTo: `${await getSiteUrl()}/auth/confirm?next=${encodeURIComponent("/account?welcome=1")}`,
+      emailRedirectTo: `${await getSiteUrl()}/auth/confirm?next=${encodeURIComponent("/welcome")}`,
     },
   });
   if (error?.status === 429) return { error: "We just sent one. Wait a minute before asking again." };
