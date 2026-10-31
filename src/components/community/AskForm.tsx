@@ -28,12 +28,12 @@ export function AskForm({ defaultTitle = "", defaultTopic, jobId }: { defaultTit
           aria-describedby="ask-title-help"
         />
         <p id="ask-title-help" className={s.help}>
-          One line, as you&rsquo;d ask it on site. &ldquo;Do CxA firms care about API 570?&rdquo; gets more answers
-          than &ldquo;Need advice on certs.&rdquo;
+          Write it the way you&rsquo;d ask on site. For example: &ldquo;Do CxA firms care about API 570?&rdquo;
         </p>
       </div>
       <fieldset className={a.fieldset}>
         <legend className={s.lab}>Topic</legend>
+        <p className={s.help}>Pick the closest one.</p>
         <div className={a.topics}>
           {ASKABLE_TOPICS.map((t) => (
             <label key={t}>
@@ -49,7 +49,7 @@ export function AskForm({ defaultTitle = "", defaultTopic, jobId }: { defaultTit
         </label>
         <textarea id="ask-body" className={`${s.inp} ${a.details}`} name="body" maxLength={BODY_MAX} aria-describedby="ask-body-help" />
         <p id="ask-body-help" className={s.help}>
-          Your background, what you&rsquo;ve tried, and the state or type of site if it matters.
+          Add your background and where you&rsquo;re looking. The more you share, the better the answers.
         </p>
       </div>
       <label className={s.check}>

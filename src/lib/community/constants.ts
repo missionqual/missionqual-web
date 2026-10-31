@@ -1,8 +1,8 @@
 // Labels and option lists shared by the community pages, forms and actions.
 
 export const TOPICS = {
-  qa_qc: "QA/QC",
-  welding_piping: "Welding & piping",
+  qa_qc: "QA/QC & inspection",
+  welding_piping: "Mechanical, piping & welding",
   electrical_ie: "Electrical & I&E",
   commissioning: "Commissioning",
   pay_offers: "Pay & offers",
