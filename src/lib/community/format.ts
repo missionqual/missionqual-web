@@ -108,27 +108,33 @@ export function excerpt(text: string | null | undefined, max = 200) {
 }
 
 export type CompletenessInput = {
+  display_name: string | null;
   job_title: string | null;
+  industry: string | null;
   dc_status: string | null;
+  location: string | null;
   years_experience: number | null;
   certifications: string[] | null;
-  disciplines: string[] | null;
-  location: string | null;
   about: string | null;
 };
 
-/** Share of the seven profile fields that are filled, 0–100. */
+/** The five fields /welcome asks for before "Enter the community". */
+export const REQUIRED_PROFILE_FIELDS = 5;
+
+/** How many of the five required fields are filled: name, role, industry, where you are now, location. */
+export function requiredFilled(p: CompletenessInput) {
+  return [p.display_name?.trim(), p.job_title?.trim(), p.industry, p.dc_status, p.location?.trim()].filter(Boolean)
+    .length;
+}
+
+/** Share of the eight profile fields that are filled (the five required plus years, certs, about), 0–100. */
 export function profileCompleteness(p: CompletenessInput) {
-  const filled = [
-    p.job_title?.trim(),
-    p.dc_status,
-    p.years_experience !== null && p.years_experience !== undefined,
-    p.certifications?.length,
-    p.disciplines?.length,
-    p.location?.trim(),
-    p.about?.trim(),
-  ].filter(Boolean).length;
-  return Math.round((filled / 7) * 100);
+  const filled =
+    requiredFilled(p) +
+    [p.years_experience !== null && p.years_experience !== undefined, p.certifications?.length, p.about?.trim()].filter(
+      Boolean,
+    ).length;
+  return Math.round((filled / 8) * 100);
 }
 
 /** Only same-site relative paths; anything else falls back. */

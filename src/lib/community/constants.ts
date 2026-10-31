@@ -1,8 +1,8 @@
 // Labels and option lists shared by the community pages, forms and actions.
 
 export const TOPICS = {
-  qa_qc: "QA/QC",
-  welding_piping: "Welding & piping",
+  qa_qc: "QA/QC & inspection",
+  welding_piping: "Mechanical, piping & welding",
   electrical_ie: "Electrical & I&E",
   commissioning: "Commissioning",
   pay_offers: "Pay & offers",
@@ -42,6 +42,28 @@ export const DISCIPLINES = [
   "Mechanical",
   "Civil/structural",
 ] as const;
+
+/** "Your current or most recent industry" (profiles.industry). */
+export const INDUSTRIES = [
+  "Oil, gas & chemical",
+  "Power & utilities",
+  "Other industrial / manufacturing",
+  "Data centers",
+  "Other",
+] as const;
+
+export function isIndustry(value: unknown): value is (typeof INDUSTRIES)[number] {
+  return typeof value === "string" && (INDUSTRIES as readonly string[]).includes(value);
+}
+
+/** Inline errors for the five required profile fields (/welcome and /account). */
+export const REQUIRED_MESSAGES = {
+  display_name: "Enter your full name.",
+  job_title: "Enter your current or most recent role.",
+  industry: "Choose your industry.",
+  dc_status: "Choose where you are now.",
+  location: "Enter your location, e.g. Houston, TX.",
+} as const;
 
 export const DC_STATUS = {
   on_site: "On a data center site",
@@ -90,5 +112,5 @@ export const HOUSE_RULES = [
   },
 ] as const;
 
-export const SIGNUP_HREF = `/signup?next=${encodeURIComponent("/account?welcome=1")}`;
+export const SIGNUP_HREF = "/signup?next=/welcome";
 export const SIGNIN_HREF = "/login?next=/community";

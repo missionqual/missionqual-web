@@ -21,7 +21,11 @@ async function Community({ searchParams }: { searchParams: PageProps<"/community
   return (
     <>
       <CommunityNav current="questions" />
-      <MemberHome viewer={viewer} search={{ topic: one(sp.topic), sort: one(sp.sort), page: one(sp.page) }} />
+      <MemberHome
+        viewer={viewer}
+        search={{ topic: one(sp.topic), sort: one(sp.sort), page: one(sp.page) }}
+        welcome={one(sp.welcome) === "1"}
+      />
     </>
   );
 }

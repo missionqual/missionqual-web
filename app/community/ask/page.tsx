@@ -46,7 +46,7 @@ async function Ask({ searchParams }: { searchParams: PageProps<"/community/ask">
           <div className={s.ph} style={{ marginTop: 16 }}>
             <div>
               <h1>Ask a question</h1>
-              <p>Members on data center sites get an email when a question in their topic comes in.</p>
+              <p>Members who&rsquo;ve made the move answer here. We&rsquo;ll email you when someone replies.</p>
             </div>
           </div>
           {job && (
@@ -62,16 +62,16 @@ async function Ask({ searchParams }: { searchParams: PageProps<"/community/ask">
         </div>
         <aside className={s.stack}>
           <div className={s.card}>
-            <h2 className={s.ctitle}>What gets good answers</h2>
+            <h2 className={s.ctitle}>Tips for a better answer</h2>
             <ul className={a.tips}>
               <li>
-                <b>Say where you&rsquo;re coming from.</b> Your trade, certs and years, in one line.
+                <b>Share your background.</b> Your trade, certifications and years of experience.
               </li>
               <li>
-                <b>Ask one thing.</b> Two questions? Post two.
+                <b>Keep it to one question.</b> If you have two, post them separately.
               </li>
               <li>
-                <b>Give the numbers.</b> For offers: rate, per diem, hours, length.
+                <b>Asking about an offer?</b> Include the hourly rate, per diem, hours per week and how long the job lasts.
               </li>
             </ul>
           </div>

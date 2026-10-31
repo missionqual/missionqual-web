@@ -4,6 +4,7 @@ import { safeNext } from "@/src/lib/community/format";
 import { pendingCommunitySync, syncCommunityMember } from "@/src/lib/community/sync";
 import { RECOVERY_COOKIE, RECOVERY_MAX_AGE } from "@/src/lib/supabase/recovery";
 import { createClient } from "@/src/lib/supabase/server";
+import { landingPath } from "@/src/lib/community/viewer";
 
 // Landing route for links in Supabase auth emails (signup confirmation and
 // password reset). Handles both the PKCE `code` flow (default email templates)
@@ -14,7 +15,7 @@ export async function GET(request: NextRequest) {
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
   // Only allow same-site relative redirects.
-  const next = safeNext(searchParams.get("next"), "/account");
+  const next = safeNext(searchParams.get("next"), "");
   // The `code` flow doesn't say which email it came from, so the reset
   // destination marks a recovery link too.
   const recovery = type === "recovery" || next.startsWith("/reset-password");
@@ -38,7 +39,9 @@ export async function GET(request: NextRequest) {
     // redirect is sent (no-op once synced).
     const target = await pendingCommunitySync();
     if (target) after(() => syncCommunityMember(target));
-    const res = NextResponse.redirect(new URL(next, origin));
+    // Signup confirmation: /welcome until the profile's required fields are filled.
+    const dest = recovery ? next || "/account" : userId ? await landingPath(supabase, userId, next || null) : "/community";
+    const res = NextResponse.redirect(new URL(dest, origin));
     if (recovery && userId) {
       res.cookies.set(RECOVERY_COOKIE, userId, {
         httpOnly: true,

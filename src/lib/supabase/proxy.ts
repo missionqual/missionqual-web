@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // Routes that require a signed-in user. /community itself and /community/rules stay public.
 const PROTECTED_PREFIXES = [
   "/account",
+  "/welcome",
   "/community/questions",
   "/community/ask",
   "/community/jobs",

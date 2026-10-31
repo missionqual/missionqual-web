@@ -9,7 +9,7 @@ import { LocationIcon } from "@/src/components/community/icons";
 import m from "@/src/components/community/members.module.css";
 import { MemberSearch } from "@/src/components/community/MemberSearch";
 import shared from "@/src/components/landing/shared.module.css";
-import { DC_STATUS, MEMBERS_PAGE_SIZE, isDcStatus } from "@/src/lib/community/constants";
+import { DC_STATUS, INDUSTRIES, MEMBERS_PAGE_SIZE, isDcStatus, isIndustry } from "@/src/lib/community/constants";
 import { stateFromLocation } from "@/src/lib/community/format";
 import { requireViewer } from "@/src/lib/community/viewer";
 import { createClient } from "@/src/lib/supabase/server";
@@ -37,13 +37,12 @@ async function Members({ searchParams }: { searchParams: PageProps<"/community/m
   const supabase = await createClient();
   const { data } = await supabase
     .from("profiles")
-    .select("id, display_name, job_title, location, years_experience, certifications, disciplines, dc_status")
+    .select("id, display_name, job_title, location, years_experience, certifications, industry, dc_status")
     .order("display_name");
   const everyone = (data ?? []).filter((p) => p.display_name);
 
-  const disciplines = [...new Set(everyone.flatMap((p) => p.disciplines ?? []))].sort();
   const states = [...new Set(everyone.map((p) => stateFromLocation(p.location)).filter((x): x is string => Boolean(x)))].sort();
-  const discipline = disciplines.includes(one(sp.discipline)) ? one(sp.discipline) : "";
+  const industry = isIndustry(one(sp.industry)) ? one(sp.industry) : "";
   const state = states.includes(one(sp.state)) ? one(sp.state) : "";
 
   const needle = q.toLowerCase();
@@ -53,7 +52,7 @@ async function Members({ searchParams }: { searchParams: PageProps<"/community/m
         p.display_name!.toLowerCase().includes(needle) ||
         (p.job_title ?? "").toLowerCase().includes(needle) ||
         (p.certifications ?? []).some((c) => c.toLowerCase().includes(needle))) &&
-      (!discipline || (p.disciplines ?? []).includes(discipline)) &&
+      (!industry || p.industry === industry) &&
       (!state || stateFromLocation(p.location) === state) &&
       (!status || p.dc_status === status),
   );
@@ -76,10 +75,10 @@ async function Members({ searchParams }: { searchParams: PageProps<"/community/m
       <div className={m.filter}>
         <MemberSearch defaultValue={q} />
         <FilterSelect
-          param="discipline"
-          value={discipline}
-          label="Filter by discipline"
-          options={[{ value: "", label: "Any discipline" }, ...disciplines.map((d) => ({ value: d, label: d }))]}
+          param="industry"
+          value={industry}
+          label="Filter by industry"
+          options={[{ value: "", label: "Any industry" }, ...INDUSTRIES.map((x) => ({ value: x, label: x }))]}
           className={m.sel}
         />
         <FilterSelect
@@ -96,7 +95,7 @@ async function Members({ searchParams }: { searchParams: PageProps<"/community/m
           <Link
             key={value}
             className={`${s.chip} ${status === value ? s.chipOn : ""}`}
-            href={href({ q, discipline, state, status: value })}
+            href={href({ q, industry, state, status: value })}
             aria-current={status === value || undefined}
           >
             {label}
@@ -142,7 +141,7 @@ async function Members({ searchParams }: { searchParams: PageProps<"/community/m
 
       {shown.length < matches.length && (
         <div className={s.center} style={{ marginTop: 28 }}>
-          <Link className={s.btn2} href={href({ q, discipline, state, status, page: String(page + 1) })} scroll={false}>
+          <Link className={s.btn2} href={href({ q, industry, state, status, page: String(page + 1) })} scroll={false}>
             Show more members
           </Link>
         </div>
