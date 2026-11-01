@@ -1,0 +1,325 @@
+/* The pinned introductions thread (design/onboarding/intro-thread.html) and the
+   MissionQual team avatar. Phone first; desktop at 1024px. */
+
+/* Navy circle, teal Q: posts with no author. Sized by the avatar classes it sits with. */
+span.team {
+  background: var(--navy);
+  color: var(--teal);
+}
+
+.page {
+  padding-block: 18px 48px;
+}
+.lay {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+.tg {
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.2rem 0.55rem;
+  background: var(--tint);
+  color: var(--teal-ink);
+}
+.tgPin {
+  background: var(--navy);
+  color: #fff;
+}
+.h1 {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+.by {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 14px;
+}
+span.qlogo {
+  width: 40px;
+  height: 40px;
+  font-size: 1.05rem;
+}
+.by b {
+  display: block;
+  color: var(--navy);
+  font-size: 0.95rem;
+}
+.by span span {
+  display: block;
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+}
+.lead {
+  margin: 18px 0 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink);
+  max-width: 44rem;
+}
+.ex {
+  margin-top: 16px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  max-width: 44rem;
+}
+.kick {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+}
+.ex p:not(.kick) {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.modRow {
+  margin-top: 14px;
+}
+
+/* Section heads: "Your introduction", "Introductions · n members". */
+.ih {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-strong);
+}
+.ihFirst {
+  margin-top: 28px;
+  padding-top: 0;
+  border-top: 0;
+}
+.ih h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  color: var(--navy);
+}
+.ih span {
+  color: var(--ink-faint);
+  font-size: 0.9rem;
+}
+
+/* "Your introduction" box. */
+.box {
+  margin-top: 16px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  scroll-margin-top: 16px;
+}
+.box textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 1.5px solid #c9d0de;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+  resize: vertical;
+}
+.box textarea::placeholder {
+  color: var(--ink-faint);
+}
+.box textarea:focus {
+  outline: none;
+  border-color: var(--teal-dark);
+  box-shadow: 0 0 0 3px rgba(87, 188, 179, 0.25);
+}
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+button.post {
+  min-height: 46px;
+  padding: 0 1.4rem;
+}
+button.post:disabled {
+  cursor: progress;
+  opacity: 0.75;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The introductions, newest first. */
+.intros {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ir {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  scroll-margin-top: 16px;
+}
+.who {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.who b {
+  display: block;
+  color: var(--navy);
+  font-size: 0.95rem;
+}
+.who span span {
+  display: block;
+  color: var(--ink-faint);
+  font-size: 0.83rem;
+}
+.text p {
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.text p:last-child {
+  margin: 0;
+}
+.acts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.1rem;
+  font-size: 0.88rem;
+}
+.welcome {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--teal-dark);
+  cursor: pointer;
+}
+.welcome:hover {
+  text-decoration: underline;
+}
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+}
+
+/* Sidebar cards (below the thread on phones). */
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sc {
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem;
+}
+.sc h2 {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+.sc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.sc li {
+  display: flex;
+  gap: 0.6rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.sc li::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  margin-top: 0.5rem;
+}
+.sc p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.welcome:focus-visible {
+  outline: 2px solid var(--teal-dark);
+  outline-offset: 2px;
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding-block: 28px 72px;
+  }
+  .lay {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 40px;
+  }
+  .h1 {
+    font-size: 2.3rem;
+  }
+  .lead {
+    font-size: 1.08rem;
+  }
+  .row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

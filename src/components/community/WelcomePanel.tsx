@@ -22,7 +22,7 @@ export function WelcomePanel({ firstName, introHref }: { firstName: string; intr
     {
       href: introHref,
       title: "Introduce yourself",
-      text: "Your trade, your certs, where you are and where you want to land. One paragraph is plenty.",
+      text: "Say hello in a few lines so members can welcome you.",
       go: "Post your intro",
     },
     {
@@ -49,7 +49,7 @@ export function WelcomePanel({ firstName, introHref }: { firstName: string; intr
       <p className={o.wpKick}>You&rsquo;re in</p>
       {/* h2: the member home below keeps its own h1. */}
       <h2 id="welcome-heading">Welcome to the community, {firstName}.</h2>
-      <p className={o.wpLine}>Here&rsquo;s where to start. Most people begin with an introduction.</p>
+      <p className={o.wpLine}>Here&rsquo;s where to start.</p>
       <div className={o.steps}>
         {steps.map((st, i) => (
           <Link key={st.title} className={o.st} href={st.href}>

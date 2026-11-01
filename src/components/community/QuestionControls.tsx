@@ -1,6 +1,16 @@
 "use client";
 
-import { createContext, useActionState, useContext, useEffect, useRef, useState, useTransition, type ReactNode } from "react";
+import {
+  createContext,
+  useActionState,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import {
   deleteAnswer,
   deleteQuestion,
@@ -19,6 +29,7 @@ import shared from "@/src/components/landing/shared.module.css";
 import { BODY_MAX, TITLE_MAX } from "@/src/lib/community/constants";
 import s from "./community.module.css";
 import { BellIcon, HelpfulIcon } from "./icons";
+import it from "./intro.module.css";
 import q from "./question.module.css";
 
 const REPLY_EVENT = "mq:reply";
@@ -82,16 +93,34 @@ export function AcceptButton({ postId, commentId, accepted }: { postId: string; 
 }
 
 /** "Reply" scrolls to the answer box and pre-fills "@First name ". */
-export function ReplyButton({ name }: { name: string }) {
+export function ReplyButton({ name, label = "Reply", className = s.link }: { name: string; label?: string; className?: string }) {
   return (
     <button
       type="button"
-      className={s.link}
+      className={className}
       onClick={() => window.dispatchEvent(new CustomEvent(REPLY_EVENT, { detail: name }))}
     >
-      Reply
+      {label}
     </button>
   );
+}
+
+/** Reply and "Say welcome": prefill "@First " in the box, scroll to it and focus it. */
+function useMentions(textRef: RefObject<HTMLTextAreaElement | null>, wrapRef: RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const onReply = (e: Event) => {
+      const name = (e as CustomEvent<string>).detail;
+      const box = textRef.current;
+      if (!box) return;
+      const mention = `@${name} `;
+      if (!box.value.startsWith(mention)) box.value = mention + box.value;
+      wrapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      box.focus();
+      box.setSelectionRange(box.value.length, box.value.length);
+    };
+    window.addEventListener(REPLY_EVENT, onReply);
+    return () => window.removeEventListener(REPLY_EVENT, onReply);
+  }, [textRef, wrapRef]);
 }
 
 /** Two-step delete without a browser dialog. */
@@ -270,20 +299,7 @@ export function AnswerBox({ postId }: { postId: string }) {
     return result;
   }, {});
 
-  useEffect(() => {
-    const onReply = (e: Event) => {
-      const name = (e as CustomEvent<string>).detail;
-      const box = textRef.current;
-      if (!box) return;
-      const mention = `@${name} `;
-      if (!box.value.startsWith(mention)) box.value = mention + box.value;
-      wrapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-      box.focus();
-      box.setSelectionRange(box.value.length, box.value.length);
-    };
-    window.addEventListener(REPLY_EVENT, onReply);
-    return () => window.removeEventListener(REPLY_EVENT, onReply);
-  }, []);
+  useMentions(textRef, wrapRef);
 
   return (
     <div ref={wrapRef} className={q.reply} id="answer">
@@ -317,6 +333,49 @@ export function AnswerBox({ postId }: { postId: string }) {
         </div>
       </form>
     </div>
+  );
+}
+
+/** "Your introduction" on the pinned introductions thread: a normal answer underneath. */
+export function IntroBox({ postId }: { postId: string }) {
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [state, action, pending] = useActionState<ActionState, FormData>(async (prev, fd) => {
+    const result = await postAnswer(prev, fd);
+    if (result.ok && textRef.current) textRef.current.value = "";
+    return result;
+  }, {});
+  useMentions(textRef, formRef);
+
+  return (
+    <form ref={formRef} action={action} className={it.box} id="answer">
+      <input type="hidden" name="post_id" value={postId} />
+      <label className={it.srOnly} htmlFor="intro-body">
+        Your introduction
+      </label>
+      <textarea
+        ref={textRef}
+        id="intro-body"
+        name="body"
+        required
+        maxLength={BODY_MAX}
+        placeholder="Hi, I'm … Your role, your industry, where you're based, and the kind of data center job you're looking for."
+      />
+      {state.error && (
+        <p className={s.error} role="alert">
+          {state.error}
+        </p>
+      )}
+      <div className={it.row}>
+        <label className={s.check}>
+          <input className={s.box} type="checkbox" name="follow" defaultChecked />
+          Email me when someone welcomes me
+        </label>
+        <button type="submit" className={`${shared.btn} ${shared.btnSm} ${it.post}`} disabled={pending}>
+          {pending ? "Posting…" : "Post introduction"}
+        </button>
+      </div>
+    </form>
   );
 }
 
