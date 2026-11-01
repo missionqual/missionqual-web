@@ -60,7 +60,7 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
         .maybeSingle(),
       db
         .from("comments")
-        .select("id, body, created_at, author_id, status, author:profiles!comments_author_id_fkey(display_name, job_title, dc_status)")
+        .select("id, body, created_at, author_id, status, parent_id, author:profiles!comments_author_id_fkey(display_name, job_title, dc_status)")
         .eq("post_id", id),
       supabase.from("post_votes").select("post_id").eq("post_id", id).eq("user_id", viewer.id).maybeSingle(),
       supabase.from("follows").select("post_id").eq("post_id", id).eq("user_id", viewer.id).maybeSingle(),

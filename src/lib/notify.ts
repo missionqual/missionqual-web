@@ -48,10 +48,13 @@ export async function notifyNewAnswer({
   postId,
   answererId,
   answerBody,
+  onlyUserId,
 }: {
   postId: string;
   answererId: string;
   answerBody: string;
+  /** A welcome on an introduction: email just its author, if they follow the thread. */
+  onlyUserId?: string;
 }) {
   if (!process.env.RESEND_API_KEY || !process.env.NOTIFY_FROM) {
     if (!warnedNoKey) console.log("[notify] notifications skipped: RESEND_API_KEY or NOTIFY_FROM is not set");
@@ -68,7 +71,12 @@ export async function notifyNewAnswer({
     if (!post) return;
 
     const ids = new Set<string>((follows ?? []).map((f) => f.user_id));
-    if (post.author_id) ids.add(post.author_id);
+    if (onlyUserId) {
+      // "Email me when someone welcomes me" is the follow ticked when they posted their introduction.
+      const follows = ids.has(onlyUserId);
+      ids.clear();
+      if (follows) ids.add(onlyUserId);
+    } else if (post.author_id) ids.add(post.author_id);
     ids.delete(answererId);
     if (!ids.size) return;
 

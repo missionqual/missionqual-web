@@ -345,7 +345,6 @@ export function IntroBox({ postId }: { postId: string }) {
     if (result.ok && textRef.current) textRef.current.value = "";
     return result;
   }, {});
-  useMentions(textRef, formRef);
 
   return (
     <form ref={formRef} action={action} className={it.box} id="answer">
@@ -376,6 +375,81 @@ export function IntroBox({ postId }: { postId: string }) {
         </button>
       </div>
     </form>
+  );
+}
+
+/**
+ * The bottom of one introduction: "Say welcome" (unless it's yours), the
+ * welcomes under it, then the small reply box once "Say welcome" is clicked.
+ */
+export function IntroReplies({
+  postId,
+  introId,
+  canWelcome,
+  tools,
+  children,
+}: {
+  postId: string;
+  introId: string;
+  canWelcome: boolean;
+  /** Edit/Delete, Report and moderator tools for the introduction. */
+  tools: ReactNode;
+  /** The welcomes already posted. */
+  children?: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const [state, action, pending] = useActionState<ActionState, FormData>(async (prev, fd) => {
+    const result = await postAnswer(prev, fd);
+    if (result.ok) setOpen(false);
+    return result;
+  }, {});
+
+  useEffect(() => {
+    if (open) textRef.current?.focus();
+  }, [open]);
+
+  return (
+    <>
+      <div className={it.acts}>
+        {canWelcome ? (
+          <button type="button" className={it.welcome} aria-expanded={open} onClick={() => setOpen(true)}>
+            Say welcome
+          </button>
+        ) : (
+          <span />
+        )}
+        <span className={it.tools}>{tools}</span>
+      </div>
+      {children}
+      {open && (
+        <form action={action} className={it.wbox}>
+          <input type="hidden" name="post_id" value={postId} />
+          <input type="hidden" name="parent_id" value={introId} />
+          <label className={it.srOnly} htmlFor={`welcome-${introId}`}>
+            Say welcome
+          </label>
+          <textarea
+            ref={textRef}
+            id={`welcome-${introId}`}
+            name="body"
+            required
+            maxLength={BODY_MAX}
+            placeholder="Say welcome…"
+          />
+          {state.error && (
+            <p className={s.error} role="alert">
+              {state.error}
+            </p>
+          )}
+          <div className={it.wrow}>
+            <button type="submit" className={`${shared.btn} ${shared.btnSm} ${it.wpost}`} disabled={pending}>
+              {pending ? "Posting…" : "Post"}
+            </button>
+          </div>
+        </form>
+      )}
+    </>
   );
 }
 

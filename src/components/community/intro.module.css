@@ -247,6 +247,86 @@ button.post:disabled {
   gap: 0.4rem 1rem;
 }
 
+/* Shown instead of the box once the viewer has introduced themselves. */
+.done {
+  margin: 16px 0 0;
+  background: var(--tint);
+  border: 1px solid #cfe9e5;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  color: var(--teal-ink);
+}
+.done a {
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+
+/* Welcomes: replies to one introduction, indented, oldest first. */
+.welcomes {
+  margin-top: 0.3rem;
+  margin-left: 0.4rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--line-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.wl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  scroll-margin-top: 16px;
+}
+.wl .text p {
+  font-size: 0.95rem;
+}
+.whoSmall b {
+  font-size: 0.9rem;
+}
+.whoSmall span span {
+  font-size: 0.8rem;
+}
+
+/* The small "Say welcome…" box under an introduction. */
+.wbox {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.wbox textarea {
+  width: 100%;
+  min-height: 72px;
+  border: 1.5px solid #c9d0de;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+  resize: vertical;
+}
+.wbox textarea::placeholder {
+  color: var(--ink-faint);
+}
+.wbox textarea:focus {
+  outline: none;
+  border-color: var(--teal-dark);
+  box-shadow: 0 0 0 3px rgba(87, 188, 179, 0.25);
+}
+.wrow {
+  display: flex;
+  justify-content: flex-end;
+}
+button.wpost {
+  min-height: 40px;
+  padding: 0 1.2rem;
+}
+button.wpost:disabled {
+  cursor: progress;
+  opacity: 0.75;
+}
+
 /* Sidebar cards (below the thread on phones). */
 .side {
   display: flex;
@@ -297,6 +377,7 @@ button.post:disabled {
   line-height: 1.5;
 }
 
+.done a:focus-visible,
 .welcome:focus-visible {
   outline: 2px solid var(--teal-dark);
   outline-offset: 2px;
