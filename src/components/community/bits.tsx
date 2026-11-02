@@ -4,6 +4,7 @@ import { dcStatusPhrase, topicLabel } from "@/src/lib/community/constants";
 import { avatarTone, initials, relativeTime } from "@/src/lib/community/format";
 import s from "./community.module.css";
 import { AnswersIcon, CheckIcon, ChevronIcon, HelpfulIcon, PinIcon } from "./icons";
+import it from "./intro.module.css";
 
 const TONES = { 1: s.c1, 2: s.c2, 3: s.c3, 4: s.c4 } as const;
 
@@ -33,22 +34,36 @@ export function roleLine(title: string | null | undefined, dcStatus: string | nu
   return [title?.trim(), dcStatusPhrase(dcStatus)].filter(Boolean).join(" · ");
 }
 
+/** The navy circle with a teal Q, for posts by the MissionQual team (no author). */
+export function TeamAvatar({ className = "" }: { className?: string }) {
+  return (
+    <span className={`${s.av} ${it.team} ${className}`} aria-hidden="true">
+      Q
+    </span>
+  );
+}
+
+export const TEAM_NAME = "MissionQual team";
+
 export function Who({
   id,
   name,
   line,
   size = "sm",
+  team = false,
 }: {
   id?: string | null;
   name: string | null | undefined;
   line: string;
   size?: "sm" | "md";
+  /** A post with no author: the MissionQual team. */
+  team?: boolean;
 }) {
   return (
     <div className={s.who}>
-      <Avatar id={id} name={name} size={size} />
+      {team ? <TeamAvatar className={size === "sm" ? s.avSmall : ""} /> : <Avatar id={id} name={name} size={size} />}
       <div className={s.whoText}>
-        <b>{name || "Member"}</b>
+        <b>{team ? TEAM_NAME : name || "Member"}</b>
         {line && <span className={s.r}>{line}</span>}
       </div>
     </div>
@@ -105,6 +120,9 @@ export function PlainText({ text, className }: { text: string | null | undefined
   );
 }
 
+/** Display title of an "introductions" post, whatever the row says. */
+export const INTRO_TITLE = "Introduce yourself";
+
 export type FeedPost = {
   id: string | null;
   title: string | null;
@@ -128,6 +146,22 @@ export const FEED_COLUMNS =
 export function QuestionCard({ post, now }: { post: FeedPost; now: number }) {
   const answers = post.answer_count ?? 0;
   const helpful = post.helpful_count ?? 0;
+  // The pinned "Start here" thread: its own title and line (the database row is unchanged).
+  if (post.pinned && post.category === "introductions") {
+    return (
+      <Link className={`${s.q} ${s.qPinned}`} href={`/community/questions/${post.id}`}>
+        <div className={s.top}>
+          <span className={s.pin}>
+            <PinIcon /> Pinned
+          </span>
+        </div>
+        <h3>{INTRO_TITLE}</h3>
+        <p className={s.ex}>
+          {post.author_id ? post.author_name || "Member" : TEAM_NAME} · Say hello so members know who you are.
+        </p>
+      </Link>
+    );
+  }
   if (post.pinned) {
     return (
       <Link className={`${s.q} ${s.qPinned}`} href={`/community/questions/${post.id}`}>
@@ -154,6 +188,7 @@ export function QuestionCard({ post, now }: { post: FeedPost; now: number }) {
         <Who
           id={post.author_id}
           name={post.author_name}
+          team={!post.author_id}
           line={[roleLine(post.author_title, post.author_dc_status), relativeTime(post.created_at, now)]
             .filter(Boolean)
             .join(" · ")}

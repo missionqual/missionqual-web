@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
-import { AnsweredBadge, Avatar, PlainText, roleLine, TopicTag, Who } from "@/src/components/community/bits";
+import { AnsweredBadge, Avatar, PlainText, roleLine, TeamAvatar, TEAM_NAME, TopicTag, Who } from "@/src/components/community/bits";
 import { CommunityNav } from "@/src/components/community/CommunityNav";
+import { IntroThread } from "@/src/components/community/IntroThread";
 import s from "@/src/components/community/community.module.css";
 import { BackIcon, CheckIcon } from "@/src/components/community/icons";
 import q from "@/src/components/community/question.module.css";
@@ -59,7 +60,7 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
         .maybeSingle(),
       db
         .from("comments")
-        .select("id, body, created_at, author_id, status, author:profiles!comments_author_id_fkey(display_name, job_title, dc_status)")
+        .select("id, body, created_at, author_id, status, parent_id, author:profiles!comments_author_id_fkey(display_name, job_title, dc_status)")
         .eq("post_id", id),
       supabase.from("post_votes").select("post_id").eq("post_id", id).eq("user_id", viewer.id).maybeSingle(),
       supabase.from("follows").select("post_id").eq("post_id", id).eq("user_id", viewer.id).maybeSingle(),
@@ -74,6 +75,11 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
     ]);
 
   const answers = comments ?? [];
+  const now = requestTime();
+  // The pinned "Start here" thread has its own layout (design/onboarding/intro-thread.html).
+  if (post.category === "introductions") {
+    return <IntroThread post={{ ...post, id }} replies={answers} viewerId={viewer.id} mod={mod} now={now} />;
+  }
   const { data: votes } = answers.length
     ? await supabase.from("comment_votes").select("comment_id, user_id").in("comment_id", answers.map((a) => a.id))
     : { data: [] };
@@ -93,7 +99,6 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
     return (a.created_at ?? "").localeCompare(b.created_at ?? "");
   });
 
-  const now = requestTime();
   const isAuthor = post.author_id === viewer.id;
   const visibleCount = answers.filter((a) => a.status === "visible").length;
 
@@ -162,6 +167,7 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
                 <Who
                   id={post.author_id}
                   name={post.author_name}
+                  team={!post.author_id}
                   line={[roleLine(author?.job_title, author?.dc_status), `Asked ${relativeTime(post.created_at, now)}`]
                     .filter(Boolean)
                     .join(" · ")}
@@ -193,9 +199,9 @@ async function Question({ params }: { params: PageProps<"/community/questions/[i
               Asked by
             </h2>
             <div className={s.who}>
-              <Avatar id={post.author_id} name={post.author_name} />
+              {post.author_id ? <Avatar id={post.author_id} name={post.author_name} /> : <TeamAvatar />}
               <div className={s.whoText}>
-                <b>{post.author_name ?? "Member"}</b>
+                <b>{post.author_id ? (post.author_name ?? "Member") : TEAM_NAME}</b>
                 <span className={s.r}>{roleLine(author?.job_title, author?.dc_status)}</span>
               </div>
             </div>

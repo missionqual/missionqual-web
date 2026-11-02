@@ -136,10 +136,36 @@ export async function postAnswer(_prev: ActionState, formData: FormData): Promis
     return { error: "You've posted 50 answers in the last 24 hours. Thanks for helping out. Try again tomorrow." };
   }
 
-  const { error } = await supabase.from("comments").insert({ post_id: postId, author_id: userId, body });
+  // A welcome on the introductions thread replies to one top-level introduction.
+  const parentId = formData.get("parent_id") ? id(str(formData, "parent_id")) : null;
+  let parentAuthor: string | null = null;
+  if (formData.get("parent_id")) {
+    if (!parentId) return { error: FAILED };
+    const { data: parent } = await supabase
+      .from("comments")
+      .select("author_id, post_id, parent_id")
+      .eq("id", parentId)
+      .maybeSingle();
+    if (!parent || parent.post_id !== postId || parent.parent_id) return { error: FAILED };
+    parentAuthor = parent.author_id;
+  }
+
+  const { error } = await supabase
+    .from("comments")
+    .insert({ post_id: postId, author_id: userId, body, parent_id: parentId });
   if (error) {
     console.error(`[community] answer failed: ${error.code ?? "unknown"}`);
     return { error: FAILED };
+  }
+
+  if (parentId) {
+    // Only the introduction's author hears about a welcome (if they follow the thread).
+    if (parentAuthor) {
+      const to = parentAuthor;
+      after(() => notifyNewAnswer({ postId, answererId: userId, answerBody: body, onlyUserId: to }));
+    }
+    refresh();
+    return { ok: true };
   }
 
   if (formData.get("follow")) {
